@@ -459,7 +459,7 @@ export default function Team() {
       </p>
     </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {[
         {
           icon: <FaServer className="text-4xl" />,
@@ -516,7 +516,7 @@ export default function Team() {
           <h3 className="text-xl font-bold mb-2">{item.title}</h3>
           <p className="text-gray-300 mb-4 flex-grow">{item.desc}</p>
           {item.certs && (
-            <div className="mt-auto">
+            <div clNoassName="mt-auto">
               <div className="text-xs text-primary font-medium mb-1">Certifications/Specialist:</div>
               <div className="flex flex-wrap gap-1">
                 {item.certs.map((cert, i) => (
