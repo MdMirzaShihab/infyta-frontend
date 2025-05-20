@@ -7,6 +7,10 @@ import {
   FaShieldAlt,
   FaNetworkWired,
   FaChalkboardTeacher,
+  FaCode,
+  FaCloud, 
+  FaMobileAlt,
+  FaDatabase 
 } from "react-icons/fa";
 import chiefAdvisor from "../assets/team/chiefAdvisor.webp";
 
@@ -127,12 +131,12 @@ export default function Team() {
     ],
   };
 
-  const coFounders = [
-    { name: "Pranto", role: "Co-Founder" },
-    { name: "Md Mirza Shihab", role: "Co-Founder" },
-    { name: "Md Juwel", role: "Co-Founder" },
-    { name: "Tomal Krishna Hawladar", role: "Co-Founder" },
-  ];
+//   const coFounders = [
+//     { name: "Pranto", role: "Co-Founder" },
+//     { name: "Md Mirza Shihab", role: "Co-Founder" },
+//     { name: "Md Juwel", role: "Co-Founder" },
+//     { name: "Tomal Krishna Hawladar", role: "Co-Founder" },
+//   ];
 
   return (
     <div className="min-h-screen bg-gray-50 relative overflow-hidden">
@@ -339,7 +343,7 @@ export default function Team() {
         </div>
       </section>
 
-      <section className="relative py-20 bg-gradient-to-br from-white to-gray-50 z-10">
+      {/* <section className="relative py-20 bg-gradient-to-br from-white to-gray-50 z-10">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <motion.h2
@@ -356,9 +360,9 @@ export default function Team() {
               transition={{ duration: 0.8 }}
               className="w-20 h-1 bg-gradient-to-r from-secondary to-primary mx-auto"
             />
-          </div>
+          </div> */}
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {coFounders.map((founder, index) => (
               <motion.div
                 key={index}
@@ -367,30 +371,30 @@ export default function Team() {
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1, type: "spring" }}
                 whileHover={{ y: -10 }}
-                className="relative group">
+                className="relative group"> */}
                 {/* Card content */}
-                <div className="relative bg-white/80 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-lg hover:shadow-xl transition-all h-full flex flex-col items-center">
+                {/* <div className="relative bg-white/80 backdrop-blur-sm p-8 rounded-xl border border-white/20 shadow-lg hover:shadow-xl transition-all h-full flex flex-col items-center"> */}
                   {/* Avatar container with hover effect */}
-                  <div className="relative w-32 h-32 mb-6 rounded-full overflow-hidden border-2 border-white/30 group-hover:border-primary/50 transition-all">
+                  {/* <div className="relative w-32 h-32 mb-6 rounded-full overflow-hidden border-2 border-white/30 group-hover:border-primary/50 transition-all"> */}
                     {/* Gradient background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-dark/10 to-primary/10 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-500" />
+                    {/* <div className="absolute inset-0 bg-gradient-to-br from-dark/10 to-primary/10 group-hover:from-primary/20 group-hover:to-secondary/20 transition-all duration-500" /> */}
 
                     {/* Avatar silhouette with color change effect */}
-                    <svg
+                    {/* <svg
                       className="w-full h-full text-gray-400 group-hover:text-primary transition-colors duration-500"
                       viewBox="0 0 100 100"
-                      xmlns="http://www.w3.org/2000/svg">
+                      xmlns="http://www.w3.org/2000/svg"> */}
                       {/* Head */}
-                      <circle cx="50" cy="35" r="20" fill="currentColor" />
+                      {/* <circle cx="50" cy="35" r="20" fill="currentColor" /> */}
                       {/* Body */}
-                      <path
+                      {/* <path
                         d="M30 60 Q50 80 70 60"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="5"
-                      />
+                      /> */}
                       {/* Shoulders */}
-                      <line
+                      {/* <line
                         x1="30"
                         y1="50"
                         x2="70"
@@ -425,69 +429,109 @@ export default function Team() {
             ))}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Expertise Section */}
-      <section className="relative py-20 bg-dark text-white z-10">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl font-bold mb-2">
-              Our{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Expertise
-              </span>
-            </motion.h2>
-            <motion.div
-              initial={{ scaleX: 0 }}
-              whileInView={{ scaleX: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"
-            />
-          </div>
+{/* Expertise Section */}
+<section className="relative py-20 bg-dark text-white z-10">
+  <div className="container mx-auto px-6">
+    <div className="text-center mb-16">
+      <motion.h2
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-3xl font-bold mb-2"
+      >
+        Our{" "}
+        <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
+          Core Expertise
+        </span>
+      </motion.h2>
+      <motion.div
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"
+      />
+      <p className="text-gray-300 mt-4 max-w-2xl mx-auto">
+        Comprehensive IT solutions across multiple domains, delivered by certified professionals
+      </p>
+    </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: <FaServer className="text-4xl" />,
-                title: "Server Infrastructure",
-                desc: "Expertise in Windows Server, Linux Server administration, and virtualization technologies.",
-              },
-              {
-                icon: <FaNetworkWired className="text-4xl" />,
-                title: "Network Solutions",
-                desc: "Certified professionals in CCNA, MTCNA, MTCRE with extensive practical experience.",
-              },
-              {
-                icon: <FaChalkboardTeacher className="text-4xl" />,
-                title: "Training Programs",
-                desc: "Comprehensive courses taught by industry experts with real-world experience.",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ y: -10 }}
-                className="bg-gradient-to-br from-dark/80 to-primary/20 p-8 rounded-xl border border-white/10 hover:border-primary/30 transition-all">
-                <motion.div
-                  whileHover={{ rotate: 10, scale: 1.1 }}
-                  className="text-primary mb-4 inline-block">
-                  {item.icon}
-                </motion.div>
-                <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                <p className="text-gray-300">{item.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      {[
+        {
+          icon: <FaServer className="text-4xl" />,
+          title: "Server Infrastructure",
+          desc: "Windows/Linux Server administration, Active Directory, Virtualization (VMware, Hyper-V)",
+          certs: ["MCITP", "RHCSA", "VMware Certified"]
+        },
+        {
+          icon: <FaNetworkWired className="text-4xl" />,
+          title: "Network Solutions",
+          desc: "Enterprise networking, MikroTik, Cisco, Fortinet solutions, Wireless deployments",
+          certs: ["CCNA", "MTCNA", "MTCRE", "MTCSE"]
+        },
+        {
+          icon: <FaCode className="text-4xl" />,
+          title: "Software Development",
+          desc: "Custom applications, web development, mobile apps, and system integration",
+          certs: ["Certified Scrum Master", "Google Certified"]
+        },
+        {
+          icon: <FaShieldAlt className="text-4xl" />,
+          title: "Security & Surveillance",
+          desc: "CCTV systems, access control, biometric devices, attendance management systems",
+          certs: ["CCTV Specialist", "Access Control Specialist"]
+        },
+        {
+          icon: <FaCloud className="text-4xl" />,
+          title: "Cloud Solutions",
+          desc: "Cloud migration, hybrid cloud setups, AWS, Azure, and Google Cloud implementations",
+          certs: ["AWS Specialist"]
+        },
+        {
+          icon: <FaDatabase className="text-4xl" />,
+          title: "Database Management",
+          desc: "SQL Server, MySQL, MongoDB administration and optimization",
+          certs: ["SQL Server Specialist", "Oracle Certified", "NoSQL Specialist"]
+        },
+      ].map((item, index) => (
+        <motion.div
+          key={index}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: index * 0.1 }}
+          whileHover={{ y: -10 }}
+          className="bg-gradient-to-br from-dark/80 to-primary/20 p-6 rounded-xl border border-white/10 hover:border-primary/30 transition-all flex flex-col h-full"
+        >
+          <motion.div
+            whileHover={{ rotate: 10, scale: 1.1 }}
+            className="text-primary mb-4 inline-block"
+          >
+            {item.icon}
+          </motion.div>
+          <h3 className="text-xl font-bold mb-2">{item.title}</h3>
+          <p className="text-gray-300 mb-4 flex-grow">{item.desc}</p>
+          {item.certs && (
+            <div className="mt-auto">
+              <div className="text-xs text-primary font-medium mb-1">Certifications/Specialist:</div>
+              <div className="flex flex-wrap gap-1">
+                {item.certs.map((cert, i) => (
+                  <span key={i} className="text-xs bg-primary/10 text-primary px-2 py-1 rounded">
+                    {cert}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </motion.div>
+      ))}
+    </div>
+  </div>
+</section>
     </div>
   );
 }

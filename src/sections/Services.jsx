@@ -43,18 +43,6 @@ const services = [
     color: "from-purple-500 to-indigo-500"
   },
   {
-    icon: FaChalkboardTeacher,
-    title: "Training & Certification",
-    desc: "Professional IT training programs.",
-    color: "from-indigo-500 to-blue-500"
-  },
-  {
-    icon: FaMobileAlt,
-    title: "Mobile Applications",
-    desc: "Cross-platform mobile solutions.",
-    color: "from-teal-500 to-green-500"
-  },
-  {
     icon: FaCloud,
     title: "Cloud Services",
     desc: "Cloud migration and management.",
@@ -113,7 +101,7 @@ export default function Services() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
               key={index}

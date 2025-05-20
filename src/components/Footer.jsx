@@ -28,7 +28,6 @@ export default function Footer() {
         { name: "Network Infrastructure", path: "/services/network-infrastructure" },
         { name: "Security & Surveillance", path: "/services/security-surveillance" },
         { name: "Cloud Solutions", path: "/services/server-cloud-solutions" },
-        { name: "Training & Certification", path: "/services/training-certification" }
       ]
     },
     {

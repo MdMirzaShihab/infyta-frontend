@@ -27,7 +27,6 @@ export default function Navbar() {
         { name: "IT Support & Consultancy", path: "/services/it-support-consultancy" },
         { name: "Security & Surveillance", path: "/services/security-surveillance" },
         { name: "Server & Cloud Solutions", path: "/services/server-cloud-solutions" },
-        { name: "Training & Certification", path: "/services/training-certification" },
         { name: "Mobile Applications", path: "/services/mobile-applications" },
         { name: "Cloud Services", path: "/services/cloud-services" }
       ]
