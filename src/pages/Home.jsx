@@ -8,7 +8,7 @@ export default function Home() {
     <div className="overflow-hidden">
       <Hero />
       <Services />
-      <Stats />
+      {/* <Stats /> */}
       <CTA />
     </div>
   );
