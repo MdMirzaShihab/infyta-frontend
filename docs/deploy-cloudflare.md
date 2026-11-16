@@ -12,7 +12,7 @@ Canonical origin: `https://infyta.com` (apex, no `www`, no trailing slash).
 5. Build output directory: `out`
 6. Environment variable: `NODE_VERSION=22`
 7. Save and deploy. The first build runs on `master`, which is still the Vite app (`vite build` writes `dist/`, not `out/`), so it is expected to fail with "output directory `out` not found". This is harmless: nothing goes live from it.
-8. Get a preview of the new site. Preview builds start on a push after the project exists, so push a commit to `nextjs-seo-migration` (for example an empty one: `git commit --allow-empty -m "trigger preview" && git push`). Alternatively, in the project open Deployments > Create deployment (or "Retry deployment") and pick the `nextjs-seo-migration` branch. Cloudflare gives that build a `<hash>.<project>.pages.dev` URL and a `<branch>.<project>.pages.dev` alias.
+8. Get a preview of the new site. Preview builds start on a push after the project exists, so push a commit to `visual-redesign` (for example an empty one: `git commit --allow-empty -m "trigger preview" && git push`). Alternatively, in the project open Deployments > Create deployment (or "Retry deployment") and pick the `visual-redesign` branch. Cloudflare gives that build a `<hash>.<project>.pages.dev` URL and a `<branch>.<project>.pages.dev` alias.
 
 ## 2. Preview checks
 
@@ -55,13 +55,13 @@ https://:version.:project.pages.dev/*
 Also on the preview:
 
 - Schema: paste the built HTML of `/`, one service page (for example `/services/software-development`) and `/team` into https://validator.schema.org and the Google Rich Results Test. Expect 0 errors for `LocalBusiness`, `Service`, `BreadcrumbList`, `FAQPage` and `Person`.
-- Visual: compare the preview side by side with the old Vite site (branch `master` before the merge). Layout and animation should match, apart from the speed trade-offs listed in `docs/review-list.md`.
-- Lighthouse (mobile) on the preview: SEO 100, Performance 90 or more, Accessibility 90 or more.
+- Visual: compare the preview with `docs/superpowers/specs/2026-11-16-visual-redesign-assets/mockup.html` in both themes.
+- Lighthouse (mobile) on the preview: SEO 100, Performance 95 or more, Accessibility 98 or more.
 
 ## 3. Content review and merge
 
 1. Read `docs/review-list.md` and approve or correct each item of new copy.
-2. When happy, merge `nextjs-seo-migration` into `master`. Cloudflare builds production from `master`.
+2. When happy, merge `visual-redesign` into `master`. Cloudflare builds production from `master`.
 3. Once that production build succeeds, find the `<project>.pages.dev` subdomain (Deployments or Custom domains) and run `curl -sI https://<project>.pages.dev/ | grep -i x-robots-tag`. Our `public/_headers` rule must make it show `x-robots-tag: noindex`.
 
 ## 4. Custom domains

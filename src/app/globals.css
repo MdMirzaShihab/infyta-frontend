@@ -1,8 +1,0 @@
-/* Must be FIRST lines in your CSS */
-@import 'swiper/css';
-@import 'swiper/css/effect-fade';
-
-/* Then your Tailwind imports */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;

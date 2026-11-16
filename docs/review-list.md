@@ -104,3 +104,100 @@ Accessibility to decide (not changed, because brand colours must stay): Lighthou
 colour contrast for white text on the teal brand colour (#3ac1c2) (the "Get Started" button),
 teal text on white ("Learn more" links, "Touch" highlight), and the small blue tags on service
 pages. Accessibility still scores 0.96. A darker teal for text and buttons would fix it.
+
+Note: the slider, the floating circles and the hero animations described above no longer exist.
+The redesign (section 4) replaced them, and the speed figures there are the current ones.
+
+## 4. Visible changes in the redesign
+
+What a visitor will notice, in plain words. Please read it and tell us what to change.
+
+### The new look
+- The whole site has a new design: a technical drawing look, with thin lines, a grid, small
+  labels and one teal accent.
+- There are two themes. "Paper" is light and "Blueprint" is dark. The site follows the visitor's
+  device setting at first, and a "Theme" switch (Paper, Blueprint) in the header and the footer
+  lets them choose. The choice is remembered.
+- The old photo slider on the home page is gone. In its place is a line drawing, "Typical office
+  network", that draws itself once when the home page loads. If the device is set to reduce
+  motion, or the page is printed, it appears complete at once.
+- Pages no longer animate as you scroll. Only hover, focus, the FAQ arrows, the header menus
+  and the phone menu move.
+
+### The home page
+- The drawing, with a strip under it that reads: Drawing "Typical office network"; Drawn by
+  "Infyta, Azimpur, Dhaka"; Scale "Not to scale"; Key "1 to 5 are our services. Select any part."
+- A list of the five services, each with a short "works with" line and a small drawing.
+- A Core Expertise block and the Chief Advisor block, repeated from the Team page.
+- WhatsApp and phone buttons, and a contact panel with the live open-hours status.
+
+### The nine calls to check (spec section 12)
+1. First visit theme: the site follows the visitor's device, so many first-time visitors will
+   see Paper, not Blueprint. The alternative is to show Blueprint to everyone until they switch.
+2. Contact form: it now opens WhatsApp or the visitor's email app with the message filled in,
+   instead of doing nothing.
+3. Logo: the redraw is used as shown in the mockup.
+4. Vendor names on the home drawing: the router is labelled MikroTik, the firewall Fortinet and
+   the switch Cisco, as an example of a typical setup.
+5. Home page additions: Core Expertise and the Chief Advisor block are repeated from the Team
+   page. This puts "Managed 15K+ nodes network infrastructure" on the home page; that figure is
+   still waiting for your confirmation in section 1.
+6. Removals: the footer credit line and the "Contact Sales" button (listed below).
+7. Bengali accent: "আজিমপুর, ঢাকা" appears once, beside the address in the contact panel.
+8. Home headline: it keeps today's words, "Infyta – Limitless Tech Solutions", so the page's main
+   heading does not change for search. The first mockup showed "Limitless tech solutions for a
+   digital world" instead; you can choose that.
+9. "Open now" and public holidays: the live status follows the weekly hours, so on a holiday it
+   is only right if the dates are added to `closedDates` in `src/content/site.js`. The
+   alternative is to drop the live status and show the hours as plain text.
+
+### New labels (all the new words on the site)
+- Home drawing: Cloud; AWS, Azure, Google Cloud; Internet; Router, MikroTik; Firewall, Fortinet;
+  Core switch, Cisco; Staff; Staff workstations; Guest Wi-Fi; Office Wi-Fi, Guest access;
+  Cameras; CCTV cameras, Recorder; Doors; Access control, Biometric attendance; Servers;
+  Windows, Linux, VMware; Business software; SQL Server, MySQL, MongoDB; Your office; IT Support
+  & Consultancy. Numbers 1 to 5 mark our services.
+- Service page drawings:
+  - Software Development: Web application; Mobile app; Database, SQL Server, MySQL, MongoDB;
+    Existing systems.
+  - Network Infrastructure: Internet; Router, MikroTik; Firewall, Fortinet; Switch; Cameras; CCTV;
+    Guest Wi-Fi; Office Wi-Fi; Staff; Workstations.
+  - IT Support & Consultancy: Your office; Router; Workstations; Office Wi-Fi; Servers.
+  - Security & Surveillance: Switch; Cameras; Recorder; CCTV cameras; Access control, Biometric
+    attendance.
+  - Server & Cloud Solutions: Servers, Windows, Linux, Active Directory; Virtual machines,
+    VMware, Hyper-V; Cloud, AWS, Azure, Google Cloud.
+- "Works with" lines on the service list: Software Development "Web and mobile apps, SQL Server,
+  MySQL, MongoDB"; Network Infrastructure "MikroTik, Cisco, Fortinet, wireless deployments"; IT
+  Support & Consultancy "Windows and Linux servers, Active Directory, office networks"; Security
+  & Surveillance "CCTV, access control, biometric attendance"; Server & Cloud Solutions "VMware,
+  Hyper-V, AWS, Azure, Google Cloud".
+- Table headings: "Domain", "What we work with", "Certifications and specialists".
+- Open-hours status: "Open now, until 6 PM", "Closed, opens 9 AM", "Closed, opens tomorrow 9 AM",
+  "Closed, opens Saturday 9 AM", "Closed today", the long forms (for example "Open now. Closes at
+  6 PM.") and "Dhaka time".
+- Buttons and small labels: "WhatsApp", "Call", "Open in Google Maps", "Show map", "Theme",
+  "Paper", "Blueprint", "Skip to content", and the breadcrumb word "Services".
+- Contact form: the buttons "Send on WhatsApp" and "Send by email", the message "Write a message
+  first." when the Message field is empty, and the text handed to WhatsApp or email ("Hello
+  Infyta, this is {First Name} {Last Name}.", then the message, then "Email: {Email}").
+- One existing sentence appears somewhere new: the home page's meta description is shown as the
+  intro under the headline. It is not rewritten.
+
+### Removed
+- The footer credit line "Designed with ❤️ by Infyta Team".
+- The "Contact Sales" button on the home page. It pointed to the same page as "Get Started" and is
+  replaced by the WhatsApp and phone buttons.
+
+### Calls made while building
+- The header logo's wall tip hangs slightly below the logo box (the mockup's crop clipped it; the full shape now shows).
+- The browser-tab icon is the cube plus the "i", on a transparent ground, so it is faint on dark browser tabs.
+- The detail drawings on service pages are small on phones (labels about 7px at 375px wide); portrait versions could be drawn later.
+- Form fields use a slightly stronger border than first planned so they meet contrast rules.
+- The security drawing shows the camera recorder and the door terminal on two separate cables, both on the "Cameras" segment.
+
+### Lighthouse (mobile, local build)
+Measured on a local build with `npx lighthouse` (Performance, Accessibility), two runs each; the lower of the two is listed.
+- Home (`/`): Performance 0.97, Accessibility 0.99.
+- Network Infrastructure (`/services/network-infrastructure`): Performance 0.99, Accessibility 0.98.
+Both pages meet the targets (Performance 0.95 or more, Accessibility 0.98 or more).

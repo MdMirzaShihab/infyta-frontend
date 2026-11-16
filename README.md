@@ -1,6 +1,6 @@
 # Infyta website
 
-Marketing site for Infyta, an IT company in Dhaka, Bangladesh. Built with Next.js (App Router) as a static export, with Tailwind CSS, Framer Motion and Swiper.
+Marketing site for Infyta, an IT company in Dhaka, Bangladesh. Built with Next.js (App Router) as a static export, styled with plain CSS (tokens, base, shell, drawing and section sheets in `src/styles/`) in two themes, Paper (light) and Blueprint (dark). There is no image slider and no animation library.
 
 ## Scripts
 
