@@ -9,7 +9,7 @@ test('about', () => {
   const main = loadPage('/about').doc.querySelector('main');
   const text = main.textContent.replace(/\s+/g, ' ');
   assert.equal(main.querySelector('h1').textContent.trim(), 'About Infyta');
-  for (const needle of [site.slogan, 'Our Vision', 'Our Mission', about.vision, about.mission, 'Infyta at a glance', 'Our Core Values', about.teamCta.title, about.teamCta.text]) assert.ok(text.includes(needle), needle);
+  for (const needle of [site.slogan, 'Our Vision', 'Our Mission', about.vision, about.mission, 'Infyta at a glance', 'Our Core Values', 'Meet Our Expert Team', 'The brilliant minds behind our innovative solutions']) assert.ok(text.includes(needle), needle);
   assert.deepEqual(about.values.map((v) => v.title), ['Collaboration', 'Global Mindset', 'Innovation', 'Agility', 'Integrity', 'Partnership']);
   for (const v of about.values) assert.ok(text.includes(v.title) && text.includes(v.desc), v.title);
   const glance = main.querySelector('dl.titleblock');

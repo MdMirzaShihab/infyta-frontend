@@ -41,6 +41,8 @@
 
 /* Footer: the title block */
 .foot{padding-block:clamp(48px,6vw,80px) 28px}
+/* A page that ends on an inverse band: a rule marks where the band stops and the footer starts. */
+main:has(>.inverse:last-child)+.foot{border-top:1px solid var(--rule)}
 .foot__grid{display:grid;grid-template-columns:1.3fr 1fr 1.25fr 1.6fr;border:1px solid var(--rule);border-radius:8px}
 .foot__grid>div{padding:26px 26px 28px;border-left:1px solid var(--rule);min-width:0}
 .foot__grid>div:first-child{border-left:0}
