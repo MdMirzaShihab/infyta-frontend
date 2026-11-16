@@ -89,6 +89,43 @@ dl{margin:0}
 .facts .wide{grid-column:1/-1}
 .facts address{font-style:normal}
 
+/* Contact page and 404 */
+.facts .line{display:block}
+.cpage{padding-top:0}
+.cpage__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
+.cpage__h{font-size:clamp(1.5rem,2.4vw,2rem);margin-bottom:22px}
+.cpage__tz{margin-top:4px}
+.cform{display:grid;gap:18px}
+.cform__row{display:grid;gap:18px}
+.cform__field label{display:block;margin-bottom:6px;font-weight:560}
+.cform input,.cform textarea{display:block;width:100%;padding:12px 14px;border:1.5px solid var(--rule);border-radius:5px;background:var(--panel);color:var(--fg);font:inherit;line-height:1.4}
+.cform textarea{resize:vertical;min-height:9rem}
+.cform [aria-invalid="true"]{border-color:var(--accent)}
+.cform__error{margin-top:8px;font-weight:560;color:var(--accent)}
+.cform__actions{display:flex;flex-wrap:wrap;gap:12px}
+.cform__actions .btn{cursor:pointer;font-family:inherit}
+.mapbox{margin-top:clamp(20px,2.6vw,32px)}
+.mapbox__idle,.mapbox__frame{height:256px}
+.mapbox__idle{display:flex;flex-direction:column;justify-content:center;gap:18px;padding:clamp(18px,3vw,32px)}
+.mapbox__addr{font-weight:560;line-height:1.4}
+.mapbox__actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
+.mapbox__frame{display:block;width:100%;border:0}
+.notfound{min-height:60vh;display:flex;align-items:center}
+.notfound .wrap{width:100%}
+.notfound h1{font-size:clamp(2.2rem,4.6vw,3.9rem)}
+.notfound .lede{margin-top:18px}
+.notfound .contact__cta{margin-top:32px}
+@media (min-width:720px){
+  .cform__row{grid-template-columns:1fr 1fr}
+  .mapbox__idle,.mapbox__frame{height:320px}
+}
+@media (max-width:1039px){
+  .cpage__grid{grid-template-columns:1fr}
+}
+@media (max-width:719px){
+  .cpage .facts a,.mapbox__actions .textlink{display:inline-block;min-height:44px;padding-block:10px}
+}
+
 /* Inner page header (not in the mock): the page headline and its lede, spaced like the service page's. */
 .pagehead{padding-block:clamp(40px,5vw,72px) clamp(36px,4.5vw,64px)}
 .pagehead h1{font-size:clamp(2.2rem,4.6vw,3.9rem)}
