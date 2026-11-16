@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { site, absoluteUrl, primaryEmail, publicEmails } from '../../src/content/site.js';
+import { site, absoluteUrl } from '../../src/content/site.js';
+import { primaryEmail, publicEmails } from '../../src/content/email.js';
 
 test('NAP is exact', () => {
   assert.equal(site.address.display, '4A, 44/3 Swarnolota, Sha-sab bari, Bottola, Azimpur, Dhaka, Bangladesh');
@@ -9,9 +10,11 @@ test('NAP is exact', () => {
   assert.equal(site.phone.e164, '+8801318121558');
 });
 test('email follows the domainEmailActive flag', () => {
-  assert.equal(site.domainEmailActive, false);
-  assert.equal(primaryEmail(), 'infytaofficial@gmail.com');
-  assert.deepEqual(publicEmails(), ['infytaofficial@gmail.com']);
+  const off = { ...site, domainEmailActive: false };
+  assert.equal(primaryEmail(off), 'infytaofficial@gmail.com');
+  assert.deepEqual(publicEmails(off), ['infytaofficial@gmail.com']);
+  assert.equal(primaryEmail(), primaryEmail(site));
+  assert.deepEqual(publicEmails(), publicEmails(site));
   const on = { ...site, domainEmailActive: true };
   assert.equal(primaryEmail(on), 'info@infyta.com');
   assert.deepEqual(publicEmails(on), ['info@infyta.com', 'infytaofficial@gmail.com']);

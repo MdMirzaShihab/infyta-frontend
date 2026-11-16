@@ -1,4 +1,5 @@
 import "./globals.css";
+import { primaryEmail } from "@/content/email";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
@@ -18,7 +19,7 @@ export default function RootLayout({ children }) {
         <MotionProvider>
           <Navbar />
           <main>{children}</main>
-          <Footer />
+          <Footer email={primaryEmail()} />
         </MotionProvider>
       </body>
     </html>

@@ -6,7 +6,8 @@ import { parse } from 'node-html-parser';
 import { OUT, fileForPath, loadPage, allFiles, allHtmlFiles, visibleText } from './helpers.mjs';
 import { allPaths } from '../../src/content/pages.js';
 import { services } from '../../src/content/services.js';
-import { site, publicEmails } from '../../src/content/site.js';
+import { site } from '../../src/content/site.js';
+import { publicEmails } from '../../src/content/email.js';
 
 const FORBIDDEN = ['Lalbagh', 'Rasulbagh', '976843', '331586', 'training-certification', 'Training & Certification'];
 
@@ -43,6 +44,12 @@ test('tel: and mailto: links use only the published phone and emails', () => {
       assert.ok(mailtos.includes(a.getAttribute('href')), `${file}: ${a.getAttribute('href')}`);
     }
   }
+});
+
+test('home has at least one tel: and one mailto: link', () => {
+  const { doc } = loadPage('/');
+  assert.ok(doc.querySelectorAll('a[href^="tel:"]').length >= 1, 'no tel: link on /');
+  assert.ok(doc.querySelectorAll('a[href^="mailto:"]').length >= 1, 'no mailto: link on /');
 });
 
 test('home <nav> links to /services and all five service pages', () => {
@@ -87,7 +94,7 @@ test('no page contains the old address, old phone numbers or the removed service
 });
 
 test('the inactive domain email is not published anywhere', { skip: site.domainEmailActive }, () => {
-  for (const file of allFiles().filter((f) => /\.(html|txt|xml)$/.test(f))) {
+  for (const file of allFiles()) {
     assert.ok(!readFileSync(file, 'utf8').includes('info@infyta.com'), `${relative(OUT, file)} contains info@infyta.com`);
   }
 });

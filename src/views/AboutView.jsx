@@ -6,11 +6,11 @@ import Link from "next/link";
 import React from "react";
 import FloatingOrbs from "@/components/FloatingOrbs";
 import { services } from "@/content/services";
-import { site, primaryEmail } from "@/content/site";
+import { site } from "@/content/site";
 
 const MotionLink = motion.create(Link);
 
-export default function AboutView() {
+export default function AboutView({ email }) {
   const values = [
     { 
       icon: FaUsers, 
@@ -183,7 +183,7 @@ export default function AboutView() {
               <div>
                 <dt className="font-semibold text-dark mb-1">Email</dt>
                 <dd>
-                  <a href={`mailto:${primaryEmail()}`} className="text-primary hover:underline">{primaryEmail()}</a>
+                  <a href={`mailto:${email}`} className="text-primary hover:underline">{email}</a>
                 </dd>
               </div>
             </dl>

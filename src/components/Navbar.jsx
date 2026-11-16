@@ -45,9 +45,10 @@ export default function Navbar() {
   };
 
   return (
+    <header>
     <motion.nav 
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ y: -20 }}
+      animate={{ y: 0 }}
       className={`fixed w-full z-50 transition-all duration-300 ${
         scrolled 
           ? "bg-dark/80 backdrop-blur-md py-2 border-b border-primary/20" 
@@ -230,5 +231,6 @@ export default function Navbar() {
         </motion.div>
       )}
     </motion.nav>
+    </header>
   );
 }

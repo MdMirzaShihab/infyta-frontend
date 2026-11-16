@@ -1,4 +1,5 @@
-import { site, SITE_URL, publicEmails } from '../content/site.js';
+import { site, SITE_URL } from '../content/site.js';
+import { publicEmails } from '../content/email.js';
 import { pages } from '../content/pages.js';
 import { services } from '../content/services.js';
 
@@ -18,7 +19,7 @@ export function buildLlmsTxt(s = site, svc = services) {
     '',
     '## Services',
     '',
-    ...svc.map((x) => `- [${x.name}](${SITE_URL}/services/${x.slug}): ${x.summary}`),
+    ...svc.map((x) => `- [${x.name}](${SITE_URL}/services/${x.slug}): ${x.metaDescription}`),
     '',
     '## Company',
     '',

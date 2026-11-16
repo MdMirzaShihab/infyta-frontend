@@ -25,6 +25,15 @@ for (const { name, doc } of pages) {
     }
   });
 
+  test(`${name}: the <nav> and its ancestors do not start at opacity 0`, () => {
+    const navs = doc.querySelectorAll('nav');
+    assert.ok(navs.length >= 1, 'no <nav>');
+    for (let el = navs[0]; el && el.tagName; el = el.parentNode) {
+      const style = el.getAttribute('style') || '';
+      assert.doesNotMatch(style, HIDDEN, `<${el.tagName.toLowerCase()}> is hidden`);
+    }
+  });
+
   test(`${name}: every <img> has numeric width and height`, () => {
     for (const img of doc.querySelectorAll('img')) {
       const label = img.getAttribute('src') || img.getAttribute('srcset');

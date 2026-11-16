@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import { loadPage, textOf } from './helpers.mjs';
 import { services } from '../../src/content/services.js';
 import { homeIntro } from '../../src/content/pages.js';
-import { site, primaryEmail } from '../../src/content/site.js';
+import { site } from '../../src/content/site.js';
+import { primaryEmail } from '../../src/content/email.js';
 
 const squash = (t) => t.replace(/\s+/g, ' ').trim();
 

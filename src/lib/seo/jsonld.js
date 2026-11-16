@@ -1,4 +1,5 @@
-import { site, SITE_URL, absoluteUrl, primaryEmail } from '../../content/site.js';
+import { site, SITE_URL, absoluteUrl } from '../../content/site.js';
+import { primaryEmail } from '../../content/email.js';
 import { pages } from '../../content/pages.js';
 import { services } from '../../content/services.js';
 
@@ -28,6 +29,7 @@ export function businessGraph(s = site, svc = services) {
       streetAddress: s.address.streetAddress,
       addressLocality: s.address.addressLocality,
       addressCountry: s.address.addressCountry,
+      ...(s.address.postalCode ? { postalCode: s.address.postalCode } : {}),
     },
     openingHoursSpecification: [{
       '@type': 'OpeningHoursSpecification',
@@ -49,7 +51,7 @@ export function businessGraph(s = site, svc = services) {
       name: 'IT services',
       itemListElement: svc.map((x) => ({
         '@type': 'Offer',
-        itemOffered: { '@id': `${SITE_URL}/services/${x.slug}#service` },
+        itemOffered: { '@type': 'Service', '@id': `${SITE_URL}/services/${x.slug}#service`, name: x.name },
       })),
     },
   };

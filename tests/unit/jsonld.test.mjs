@@ -1,6 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { site } from '../../src/content/site.js';
+import { primaryEmail } from '../../src/content/email.js';
 import { services, getService } from '../../src/content/services.js';
 import { chiefAdvisor } from '../../src/content/team.js';
 import {
@@ -14,13 +15,15 @@ test('LocalBusiness node', () => {
   const b = biz(businessGraph());
   assert.equal(b['@id'], BUSINESS_ID);
   assert.equal(b.telephone, '+8801318121558');
-  assert.equal(b.email, 'infytaofficial@gmail.com');
-  assert.deepEqual(b.address, {
+  assert.equal(b.email, primaryEmail());
+  const expectedAddress = {
     '@type': 'PostalAddress',
     streetAddress: '4A, 44/3 Swarnolota, Sha-sab bari, Bottola, Azimpur',
     addressLocality: 'Dhaka',
     addressCountry: 'BD',
-  });
+  };
+  if (site.address.postalCode) expectedAddress.postalCode = site.address.postalCode;
+  assert.deepEqual(b.address, expectedAddress);
   assert.deepEqual(b.openingHoursSpecification, [{
     '@type': 'OpeningHoursSpecification',
     dayOfWeek: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
@@ -42,6 +45,27 @@ test('geo, sameAs and domain email appear when configured', () => {
   assert.equal(b.geo['@type'], 'GeoCoordinates');
   assert.deepEqual(b.sameAs, ['https://facebook.com/x']);
   assert.equal(b.email, 'info@infyta.com');
+});
+test('postalCode is included only when configured', () => {
+  const none = biz(businessGraph({ ...site, address: { ...site.address, postalCode: undefined } }));
+  assert.ok(!('postalCode' in none.address));
+  const set = biz(businessGraph({ ...site, address: { ...site.address, postalCode: '1000' } }));
+  assert.equal(set.address.postalCode, '1000');
+});
+test('email follows the flag in both states', () => {
+  assert.equal(biz(businessGraph({ ...site, domainEmailActive: false })).email, 'infytaofficial@gmail.com');
+  const on = biz(businessGraph({ ...site, domainEmailActive: true }));
+  assert.equal(on.email, 'info@infyta.com');
+  assert.equal(on.contactPoint[0].email, 'info@infyta.com');
+});
+test('offer catalog items are self-contained services', () => {
+  const items = biz(businessGraph()).hasOfferCatalog.itemListElement;
+  assert.equal(items.length, services.length);
+  items.forEach((o, i) => {
+    assert.equal(o.itemOffered['@type'], 'Service');
+    assert.equal(o.itemOffered.name, services[i].name);
+    assert.equal(o.itemOffered['@id'], `https://infyta.com/services/${services[i].slug}#service`);
+  });
 });
 test('WebSite node', () => {
   const w = businessGraph()['@graph'].find(n => n['@type'] === 'WebSite');

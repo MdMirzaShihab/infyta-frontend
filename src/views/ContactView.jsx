@@ -3,9 +3,9 @@
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaPaperPlane } from "react-icons/fa";
 import FloatingOrbs from "@/components/FloatingOrbs";
-import { site, publicEmails } from "@/content/site";
+import { site } from "@/content/site";
 
-export default function ContactView() {
+export default function ContactView({ emails }) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
@@ -140,7 +140,7 @@ export default function ContactView() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-lg">Email</h4>
-                      {publicEmails().map((email) => (
+                      {emails.map((email) => (
                         <p key={email} className="text-white/90">
                           <a href={`mailto:${email}`} className="hover:underline">{email}</a>
                         </p>

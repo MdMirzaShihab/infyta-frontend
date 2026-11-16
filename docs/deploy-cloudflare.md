@@ -11,16 +11,18 @@ Canonical origin: `https://infyta.com` (apex, no `www`, no trailing slash).
 4. Build command: `npm run build`
 5. Build output directory: `out`
 6. Environment variable: `NODE_VERSION=22`
-7. First deploy from the `nextjs-seo-migration` branch as a preview (do not merge yet). Cloudflare gives it a `*.pages.dev` URL.
+7. Save and deploy. The first build runs on `master`, which is still the Vite app (`vite build` writes `dist/`, not `out/`), so it is expected to fail with "output directory `out` not found". This is harmless: nothing goes live from it.
+8. Get a preview of the new site. Preview builds start on a push after the project exists, so push a commit to `nextjs-seo-migration` (for example an empty one: `git commit --allow-empty -m "trigger preview" && git push`). Alternatively, in the project open Deployments > Create deployment (or "Retry deployment") and pick the `nextjs-seo-migration` branch. Cloudflare gives that build a `<hash>.<project>.pages.dev` URL and a `<branch>.<project>.pages.dev` alias.
 
 ## 2. Preview checks
 
-Replace `<PREVIEW>` with the preview URL (for example `https://<hash>.<project>.pages.dev`).
+Replace `<PREVIEW>` with the branch or hash preview URL from step 1.8 (for example `https://<hash>.<project>.pages.dev`). Do not use the plain `<project>.pages.dev` hostname yet: it serves the production branch, which is not the new site until you merge.
 
 ```bash
-for p in /about /about.html /about/ /services/training-certification /services/mobile-applications /services/cloud-services /does-not-exist /robots.txt /sitemap.xml /llms.txt; do
-  echo -n "$p  => "; curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" <PREVIEW>$p
+for p in /about /about.html /about/ /services /services/network-infrastructure /services/training-certification /services/mobile-applications /services/cloud-services /does-not-exist /robots.txt /sitemap.xml /llms.txt; do
+  echo "== $p"; curl -sI <PREVIEW>$p | grep -iE '^(HTTP|location)'
 done
+curl -s <PREVIEW>/does-not-exist | grep -c "Page not found"
 ```
 
 Expected:
@@ -28,24 +30,27 @@ Expected:
 | URL | Result |
 |-----|--------|
 | `/about` | 200 |
-| `/about.html` | 30x to `/about` |
-| `/about/` | 30x to `/about` |
+| `/about.html` | 301 or 308 to `/about` |
+| `/about/` | 301 or 308 to `/about` |
+| `/services` | 200 |
+| `/services/network-infrastructure` | 200 |
 | `/services/training-certification` | 301 to `/services` |
 | `/services/mobile-applications` | 301 to `/services/software-development` |
 | `/services/cloud-services` | 301 to `/services/server-cloud-solutions` |
-| `/does-not-exist` | 404 with "Page not found" in the body |
+| `/does-not-exist` | 404, and the `grep -c` command above prints 1 or more |
 | `/robots.txt`, `/sitemap.xml`, `/llms.txt` | 200 |
 
-The `X-Robots-Tag: noindex` check:
+The `X-Robots-Tag: noindex` check on previews:
 
-- Our `public/_headers` rule applies to the `<project>.pages.dev` hostname. Find it in the Pages project (Deployments or Custom domains lists the `<project>.pages.dev` subdomain) and run `curl -sI https://<project>.pages.dev/ | grep -i x-robots-tag`. It must show `x-robots-tag: noindex`.
-- Preview URLs (`<hash>.<project>.pages.dev` and `<branch>.<project>.pages.dev`) are not matched by that rule, but Cloudflare Pages adds `X-Robots-Tag: noindex` to preview deployments by default. Verify with `curl -sI <PREVIEW>/ | grep -i x-robots-tag`.
+- Preview URLs (`<hash>.<project>.pages.dev` and `<branch>.<project>.pages.dev`) are not matched by our `public/_headers` rule, but Cloudflare Pages adds `X-Robots-Tag: noindex` to preview deployments by default. Verify with `curl -sI <PREVIEW>/ | grep -i x-robots-tag`.
 - If the header is absent on previews, add this block to `public/_headers` and redeploy:
 
 ```
 https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
 ```
+
+- The `<project>.pages.dev` hostname itself is checked after the merge (step 3.3).
 
 Also on the preview:
 
@@ -57,6 +62,7 @@ Also on the preview:
 
 1. Read `docs/review-list.md` and approve or correct each item of new copy.
 2. When happy, merge `nextjs-seo-migration` into `master`. Cloudflare builds production from `master`.
+3. Once that production build succeeds, find the `<project>.pages.dev` subdomain (Deployments or Custom domains) and run `curl -sI https://<project>.pages.dev/ | grep -i x-robots-tag`. Our `public/_headers` rule must make it show `x-robots-tag: noindex`.
 
 ## 4. Custom domains
 
@@ -122,7 +128,12 @@ curl -sI http://infyta.com/ | head -3
    - Hours: Saturday–Thursday 9 AM–6 PM, Friday closed
    - Website: https://infyta.com
    - Primary category: your choice (for example IT services or software company). Add photos and ask clients for reviews.
-2. Afterwards edit `src/content/site.js`: set `geo` to the profile's map pin coordinates, add the profile URL and real social profile URLs to `socials`, and add the postal code if known. Run `npm run check`, then commit and push to rebuild.
+2. Afterwards edit `src/content/site.js`: make these edits:
+   - `geo`: replace `null` with `{ latitude: <number>, longitude: <number> }` using the profile's map pin coordinates.
+   - `socials`: add objects of the form `{ name: 'Facebook', url: 'https://...' }` (plain strings break the build), including the profile URL and real social profile URLs.
+   - Postal code, if known: add `postalCode: '<code>'` inside `address` (this feeds the structured data only), and also add the code by hand to the `addressDisplay` text at the top of the file so the visible address matches the profile exactly.
+
+   Run `npm run check`, then commit and push to rebuild.
 
 ## 12. Consistent listings
 

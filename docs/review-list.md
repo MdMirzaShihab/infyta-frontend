@@ -48,6 +48,9 @@ Lists: what Infyta does, address, the 5 services (as links), opening hours, phon
   existing Team page. Please confirm the figure.
 - The site already says "Get a free IT consultation" (Contact page description and the Services
   page). Please confirm free consultations are still offered, or tell us to remove the wording.
+- Two phrases in the service copy are not in the Team page's expertise data: "live and recorded
+  viewing" (CCTV) and "separate guest access" (Wi-Fi). Please confirm both are accurate, or tell
+  us to remove them.
 - The logo source file is only 200 × 119 px, so the site icon (`icon.png`) and the logo in the
   social sharing (OG) image are upscaled and may look soft. Please supply a high-resolution logo
   (ideally SVG, or PNG at least 1024 px wide).

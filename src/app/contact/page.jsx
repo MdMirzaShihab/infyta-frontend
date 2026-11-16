@@ -1,3 +1,4 @@
+import { publicEmails } from "@/content/email";
 import ContactView from "@/views/ContactView";
 import JsonLd from "@/components/JsonLd";
 import { pages } from "@/content/pages";
@@ -16,7 +17,7 @@ export default function Page() {
           breadcrumbList([{ name: "Home", path: "/" }, { name: "Contact", path: "/contact" }]),
         ]}
       />
-      <ContactView />
+      <ContactView emails={publicEmails()} />
     </>
   );
 }

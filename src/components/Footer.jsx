@@ -14,7 +14,7 @@ import {
 } from "react-icons/fa";
 import Link from "next/link";
 import FloatingOrbs from "@/components/FloatingOrbs";
-import { site, primaryEmail } from "@/content/site";
+import { site } from "@/content/site";
 import { services } from "@/content/services";
 
 const SOCIAL_ICONS = [
@@ -31,8 +31,7 @@ function socialIcon(url) {
   return <Icon />;
 }
 
-export default function Footer() {
-  const email = primaryEmail();
+export default function Footer({ email }) {
   const footerLinks = [
     {
       title: "Quick Links",
