@@ -608,11 +608,11 @@ git add -A && git commit -m "feat: add open-hours, enquiry and small content hel
 **Interfaces:**
 - Produces: `logoPaths = { wall, floor, tiles: [d, d, d], word: [{ d, accent }] (six glyphs), tagline }` (all path-data strings); `<Logo tagline={false} className />`, a server component rendering one inline `<svg role="img" aria-label="Infyta">` with `viewBox="-2 -4 205 112"` (or `205 125` with `tagline`), wordmark, floor and dot ring in `currentColor`.
 
-- [ ] **Step 1: Install dev dependencies**
+- [x] **Step 1: Install dev dependencies**
 
 Run: `npm i -D --save-exact opentype.js@2.0.0 && npm i -D @fontsource/montserrat @fontsource/barlow-semi-condensed @fontsource/archivo`
 
-- [ ] **Step 2: Write `tests/unit/logo.test.mjs`**
+- [x] **Step 2: Write `tests/unit/logo.test.mjs`**
 
 ```js
 import test from 'node:test';
@@ -647,12 +647,12 @@ test('brand images', async () => {
 });
 ```
 
-- [ ] **Step 3: Run it and see it fail**
+- [x] **Step 3: Run it and see it fail**
 
 Run: `node --test tests/unit/logo.test.mjs`
 Expected: FAIL.
 
-- [ ] **Step 4: Create `scripts/lib/text-path.mjs`**
+- [x] **Step 4: Create `scripts/lib/text-path.mjs`**
 
 - `loadFont(file) -> opentype.Font` (`file` is a path under `node_modules/@fontsource/…/files/`, the `.woff` static file).
 - `glyphAt(font, char, leftEdge, baseline, size) -> { d, box }`: the glyph outline positioned so the left edge of its bounding box is exactly `leftEdge`.
@@ -660,7 +660,7 @@ Expected: FAIL.
 
 Never call `font.getPath(text, …)`, `font.stringToGlyphs` or `font.forEachGlyph`: in opentype.js 2.0.0 they throw on Archivo. Lay a line out one character at a time: `font.charToGlyph(ch)`, add `font.getKerningValue(previous, glyph)`, draw with `glyph.getPath(x, baseline, size)`, then advance by `glyph.advanceWidth * size / font.unitsPerEm`. Read a `.woff` with `opentype.parse(buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength))`.
 
-- [ ] **Step 5: Create `scripts/make-logo.mjs`**
+- [x] **Step 5: Create `scripts/make-logo.mjs`**
 
 Copy the geometry (`rounded`, `tile`, `shapes`, gradients, the floor mask, dot circles) from the mock's `logo/build-logo.mjs`; after this task that script is no longer the source. Replace its two `<text>` elements with outlines:
 
@@ -671,20 +671,20 @@ Copy the geometry (`rounded`, `tile`, `shapes`, gradients, the floor mask, dot c
 
 The `y` is `#14B9DA`; the other glyphs take the wordmark colour. The script must fail with a clear message unless the top of the `ı` is between y = 74 and y = 77 and the right edge of the `a` is between x = 199.5 and x = 202 (the checked values are 75.0 and 200.9; see Start Here, section 5). It writes `src/components/logo-paths.js` and the two SVG files (ink wordmark `#1F2C62`, reversed `#FFFFFF`), each with the tagline, and prints `logo ok`.
 
-- [ ] **Step 6: Create `src/components/Logo.jsx`**
+- [x] **Step 6: Create `src/components/Logo.jsx`**
 
 Render from `logoPaths`. Gradient and mask ids must be unique per instance: derive them from `useId()` with every character outside `[A-Za-z0-9_-]` removed.
 
-- [ ] **Step 7: Update `scripts/make-brand-images.mjs`**
+- [x] **Step 7: Update `scripts/make-brand-images.mjs`**
 
 Render from the new SVG files instead of the PNG: `infyta-logo.png` is the ink logo with tagline, 1200px wide, transparent ground; `icon.png` is the mark alone (the logo cropped to x from -2 to 78) centred with 40px padding on a transparent 512 square; `apple-icon.png` is the same mark with 24px padding on `#1F2C62`; `opengraph-image.png` is a flat `#1F2C62` ground, the reversed logo with tagline 480px wide centred in the upper part, and the line "IT Solutions in Dhaka, Bangladesh" outlined with `lineAt` in `@fontsource/archivo/files/archivo-latin-600-normal.woff` at 40px, white, centred near the bottom. Keep writing `opengraph-image.alt.txt` unchanged.
 
-- [ ] **Step 8: Generate, test, look**
+- [x] **Step 8: Generate, test, look**
 
 Run: `node scripts/make-logo.mjs && node scripts/make-brand-images.mjs && node --test tests/unit/logo.test.mjs`
 Expected: `logo ok`, then PASS. Open `public/images/infyta-logo-reversed.svg` and the mock's `logo/infyta-logo-reversed.svg` side by side in a browser: letter positions and shapes must match.
 
-- [ ] **Step 9: Run everything and commit**
+- [x] **Step 9: Run everything and commit**
 
 Run: `npm run check`. Add `make-logo` to the scripts table in `README.md`.
 
