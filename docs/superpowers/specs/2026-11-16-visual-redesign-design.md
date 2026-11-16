@@ -1,6 +1,6 @@
 # Infyta website: visual redesign (Design)
 
-Date: 2026-11-16. Status: written for owner approval. Branch: `visual-redesign`.
+Date: 2026-11-16. Status: approved by the owner on 2026-11-16, including the calls in section 12. Branch: `visual-redesign`.
 
 ## 1. Intent
 
