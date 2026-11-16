@@ -11,7 +11,7 @@ Canonical origin: `https://infyta.com` (apex, no `www`, no trailing slash).
 4. Build command: `npm run build`
 5. Build output directory: `out`
 6. Environment variable: `NODE_VERSION=22`
-7. Save and deploy. The first build runs on `master`, which is still the Vite app (`vite build` writes `dist/`, not `out/`), so it is expected to fail with "output directory `out` not found". This is harmless: nothing goes live from it.
+7. Save and deploy. The first build runs on `master`, which is already the Next.js app, so it succeeds and serves the site as it was before the redesign at `<project>.pages.dev`. That hostname is not indexed by search engines (`public/_headers` sends `X-Robots-Tag: noindex` for it), and nothing reaches infyta.com until the custom domains are added in section 4.
 8. Get a preview of the new site. Preview builds start on a push after the project exists, so push a commit to `visual-redesign` (for example an empty one: `git commit --allow-empty -m "trigger preview" && git push`). Alternatively, in the project open Deployments > Create deployment (or "Retry deployment") and pick the `visual-redesign` branch. Cloudflare gives that build a `<hash>.<project>.pages.dev` URL and a `<branch>.<project>.pages.dev` alias.
 
 ## 2. Preview checks

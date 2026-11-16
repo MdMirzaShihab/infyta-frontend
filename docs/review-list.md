@@ -104,6 +104,8 @@ Accessibility to decide (not changed, because brand colours must stay): Lighthou
 colour contrast for white text on the teal brand colour (#3ac1c2) (the "Get Started" button),
 teal text on white ("Learn more" links, "Touch" highlight), and the small blue tags on service
 pages. Accessibility still scores 0.96. A darker teal for text and buttons would fix it.
+The redesign (section 4) fixed this: on Paper, teal text uses the darker, readable teal and the
+buttons are navy with white text. Accessibility now scores 1.00 on the pages tested.
 
 Note: the slider, the floating circles and the hero animations described above no longer exist.
 The redesign (section 4) replaced them, and the speed figures there are the current ones.
@@ -113,11 +115,11 @@ The redesign (section 4) replaced them, and the speed figures there are the curr
 What a visitor will notice, in plain words. Please read it and tell us what to change.
 
 ### The new look
-- The whole site has a new design: a technical drawing look, with thin lines, a grid, small
-  labels and one teal accent.
+- The whole site has a new design: a technical drawing look, with thin lines, small labels and
+  one teal accent.
 - There are two themes. "Paper" is light and "Blueprint" is dark. The site follows the visitor's
-  device setting at first, and a "Theme" switch (Paper, Blueprint) in the header and the footer
-  lets them choose. The choice is remembered.
+  device setting at first. A theme button in the header, and a "Theme" switch (Paper, Blueprint)
+  in the footer and the phone menu, let them choose. The choice is remembered.
 - The old photo slider on the home page is gone. In its place is a line drawing, "Typical office
   network", that draws itself once when the home page loads. If the device is set to reduce
   motion, or the page is printed, it appears complete at once.
@@ -183,6 +185,26 @@ What a visitor will notice, in plain words. Please read it and tell us what to c
   Infyta, this is {First Name} {Last Name}.", then the message, then "Email: {Email}").
 - One existing sentence appears somewhere new: the home page's meta description is shown as the
   intro under the headline. It is not rewritten.
+- Words only screen readers announce (not shown on the page):
+  - Home drawing: "Drawing of a typical office network. Each numbered part links to the Infyta
+    service that builds it." Each part is named after its service; the office outline is "IT
+    Support & Consultancy: the whole office".
+  - Service page drawings: "Drawing: a web application and a mobile app sharing one database,
+    linked to existing systems." (Software Development); "Drawing: internet link, router, firewall
+    and switch feeding separate segments for cameras, guest Wi-Fi and staff." (Network
+    Infrastructure); "Drawing: an office with workstations, a server, an access point and a router
+    inside one boundary." (IT Support & Consultancy); "Drawing: cameras and a recorder, and a door
+    terminal for access control and attendance, on their own network segment." (Security &
+    Surveillance); "Drawing: a rack of servers, a host running virtual machines, and a link to the
+    cloud." (Server & Cloud Solutions).
+  - Header and phone menu: "Infyta, home" (the logo link), "Infyta" (the logo), "Main" and "Mobile"
+    (the two link lists), "Call +880 1318 121558" (the phone button), "Open menu", "Close menu"
+    (both already on the old site) and "Menu" (the phone menu itself).
+  - Theme controls: the header button is "Switch between Paper (light) and Blueprint (dark) theme";
+    the Paper/Blueprint switch is announced as the group "Theme", using its visible label.
+  - Table captions: "Core expertise, technologies and certifications" (home and Team pages) and
+    "Technologies and certifications" (service pages).
+  - Service pages: "Breadcrumb" (the "Services / page name" line).
 
 ### Removed
 - The footer credit line "Designed with ❤️ by Infyta Team".
@@ -195,9 +217,28 @@ What a visitor will notice, in plain words. Please read it and tell us what to c
 - The detail drawings on service pages are small on phones (labels about 7px at 375px wide); portrait versions could be drawn later.
 - Form fields use a slightly stronger border than first planned so they meet contrast rules.
 - The security drawing shows the camera recorder and the door terminal on two separate cables, both on the "Cameras" segment.
+- The Chief Advisor's role line ("Chief Advisor & Senior Instructor") is no longer teal, although the mockup showed it teal: the design keeps colour for "on" states only.
+
+### For the owner to decide
+1. The "Theme" label beside the Paper/Blueprint switch has a box around it, as in the mockup, so
+   it looks a little like a third button. Keep the box, or show the label as plain text?
+2. With JavaScript switched off, the contact form's two buttons are disabled and nothing explains
+   why. Approve one sentence pointing to phone or WhatsApp instead, or leave it as it is.
+3. The open-hours status names a weekday ("Closed, opens Sunday 9 AM"). If a closure listed in
+   `closedDates` runs longer than six days, that weekday means the one after next. Showing a
+   date instead would be new wording. Decide before entering a long closure such as Eid.
 
 ### Lighthouse (mobile, local build)
-Measured on a local build with `npx lighthouse` (Performance, Accessibility), two runs each; the lower of the two is listed.
-- Home (`/`): Performance 0.97, Accessibility 0.99.
-- Network Infrastructure (`/services/network-infrastructure`): Performance 0.99, Accessibility 0.98.
-Both pages meet the targets (Performance 0.95 or more, Accessibility 0.98 or more).
+Measured on a local build with `npx lighthouse` (Performance, Accessibility), in pairs of runs.
+Performance moves between runs of the same build, mostly with how busy the computer is, so the
+range is listed as well as each pair.
+- Home (`/`): before the review fixes, Performance 0.99 and 0.99. After them, 0.89 and 0.93 in
+  the first pair (the computer was busy) and 1.00 and 1.00 in the last; 0.89 to 1.00 over 11
+  runs. Accessibility 1.00.
+- Network Infrastructure (`/services/network-infrastructure`): before the review fixes,
+  Performance 0.95 and 0.98. After them, 1.00 in all four runs. Accessibility 1.00.
+The build from before the fixes, measured in turn with the new one while the computer was busy,
+ranged 0.94 to 1.00 on the home page, so the low runs come from the computer, not the change.
+Accessibility meets its target (0.98 or more) on both pages. Performance meets its target (0.95
+or more) on the network page in every run, and on the home page in every run except those taken
+while the computer was busy.
