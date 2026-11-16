@@ -1,13 +1,13 @@
 import "./globals.css";
 import "@/styles/tokens.css";
 import "@/styles/base.css";
+import "@/styles/shell.css";
 import { Archivo } from "next/font/google";
 import { themeScript, THEME_COLORS } from "@/lib/theme-script";
 import { primaryEmail } from "@/content/email";
-import Navbar from "@/components/Navbar";
+import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
-import MotionProvider from "@/components/MotionProvider";
 import { rootMetadata } from "@/lib/seo/metadata";
 import { businessGraph } from "@/lib/seo/jsonld";
 
@@ -29,12 +29,11 @@ export default function RootLayout({ children }) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <a className="skip" href="#main">Skip to content</a>
+        <Nav />
+        <main id="main">{children}</main>
+        <Footer email={primaryEmail()} />
         <JsonLd data={businessGraph()} />
-        <MotionProvider>
-          <Navbar />
-          <main>{children}</main>
-          <Footer email={primaryEmail()} />
-        </MotionProvider>
       </body>
     </html>
   );

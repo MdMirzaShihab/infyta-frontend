@@ -1,0 +1,82 @@
+/* Site shell: header, Services list, theme controls, open-hours status, footer and mobile menu.
+   Ported from the mock's Nav, Footer and Mobile menu blocks (docs/superpowers/specs/2026-11-16-visual-redesign-assets/mock/css.mjs). */
+
+/* Nav */
+.nav{position:sticky;top:0;z-index:40;background:var(--bg);color:var(--fg);border-bottom:1px solid var(--rule);transition:background-color .2s,color .2s}
+.nav__in{display:flex;align-items:center;gap:28px;min-height:76px}
+.logo{display:block;flex:none}.logo svg{height:52px;width:auto}
+.nav__in>nav{margin-left:auto}
+.nav__links{display:flex;gap:4px}
+.nav__links a,.nav__links button{display:block;padding:10px 12px;font-weight:540;font-size:.9875rem;text-decoration:none;border-radius:4px}
+.nav__links a:hover,.nav__links button:hover{text-decoration:underline;text-decoration-thickness:1.5px}
+.nav__links [aria-current="page"]{font-weight:700}
+.has-menu{position:relative}
+.menu{position:absolute;left:-8px;top:100%;min-width:268px;padding:8px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:0 18px 40px -18px rgba(15,22,56,.45);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .14s,transform .14s,visibility .14s}
+.has-menu:hover .menu,.has-menu:focus-within .menu,.has-menu.is-open .menu{opacity:1;visibility:visible;transform:none}
+/* Once the script runs, the button (and the pointer) open the list; focus alone does not, so Escape can close it. */
+.has-menu.is-live:not(.is-open):not(:hover) .menu{opacity:0;visibility:hidden;transform:translateY(-4px)}
+.has-menu>button{display:flex!important;align-items:center;gap:7px}
+.has-menu>button::after{content:"";width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-2px)}
+.menu a{padding:9px 12px!important}
+.menu a:hover{background:rgba(58,193,194,.16);text-decoration:none!important}
+.nav__meta{display:flex;align-items:center;gap:20px;padding-left:22px;border-left:1px solid var(--rule)}
+.status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px rgba(58,193,194,.25);flex:none}
+.status.is-closed .dot{background:var(--amber);box-shadow:0 0 0 3px rgba(233,162,59,.25)}
+.status.is-unknown .dot{display:none}
+.tel{font-weight:640;font-variant-numeric:tabular-nums;text-decoration:none;white-space:nowrap}
+.tel:hover{text-decoration:underline}
+.themebtn{display:inline-grid;place-items:center;width:40px;height:40px;border-radius:6px;border:1.5px solid var(--rule);flex:none}
+.themebtn:hover{border-color:var(--fg)}
+.themebtn svg{width:19px;height:19px}
+.themeseg{display:inline-flex;align-items:center;gap:10px}
+.themeseg span{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.themeseg button{padding:6px 12px;font-size:.875rem;font-weight:560;color:var(--fg2)}
+.themeseg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+.nav__burger,.nav__call{display:none}
+.nav__call svg{width:20px;height:20px}
+
+/* Footer: the title block */
+.foot{padding-block:clamp(48px,6vw,80px) 28px}
+.foot__grid{display:grid;grid-template-columns:1.3fr 1fr 1.25fr 1.6fr;border:1px solid var(--rule);border-radius:8px}
+.foot__grid>div{padding:26px 26px 28px;border-left:1px solid var(--rule);min-width:0}
+.foot__grid>div:first-child{border-left:0}
+.foot .logo svg{height:92px}
+.foot .logo+.small{margin-top:16px;max-width:26ch}
+.foot h4{font-stretch:var(--w-label);font-weight:540;font-size:.9rem;color:var(--fg2);margin-bottom:12px}
+.foot li{margin-top:7px}
+.foot li a{text-decoration:none}
+.foot li a:hover{text-decoration:underline}
+.foot__end{display:flex;justify-content:space-between;align-items:center;gap:16px 28px;flex-wrap:wrap;margin-top:22px;font-size:.9rem;color:var(--fg2)}
+
+/* Mobile menu: a navy panel in both themes (.inverse supplies the rest of its tokens). */
+.mm{position:fixed;inset:0;z-index:60;background:var(--ink);color:var(--white);padding:20px var(--gut) 32px;display:none;flex-direction:column;overflow:auto}
+.mm.is-open{display:flex}
+.mm__top{display:flex;justify-content:space-between;align-items:center;min-height:56px}
+.mm .nav__burger{display:inline-grid}
+.mm nav{margin-top:18px}
+.mm nav a{display:block;padding:14px 0;border-top:1px solid var(--rule);font-stretch:108%;font-weight:640;font-size:1.5rem;text-decoration:none}
+.mm nav .sub a{font-size:1.0625rem;font-weight:500;font-stretch:100%;padding:10px 0 10px 18px;border-top:0;color:var(--fg2)}
+.mm__cta{display:grid;gap:10px;margin-top:auto;padding-top:28px}
+.mm .btn{justify-content:center;--btn-bg:var(--white);--btn-fg:var(--ink)}
+.mm .btn--ghost{color:var(--white);border-color:var(--white)}
+
+/* Responsive */
+@media (max-width:1180px){
+  .nav__meta .status{display:none}
+}
+@media (max-width:1039px){
+  .nav__links,.nav__meta{display:none}
+  .nav__in{min-height:64px;gap:10px}
+  .logo svg{height:44px}
+  .nav__call,.nav__burger{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:6px;border:1.5px solid var(--rule)}
+  .nav__call{margin-left:auto}
+  .foot__grid{grid-template-columns:1fr 1fr}
+  .foot__grid>div:nth-child(3){border-left:0}
+  .foot__grid>div:nth-child(n+3){border-top:1px solid var(--rule)}
+}
+@media (max-width:719px){
+  .foot__grid{grid-template-columns:1fr}
+  .foot__grid>div{border-left:0}
+  .foot__grid>div+div{border-top:1px solid var(--rule)}
+}
