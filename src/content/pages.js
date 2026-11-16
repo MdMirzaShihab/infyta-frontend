@@ -31,8 +31,8 @@ export const pages = {
   },
 };
 
-// Filled in Task 4.
-export const homeIntro = '';
+export const homeIntro =
+  "Infyta is an IT solutions company in Azimpur, Dhaka, Bangladesh. We provide software development, network infrastructure, IT support and consultancy, security and surveillance, and server and cloud solutions. Infyta's team includes certified engineers and instructors, and we work with businesses in Dhaka and across Bangladesh.";
 
 export function allPaths() {
   return [

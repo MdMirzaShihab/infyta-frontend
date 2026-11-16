@@ -5,6 +5,8 @@ import { FaUsers, FaGlobe, FaLightbulb, FaRocket, FaShieldAlt, FaHandshake } fro
 import Link from "next/link";
 import React from "react";
 import FloatingOrbs from "@/components/FloatingOrbs";
+import { services } from "@/content/services";
+import { site, primaryEmail } from "@/content/site";
 
 const MotionLink = motion.create(Link);
 
@@ -132,6 +134,64 @@ export default function AboutView() {
                 &quot;We deliver cutting-edge, secure, and scalable IT solutions—from software to infrastructure—helping businesses overcome challenges with innovation and excellence. Our commitment is to make technology an enabler, not a barrier, for growth.&quot;
               </p>
             </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Infyta at a glance */}
+      <section className="pb-20">
+        <div className="container mx-auto px-6">
+          <div className="bg-white p-8 md:p-10 rounded-xl shadow-xl border border-gray-100">
+            <div className="flex items-center mb-6">
+              <div className="bg-primary/10 p-3 rounded-full mr-4 text-primary">
+                <FaLightbulb className="text-2xl" aria-hidden="true" />
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold text-dark">Infyta at a glance</h2>
+            </div>
+            <dl className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-6 text-gray-600">
+              <div>
+                <dt className="font-semibold text-dark mb-1">What we do</dt>
+                <dd>{site.name} is an IT solutions company providing software, network, server and cloud, security and IT support services to businesses in Dhaka and across Bangladesh.</dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-dark mb-1">Where we are</dt>
+                <dd>
+                  <address className="not-italic">{site.address.display}</address>
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-dark mb-1">Services</dt>
+                <dd>
+                  <ul className="space-y-1">
+                    {services.map((service) => (
+                      <li key={service.slug}>
+                        <Link href={`/services/${service.slug}`} className="text-primary hover:underline">
+                          {service.name}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-dark mb-1">Opening hours</dt>
+                {site.hours.display.map((line) => (
+                  <dd key={line}>{line}</dd>
+                ))}
+              </div>
+              <div>
+                <dt className="font-semibold text-dark mb-1">Phone</dt>
+                <dd>
+                  <a href={`tel:${site.phone.e164}`} className="text-primary hover:underline">{site.phone.display}</a>
+                </dd>
+              </div>
+              <div>
+                <dt className="font-semibold text-dark mb-1">Email</dt>
+                <dd>
+                  <a href={`mailto:${primaryEmail()}`} className="text-primary hover:underline">{primaryEmail()}</a>
+                </dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>

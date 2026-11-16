@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import ServiceIcon from "@/components/ServiceIcon";
 import { services } from "@/content/services";
+import { homeIntro } from "@/content/pages";
 
 const MotionLink = motion.create(Link);
 
@@ -54,7 +55,7 @@ export default function Services() {
             className="w-24 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"
           />
           <p className="text-lg text-gray-600 mt-6 max-w-3xl mx-auto">
-            Comprehensive IT solutions designed to propel your business forward.
+            {homeIntro}
           </p>
         </motion.div>
 
