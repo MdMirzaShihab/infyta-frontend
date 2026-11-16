@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Infyta Design Direction</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Anek+Bangla:wght@400..700&family=Montserrat:wght@800&family=Barlow+Semi+Condensed:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout: one drawing sheet as the cover, then left-aligned bands that read as its key, schedule and title block.
+   A single committed look (blueline paper + blueprint navy): it does not flip with the viewer's theme. */
+:root{
+  --bg:#F4F6FA;--fg:#1F2C62;--fg2:rgba(31,44,98,.76);--rule:rgba(31,44,98,.17);--body:#FFFFFF;--panel:#FFFFFF;--accent:#0B7378;--btn-bg:#1F2C62;--btn-fg:#fff;
+  --gut:clamp(20px,4vw,48px);
+  --paper:#F4F6FA; --sheet:#FFFFFF; --ink:#1F2C62; --signal:#3AC1C2; --signal-deep:#0B7378; --cyan:#14B9DA; --amber:#E9A23B;
+  --w-display:116%; --w-head:110%; --w-text:100%; --w-label:80%;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ink)}
+body{margin:0;font-family:Archivo,system-ui,sans-serif;font-size:1.0625rem;line-height:1.6;font-stretch:var(--w-text);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-underline-offset:.2em;text-decoration-thickness:1px}
+p{margin:0;text-wrap:pretty}
+h1,h2,h3,h4{margin:0;text-wrap:balance}
+ul,ol{margin:0;padding:0;list-style:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent,var(--signal-deep));outline-offset:3px;border-radius:3px}
+.skip{position:absolute;left:12px;top:-60px;background:var(--ink);color:#fff;padding:10px 14px;border-radius:4px;z-index:100}
+.skip:focus{top:12px}
+
+/* Two modes: blueline (ink on paper) and blueprint (white on navy) */
+.paper,.cover{--bg:var(--paper);--fg:var(--ink);--fg2:rgba(31,44,98,.76);--rule:rgba(31,44,98,.17);--body:var(--sheet);--panel:var(--sheet);--accent:var(--signal-deep);--btn-bg:var(--ink);--btn-fg:#fff}
+.blueprint,html[data-cover="blueprint"] .cover{--bg:var(--ink);--fg:#fff;--fg2:rgba(255,255,255,.78);--rule:rgba(255,255,255,.22);--body:var(--ink);--panel:#243372;--accent:var(--signal);--btn-bg:#fff;--btn-fg:var(--ink)}
+.paper,.blueprint,.cover{background:var(--bg);color:var(--fg)}
+.wrap{max-width:1296px;margin-inline:auto;padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px))}
+.band{padding-block:clamp(64px,7.5vw,112px)}
+
+/* Type */
+h1{font-stretch:var(--w-display);font-weight:700;font-size:clamp(2.35rem,5.1vw,4.25rem);line-height:.98;letter-spacing:-.026em}
+h2{font-stretch:var(--w-head);font-weight:680;font-size:clamp(1.8rem,3.1vw,2.7rem);line-height:1.06;letter-spacing:-.02em}
+h3{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spacing:-.01em}
+.lede{font-size:clamp(1.0625rem,1.3vw,1.1875rem);line-height:1.55;color:var(--fg2);max-width:62ch}
+.small{font-size:.9375rem;color:var(--fg2)}
+.label{font-stretch:var(--w-label);font-weight:540;font-size:.9rem;letter-spacing:.012em;color:var(--fg2)}
+.tag{display:inline-block;font-stretch:78%;font-weight:620;font-size:.8125rem;line-height:1;letter-spacing:.02em;padding:5px 7px 4px;border:1px solid currentColor;border-radius:3px;background:var(--body);white-space:nowrap}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+
+/* Buttons: a port with a link light */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 20px 0 16px;border-radius:5px;background:var(--btn-bg);color:var(--btn-fg);font-stretch:104%;font-weight:620;font-size:1rem;text-decoration:none;border:1.5px solid var(--btn-bg);white-space:nowrap;transition:background-color .15s,color .15s}
+.btn::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.38;transition:all .15s}
+.btn:hover::before,.btn:focus-visible::before{background:var(--signal);opacity:1;box-shadow:0 0 0 4px rgba(58,193,194,.28)}
+.btn--ghost{background:transparent;color:var(--fg);border-color:var(--fg);padding-left:20px}
+.btn--ghost::before{display:none}
+.btn--sm{min-height:40px;padding:0 15px 0 12px;font-size:.9375rem}
+.btn svg{width:18px;height:18px;margin-left:-2px}
+.btn--icon::before{display:none}
+.textlink{font-weight:600;text-decoration:underline}
+
+/* Nav */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bg);color:var(--fg);border-bottom:1px solid var(--rule);transition:background-color .2s,color .2s}
+.nav__in{display:flex;align-items:center;gap:28px;min-height:76px}
+.logo{display:block;flex:none}.logo svg{height:52px;width:auto}
+.logo .l-ink,.blueprint .logo .l-ink,html[data-cover="blueprint"] .cover .logo .l-ink{display:none}
+.logo .l-rev{display:block}
+.paper .logo .l-rev,html[data-cover="paper"] .cover .logo .l-rev{display:none}
+.paper .logo .l-ink,html[data-cover="paper"] .cover .logo .l-ink{display:block}
+.nav__in>nav{margin-left:auto}
+.nav__links{display:flex;gap:4px}
+.nav__links a,.nav__links button{display:block;padding:10px 12px;font-weight:540;font-size:.9875rem;text-decoration:none;border-radius:4px}
+.nav__links a:hover,.nav__links button:hover{text-decoration:underline;text-decoration-thickness:1.5px}
+.nav__links [aria-current="page"]{font-weight:700}
+.has-menu{position:relative}
+.menu{position:absolute;left:-8px;top:100%;min-width:268px;padding:8px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:0 18px 40px -18px rgba(15,22,56,.45);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .14s,transform .14s,visibility .14s}
+.has-menu:hover .menu,.has-menu:focus-within .menu{opacity:1;visibility:visible;transform:none}
+.menu a{padding:9px 12px!important}
+.menu a:hover{background:rgba(58,193,194,.16);text-decoration:none!important}
+.nav__meta{display:flex;align-items:center;gap:20px;padding-left:22px;border-left:1px solid var(--rule)}
+.status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px rgba(58,193,194,.25);flex:none}
+.status.is-closed .dot{background:var(--amber);box-shadow:0 0 0 3px rgba(233,162,59,.25)}
+.tel{font-weight:640;font-variant-numeric:tabular-nums;text-decoration:none;white-space:nowrap}
+.tel:hover{text-decoration:underline}
+.nav__burger,.nav__call{display:none}
+.num{display:inline-grid;place-items:center;width:24px;height:24px;border:1.5px solid currentColor;border-radius:50%;font-size:.78rem;font-weight:700;line-height:1;flex:none;font-variant-numeric:tabular-nums}
+
+html .nav.is-paper{--bg:var(--paper);--fg:var(--ink);--fg2:rgba(31,44,98,.76);--rule:rgba(31,44,98,.17);--body:var(--sheet);--panel:var(--sheet);--accent:var(--signal-deep);--btn-bg:var(--ink);--btn-fg:#fff}
+html .nav.is-paper .logo .l-rev{display:none}html .nav.is-paper .logo .l-ink{display:block}
+
+/* Hero */
+html[data-hero="sheet"] section[data-hero="stack"],html[data-hero="stack"] section[data-hero="sheet"]{display:none}
+/* Two-class selectors so the later .hero and .sheet rules cannot undo this spacing. */
+.hero.hero--sheet{padding-block:clamp(14px,1.8vw,22px) clamp(44px,5vw,72px)}
+.sheet.sheet--hero{margin:0;display:flex;flex-direction:column}
+.sheet--hero .sheet__fig{margin:0;order:-1;border-bottom:1.5px solid var(--fg)}
+.sheet--hero .titleblock{border-top:1px solid var(--rule)}
+.tb{display:grid;grid-template-columns:minmax(0,7.5fr) minmax(0,4.5fr)}
+.tb>div{padding:clamp(18px,2vw,28px) clamp(16px,2.2vw,30px);min-width:0}
+.tb__lede{border-left:1px solid var(--rule);display:flex;align-items:center}
+.tb h1{font-size:clamp(1.95rem,3.5vw,3.05rem);line-height:1;letter-spacing:-.024em}
+.tb .hero__cta{margin-top:clamp(16px,1.7vw,24px)}
+.tb .lede{font-size:1.0625rem}
+.hero{padding-block:clamp(26px,3.4vw,46px) clamp(44px,5vw,72px)}
+.hero__row{display:flex;gap:40px;align-items:flex-end;justify-content:space-between;margin-top:clamp(18px,2vw,26px)}
+.hero__cta{display:flex;gap:12px;flex-wrap:wrap}
+.sheet{margin:clamp(26px,2.6vw,36px) 0 0;border:1.5px solid var(--fg);border-radius:6px;background:var(--panel);overflow:hidden}
+html[data-cover="blueprint"] .cover .sheet{background:transparent}
+.sheet__dwg{padding:clamp(10px,1.6vw,22px) clamp(10px,1.6vw,22px) clamp(6px,1vw,12px)}
+.titleblock{display:grid;grid-template-columns:1.25fr 1.1fr .8fr 1.6fr;border-top:1.5px solid var(--fg)}
+.titleblock div{padding:10px 16px 11px;border-left:1px solid var(--rule);min-width:0}
+.titleblock div:first-child{border-left:0}
+.titleblock dt{font-stretch:var(--w-label);font-size:.78rem;font-weight:500;color:var(--fg2);line-height:1.2}
+.titleblock dd{margin:2px 0 0;font-weight:600;font-size:.95rem;line-height:1.3}
+dl{margin:0}
+
+/* Drawings */
+.dwg{width:100%;height:auto;overflow:visible;fill:none;stroke:currentColor;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;color:var(--fg)}
+*{vector-effect:non-scaling-stroke}
+/* Symbol parts are cloned into <use> shadow trees, where selectors cannot reach outside the symbol: keep these ancestor-free. */
+.body{fill:var(--body)}
+.thin{stroke-width:1.1}
+.port rect{stroke-width:1}
+.port .lit,.led{fill:var(--signal)}
+.led{stroke-width:1}
+.dots circle,.tap{fill:currentColor;stroke:none}
+.dwg .wan,.dwg .boundary{stroke-dasharray:5 5}
+.dwg .boundary{stroke-width:1.2}
+.dwg .hit{stroke:none;fill:transparent;pointer-events:all}
+.dwg .knock{fill:var(--panel);stroke:none}
+html[data-cover="blueprint"] .cover .dwg .knock{fill:var(--bg)}
+.dwg text{stroke:none;fill:currentColor;font-family:inherit}
+.dwg .t1{font-size:13.5px;font-stretch:86%;font-weight:640;letter-spacing:.004em}
+.dwg .t2{font-size:12.5px;font-stretch:82%;font-weight:440;opacity:.8}
+.dwg .flag rect{fill:var(--body);stroke-width:1}
+.dwg .flag text{font-size:11px;font-stretch:78%;font-weight:640;letter-spacing:.02em}
+.dwg .bub circle{fill:var(--body)}
+.dwg .bub text{font-size:12.5px;font-weight:720;font-stretch:96%}
+.dwg .svc{color:var(--fg);transition:color .16s,opacity .16s;outline-offset:6px;cursor:pointer}
+.dwg .svc:hover,.dwg .svc:focus-visible,.dwg .svc.is-on{color:var(--accent)}
+.dwg .svc:hover .bub circle,.dwg .svc:focus-visible .bub circle,.dwg .svc.is-on .bub circle{fill:currentColor}
+.dwg .svc:hover .bub text,.dwg .svc:focus-visible .bub text,.dwg .svc.is-on .bub text{fill:var(--body)}
+.dwg:has(.svc:hover) .svc:not(:hover),.dwg.has-on .svc:not(.is-on){opacity:.42}
+.dwg--tall{display:none;max-width:460px}
+.dwg--mini{width:168px;flex:none}
+.dwg--mini,.dwg--detail{color:inherit}
+
+/* One load sequence: the network comes up. */
+@keyframes draw{to{stroke-dashoffset:1}}
+@keyframes rise{from{opacity:0}to{opacity:1}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+/* Dash and gap are 3x the path so the reveal still completes when the drawing is scaled (strokes are non-scaling). */
+.dwg--wide .wire,.dwg--tall .wire{stroke-dasharray:3 3;stroke-dashoffset:3;animation:draw 1.1s cubic-bezier(.3,0,.3,1) var(--d,0s) forwards}
+.dwg .wire.quick{animation-duration:.4s}
+.dwg--wide .rise,.dwg--tall .rise{opacity:0;animation:rise .34s ease-out var(--d,0s) forwards}
+.dwg--wide .fade,.dwg--tall .fade{opacity:0;animation:fade .5s ease-out var(--d,0s) forwards}
+@media (prefers-reduced-motion:reduce){
+  .dwg .wire,.dwg .rise,.dwg .fade{animation:none!important;opacity:1!important;stroke-dasharray:none!important}
+  html{scroll-behavior:auto}
+}
+
+/* Section heads */
+.head{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:clamp(20px,4vw,64px);align-items:end;margin-bottom:clamp(28px,4vw,52px)}
+.head p{color:var(--fg2);max-width:62ch}
+
+/* Services: the key to the drawing */
+.key{border-bottom:1px solid var(--rule)}
+.key__row{display:grid;grid-template-columns:28px minmax(0,1.15fr) minmax(0,1fr) 168px;gap:clamp(16px,2.4vw,36px);align-items:center;padding:26px 14px;margin-inline:-14px;border-top:1px solid var(--rule);text-decoration:none;border-radius:8px;transition:background-color .15s}
+.key__row:hover,.key__row:focus-visible{background:var(--panel);border-top-color:transparent}
+.key__row:hover + .key__row,.key__row:focus-visible + .key__row{border-top-color:transparent}
+.key__row:hover .num,.key__row:focus-visible .num{background:var(--ink);color:#fff;border-color:var(--ink)}
+.key__row:hover h3,.key__row:focus-visible h3{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.18em}
+.key__row:hover .dwg--mini,.key__row:focus-visible .dwg--mini{color:var(--signal-deep)}
+.key__row .num{align-self:start;margin-top:3px}
+.key__row p{color:var(--fg2);margin-top:6px;max-width:44ch}
+.key__with{display:grid;gap:10px}
+.after{margin-top:32px}
+
+/* Expertise schedule */
+.sched{width:100%;border-collapse:collapse;font-size:1rem}
+.sched caption{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+.sched th,.sched td{text-align:left;vertical-align:top;padding:20px 24px 20px 0;border-top:1px solid var(--rule)}
+.sched thead th{border-top:0;padding-block:0 12px;font-stretch:var(--w-label);font-weight:540;font-size:.9rem;color:var(--fg2)}
+.sched tbody th{font-stretch:106%;font-weight:640;font-size:1.125rem;width:25%}
+.sched td:nth-child(2){color:var(--fg2);width:41%}
+.sched tr:last-child>*{border-bottom:1px solid var(--rule)}
+.panel{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:clamp(20px,3vw,40px)}
+
+/* Advisor */
+.advisor{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:clamp(28px,6vw,96px);align-items:center}
+.portrait{position:relative;isolation:isolate;margin:0;background:#DCE9F2;border-radius:8px;overflow:hidden;aspect-ratio:4/5;max-width:420px}
+.portrait img{width:100%;height:100%;object-fit:cover;object-position:50% 12%;filter:grayscale(1) contrast(1.06);mix-blend-mode:multiply}
+.portrait::after{content:"";position:absolute;inset:0;background:var(--ink);mix-blend-mode:screen;pointer-events:none}
+.advisor__name{font-stretch:var(--w-display);font-weight:700;font-size:clamp(2.1rem,4.4vw,3.6rem);line-height:1;letter-spacing:-.024em;margin-top:14px}
+.advisor__role{margin-top:10px;font-size:1.125rem;color:var(--accent);font-weight:560}
+.ticks{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;margin-top:28px}
+.ticks li{position:relative;padding-left:20px;color:var(--fg2);line-height:1.45}
+.ticks li::before{content:"";position:absolute;left:0;top:.56em;width:8px;height:8px;border-radius:50%;background:var(--signal)}
+.advisor .tags{margin-top:26px}
+.advisor .btn{margin-top:32px}
+
+/* Contact */
+.contact{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(28px,5vw,72px);align-items:start}
+.contact h2{max-width:14ch}
+.contact .lede{margin-top:18px}
+.contact__cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hours__state{display:flex;align-items:center;gap:10px;font-stretch:106%;font-weight:660;font-size:1.25rem;line-height:1.25}
+.week{display:grid;grid-template-columns:repeat(7,1fr);gap:0;margin-top:18px;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.week div{padding:10px 4px 9px;text-align:center;border-left:1px solid var(--rule);font-size:.875rem;line-height:1.25}
+.week div:first-child{border-left:0}
+.week b{display:block;font-stretch:90%;font-weight:640}
+.week span{display:block;font-stretch:80%;color:var(--fg2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.week .is-off{background:repeating-linear-gradient(135deg,transparent 0 5px,rgba(31,44,98,.07) 5px 6px)}
+.week .is-today{box-shadow:inset 0 3px 0 var(--signal)}
+.week .is-today b{color:var(--signal-deep)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:22px 28px;margin-top:26px;padding-top:24px;border-top:1px solid var(--rule)}
+.facts dt{font-stretch:var(--w-label);font-weight:540;font-size:.9rem;color:var(--fg2)}
+.facts dd{margin:3px 0 0;font-weight:560;line-height:1.4}
+.facts .wide{grid-column:1/-1}
+.bn{font-family:'Anek Bangla',Archivo,sans-serif;font-weight:560;font-size:1.06em}
+
+/* Footer: the title block */
+.foot{padding-block:clamp(48px,6vw,80px) 28px}
+.foot__grid{display:grid;grid-template-columns:1.3fr 1fr 1.25fr 1.6fr;border:1px solid var(--rule);border-radius:8px}
+.foot__grid>div{padding:26px 26px 28px;border-left:1px solid var(--rule);min-width:0}
+.foot__grid>div:first-child{border-left:0}
+.foot .logo svg{height:92px}
+.foot h4{font-stretch:var(--w-label);font-weight:540;font-size:.9rem;color:var(--fg2);margin-bottom:12px}
+.foot li{margin-top:7px}
+.foot li a{text-decoration:none}
+.foot li a:hover{text-decoration:underline}
+.foot__end{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:22px;font-size:.9rem;color:var(--fg2)}
+
+/* Service page */
+.crumb{display:flex;gap:8px;font-size:.95rem;color:var(--fg2)}
+.crumb a{font-weight:560}
+.svc-hero{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(24px,4vw,64px);align-items:center;padding-block:clamp(28px,4vw,52px) clamp(40px,5vw,72px)}
+.svc-hero h1{margin-top:18px;font-size:clamp(2.2rem,4.6vw,3.9rem)}
+.svc-hero .lede{margin-top:18px}
+.svc-hero .hero__cta{margin-top:28px}
+.svc-hero figure{margin:0;border:1.5px solid var(--fg);border-radius:6px;background:var(--panel);padding:clamp(14px,2vw,26px)}
+.split{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,80px);align-items:start}
+.prose p{max-width:66ch;color:var(--fg2)}
+.prose p+p{margin-top:1.1em}
+.prose h2{margin-bottom:22px}
+.spec h3{margin-bottom:8px}
+.spec li{padding:16px 0;border-top:1px solid var(--rule)}
+.spec li:last-child{border-bottom:1px solid var(--rule)}
+.spec b{display:block;font-weight:640}
+.spec span{display:block;color:var(--fg2);font-size:.975rem;line-height:1.5;margin-top:2px}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:step;margin-top:clamp(24px,3vw,40px)}
+.steps li{counter-increment:step;position:relative;padding:34px 24px 0 0;color:var(--fg2);line-height:1.5}
+.steps li::before{content:counter(step);position:absolute;left:0;top:-13px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--fg);background:var(--bg);color:var(--fg);display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.steps li::after{content:"";position:absolute;left:26px;right:0;top:0;border-top:1.5px solid var(--fg)}
+.steps li:last-child::after{border-top-style:dashed}
+.steps b{color:var(--fg);font-weight:640}
+.faq details{border-top:1px solid var(--rule)}
+.faq details:last-child{border-bottom:1px solid var(--rule)}
+.faq summary{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:20px 0;font-stretch:104%;font-weight:620;font-size:1.125rem;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";width:12px;height:12px;flex:none;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translate(-3px,-3px);transition:transform .18s}
+.faq details[open] summary::after{transform:rotate(225deg) translate(-2px,-2px)}
+.faq p{padding:0 0 22px;max-width:70ch;color:var(--fg2)}
+.endcta{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+
+/* Mobile menu */
+.mm{position:fixed;inset:0;z-index:60;background:var(--ink);color:#fff;padding-top:calc(20px + env(safe-area-inset-top,0px));padding-bottom:calc(32px + env(safe-area-inset-bottom,0px));padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px));display:none;flex-direction:column;overflow:auto;--fg2:rgba(255,255,255,.78);--rule:rgba(255,255,255,.22)}
+.mm.is-open{display:flex}
+.mm__top{display:flex;justify-content:space-between;align-items:center;min-height:56px}
+.mm nav a{display:block;padding:14px 0;border-top:1px solid var(--rule);font-stretch:108%;font-weight:640;font-size:1.5rem;text-decoration:none}
+.mm nav .sub a{font-size:1.0625rem;font-weight:500;font-stretch:100%;padding:10px 0 10px 18px;border-top:0;color:var(--fg2)}
+.mm__cta{display:grid;gap:10px;margin-top:auto;padding-top:28px}
+.mm .btn{justify-content:center;--btn-bg:#fff;--btn-fg:var(--ink)}
+.mm .btn--ghost{color:#fff;border-color:#fff}
+
+/* Responsive */
+@media (max-width:1180px){
+  .nav__meta .status{display:none}
+}
+@media (max-width:1039px){
+  .wide-only{display:none}
+  .sheet--hero .sheet__fig{order:0;border-top:1.5px solid var(--fg);border-bottom:0}
+  .sheet--hero .titleblock{border-top:1.5px solid var(--fg)}
+  .tb{grid-template-columns:minmax(0,1fr)}
+  .tb__lede{border-left:0;border-top:1px solid var(--rule)}
+  .dwg--wide{display:none}.dwg--tall{display:block}
+  .nav__links,.nav__meta{display:none}
+  .nav__in{min-height:64px;gap:10px}
+  .logo svg{height:44px}
+  .nav__call,.nav__burger{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:6px;border:1.5px solid var(--rule)}
+  .nav__call{margin-left:auto}
+  .hero__row{flex-direction:column;align-items:flex-start;gap:22px}
+  .sheet{display:grid;grid-template-columns:minmax(0,1fr)}
+  .sheet__dwg{display:grid;justify-items:center}
+  .titleblock{grid-template-columns:1fr 1fr}
+  .titleblock div:nth-child(3){border-left:0}
+  .titleblock div:nth-child(n+3){border-top:1px solid var(--rule)}
+  .head{grid-template-columns:1fr;align-items:start}
+  .key__row{grid-template-columns:28px minmax(0,1fr) 168px}
+  .key__with{grid-column:2/3}
+  .key__row .dwg--mini{grid-column:3;grid-row:1/3}
+  .advisor,.contact,.svc-hero,.split{grid-template-columns:1fr}
+  .foot__grid{grid-template-columns:1fr 1fr}
+  .foot__grid>div:nth-child(3){border-left:0}
+  .foot__grid>div:nth-child(n+3){border-top:1px solid var(--rule)}
+  .steps{grid-template-columns:1fr 1fr;row-gap:36px}
+}
+@media (max-width:719px){
+  .key__row{grid-template-columns:28px minmax(0,1fr);padding-block:22px}
+  .key__row .dwg--mini{display:none}
+  .sched thead{display:none}
+  .sched,.sched tbody,.sched tr,.sched th,.sched td{display:block;width:auto!important}
+  .sched tr{padding:18px 0;border-top:1px solid var(--rule)}
+  .sched tr:last-child{border-bottom:1px solid var(--rule)}
+  .sched th,.sched td{border:0!important;padding:0}
+  .sched td{margin-top:8px}
+  .ticks{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .week span{font-size:.72rem}
+  .week b{font-size:.8rem}
+  .foot__grid{grid-template-columns:1fr}
+  .foot__grid>div{border-left:0}
+  .foot__grid>div+div{border-top:1px solid var(--rule)}
+  .steps{grid-template-columns:1fr}
+  .steps li{padding:0 0 0 44px}
+  .steps li::before{top:-2px}
+  .steps li::after{left:12.5px;right:auto;top:28px;bottom:-32px;border-top:0;border-left:1.5px solid var(--fg)}
+  .steps li:last-child::after{display:none}
+  .titleblock{grid-template-columns:1fr}
+  .titleblock div{border-left:0}
+  .titleblock div+div{border-top:1px solid var(--rule)}
+  .btn{min-height:50px}
+  .hero__cta,.contact__cta{width:100%}
+  .hero__cta .btn,.contact__cta .btn{flex:1 1 auto;justify-content:center}
+}
+
+/* Mockup-only controls (not part of the design) */
+.mockbar{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:90;display:flex;flex-wrap:wrap;justify-content:center;gap:6px 8px;width:max-content;max-width:calc(100% - 20px);padding:7px;border-radius:22px;background:#0d1330;color:#fff;font:500 12.5px/1 system-ui,sans-serif;box-shadow:0 10px 30px -8px rgba(0,0,0,.5)}
+.mockbar .seg{display:flex;background:rgba(255,255,255,.1);border-radius:999px;padding:3px}
+.mockbar button{padding:7px 11px;border-radius:999px;color:#fff;font:inherit;white-space:nowrap}
+.mockbar button[aria-pressed="true"]{background:#fff;color:#0d1330}
+.mockbar button:focus-visible{outline:2px solid #3AC1C2;outline-offset:1px}
+[hidden]{display:none!important}
+</style>
+<script>(function(r){r.lang='en';r.dataset.cover=r.dataset.cover||'blueprint';r.dataset.hero=r.dataset.hero||'sheet';r.dataset.view='home';})(document.documentElement);</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
+  <g id="d-router"><rect class="body" width="80" height="36" rx="5"/><circle class="led" cx="13" cy="18" r="2.8"/><g class="port"><rect x="27" y="13" width="9" height="10" rx="1.2"/><rect x="40" y="13" width="9" height="10" rx="1.2"/><rect x="53" y="13" width="9" height="10" rx="1.2"/><rect x="66" y="13" width="9" height="10" rx="1.2"/></g></g>
+  <g id="d-firewall"><rect class="body" width="80" height="36" rx="5"/><g class="thin"><rect x="10" y="8" width="39" height="20" rx="1"/><path d="M10 18h39M23 8v10M36 8v10M16.5 18v10M29.5 18v10M42.5 18v10"/></g><circle class="led" cx="65" cy="18" r="2.8"/></g>
+  <g id="d-switch"><rect class="body" width="240" height="48" rx="5"/><g class="port"><rect x="16" y="10" width="8" height="9" rx="1"/><rect class="" x="16" y="28" width="8" height="9" rx="1"/><rect x="28" y="10" width="8" height="9" rx="1"/><rect class="" x="28" y="28" width="8" height="9" rx="1"/><rect x="40" y="10" width="8" height="9" rx="1"/><rect class="lit" x="40" y="28" width="8" height="9" rx="1"/><rect x="52" y="10" width="8" height="9" rx="1"/><rect class="" x="52" y="28" width="8" height="9" rx="1"/><rect x="64" y="10" width="8" height="9" rx="1"/><rect class="lit" x="64" y="28" width="8" height="9" rx="1"/><rect x="76" y="10" width="8" height="9" rx="1"/><rect class="" x="76" y="28" width="8" height="9" rx="1"/><rect x="88" y="10" width="8" height="9" rx="1"/><rect class="lit" x="88" y="28" width="8" height="9" rx="1"/><rect x="100" y="10" width="8" height="9" rx="1"/><rect class="" x="100" y="28" width="8" height="9" rx="1"/><rect x="112" y="10" width="8" height="9" rx="1"/><rect class="lit" x="112" y="28" width="8" height="9" rx="1"/><rect x="124" y="10" width="8" height="9" rx="1"/><rect class="" x="124" y="28" width="8" height="9" rx="1"/><rect x="136" y="10" width="8" height="9" rx="1"/><rect class="lit" x="136" y="28" width="8" height="9" rx="1"/><rect x="148" y="10" width="8" height="9" rx="1"/><rect class="" x="148" y="28" width="8" height="9" rx="1"/><rect x="160" y="10" width="8" height="9" rx="1"/><rect class="" x="160" y="28" width="8" height="9" rx="1"/><rect x="172" y="10" width="8" height="9" rx="1"/><rect class="" x="172" y="28" width="8" height="9" rx="1"/><rect x="192" y="10" width="11" height="9" rx="1"/><rect x="207" y="10" width="11" height="9" rx="1"/><rect x="192" y="28" width="11" height="9" rx="1"/><rect x="207" y="28" width="11" height="9" rx="1"/></g><circle class="led" cx="229" cy="24" r="2.8"/></g>
+  <g id="d-switch-s"><rect class="body" width="120" height="40" rx="5"/><g class="port"><rect x="12" y="8" width="8" height="8" rx="1"/><rect class="" x="12" y="24" width="8" height="8" rx="1"/><rect x="24" y="8" width="8" height="8" rx="1"/><rect class="lit" x="24" y="24" width="8" height="8" rx="1"/><rect x="36" y="8" width="8" height="8" rx="1"/><rect class="" x="36" y="24" width="8" height="8" rx="1"/><rect x="48" y="8" width="8" height="8" rx="1"/><rect class="" x="48" y="24" width="8" height="8" rx="1"/><rect x="60" y="8" width="8" height="8" rx="1"/><rect class="" x="60" y="24" width="8" height="8" rx="1"/><rect x="72" y="8" width="8" height="8" rx="1"/><rect class="" x="72" y="24" width="8" height="8" rx="1"/><rect x="84" y="8" width="8" height="8" rx="1"/><rect class="" x="84" y="24" width="8" height="8" rx="1"/></g><circle class="led" cx="108" cy="20" r="2.6"/></g>
+  <g id="d-pc"><rect class="body" width="30" height="20" rx="2.5"/><path d="M15 20v5M8 25.5h14"/></g>
+  <g id="d-ap"><circle class="body" r="15"/><circle class="led" r="2.8"/><path class="thin" d="M-21 -8a22 22 0 0 0 0 16M-27 -12a30 30 0 0 0 0 24M21 -8a22 22 0 0 1 0 16M27 -12a30 30 0 0 1 0 24"/></g>
+  <g id="d-nvr"><rect class="body" width="76" height="28" rx="4"/><g class="thin"><rect x="8" y="8" width="20" height="12" rx="1.5"/><rect x="33" y="8" width="20" height="12" rx="1.5"/></g><circle class="led" cx="65" cy="14" r="2.6"/></g>
+  <g id="d-dome"><path d="M0 0h24"/><path class="body" d="M2 0a10 10 0 0 0 20 0z"/><circle class="led" cx="12" cy="4.4" r="2.2"/></g>
+  <g id="d-bullet"><path d="M5 0v6"/><rect class="body" x="0" y="6" width="28" height="12" rx="3"/><path class="thin" d="M21 6v12"/><circle class="led" cx="24.6" cy="12" r="1.7"/></g>
+  <g id="d-door"><rect class="body" width="30" height="46" rx="5"/><rect class="thin" x="5" y="6" width="20" height="13" rx="1.5"/><path class="thin" d="M6.5 35a8.5 8.5 0 0 1 17 0M9.5 36a5.5 5.5 0 0 1 11 0M12.5 37a2.5 2.5 0 0 1 5 0"/></g>
+  <g id="d-server"><rect class="body" width="88" height="18" rx="3"/><path class="thin" d="M10 5.5v7M15.5 5.5v7M21 5.5v7M26.5 5.5v7M42 7h22M42 11h22"/><circle class="led" cx="77" cy="9" r="2.4"/></g>
+  <g id="d-cloud"><path class="body" d="M22 50h46a15 15 0 0 0 1.5-29.9a21 21 0 0 0-40.6-5.6a18.5 18.5 0 0 0-6.9 35.5z"/></g>
+  <g id="d-app"><rect class="body" width="84" height="56" rx="4"/><path d="M0 12h84"/><g class="dots"><circle cx="8" cy="6" r="1.5"/><circle cx="14.5" cy="6" r="1.5"/><circle cx="21" cy="6" r="1.5"/></g><path class="thin" d="M10 23h34M10 32h52M10 41h26M56 44v-9h8v9M68 44V26h8v18"/></g>
+  <g id="d-db"><path class="body" d="M0 6v22a18 6 0 0 0 36 0V6"/><ellipse class="body" cx="18" cy="6" rx="18" ry="6"/><path class="thin" d="M0 17a18 6 0 0 0 36 0"/></g>
+</defs></svg>
+<header class="nav cover" id="nav"><div class="wrap nav__in">
+  <a class="logo" href="#top" data-goto="home" aria-label="Infyta, home"><span class="l-rev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 112" role="img" aria-label="Infyta">
+  <defs>
+    <linearGradient id="nr-w" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108"><stop offset="0" stop-color="#14b9da"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <linearGradient id="nr-t" gradientUnits="userSpaceOnUse" x1="70" y1="2" x2="45" y2="45"><stop offset="0" stop-color="#3cc4c4"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <mask id="nr-m" maskUnits="userSpaceOnUse" x="-2" y="-4" width="205" height="130">
+      <rect x="-2" y="-4" width="205" height="130" fill="#fff"/>
+      <g fill="#000" transform="translate(2 4.2)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+    </mask>
+  </defs>
+  <path d="M0 51.49Q0 49.4 1.8 50.45L53.51 80.63Q55 81.5 55 83.22L55 108.11Q55 120.3 44.47 114.16L0.6 88.55Q0 88.2 0 87.51Z" fill="url(#nr-w)"/>
+  <path d="M7.76 48.88Q5.5 47.5 7.77 46.14L62.5 13.3Q62.5 13.3 62.5 13.3L62.5 52.6Q62.5 52.6 62.5 52.6L38.83 66.8Q38 67.3 37.17 66.8Z" fill="#ffffff" mask="url(#nr-m)"/>
+  <g fill="url(#nr-t)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+  <circle cx="67.4" cy="69.5" r="4.7" fill="#ffffff"/><circle cx="66.2" cy="70.2" r="3.8" fill="#14b9da"/>
+  <text x="62.2" y="98" dx="-2 2.5 0 1 1.5 0.75" font-family="Montserrat, sans-serif" font-weight="800" font-size="42.5" letter-spacing="1.1" fill="#ffffff">ınf<tspan fill="#14b9da">y</tspan>ta</text>
+</svg></span><span class="l-ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 112" role="img" aria-label="Infyta">
+  <defs>
+    <linearGradient id="nk-w" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108"><stop offset="0" stop-color="#14b9da"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <linearGradient id="nk-t" gradientUnits="userSpaceOnUse" x1="70" y1="2" x2="45" y2="45"><stop offset="0" stop-color="#3cc4c4"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <mask id="nk-m" maskUnits="userSpaceOnUse" x="-2" y="-4" width="205" height="130">
+      <rect x="-2" y="-4" width="205" height="130" fill="#fff"/>
+      <g fill="#000" transform="translate(2 4.2)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+    </mask>
+  </defs>
+  <path d="M0 51.49Q0 49.4 1.8 50.45L53.51 80.63Q55 81.5 55 83.22L55 108.11Q55 120.3 44.47 114.16L0.6 88.55Q0 88.2 0 87.51Z" fill="url(#nk-w)"/>
+  <path d="M7.76 48.88Q5.5 47.5 7.77 46.14L62.5 13.3Q62.5 13.3 62.5 13.3L62.5 52.6Q62.5 52.6 62.5 52.6L38.83 66.8Q38 67.3 37.17 66.8Z" fill="#1f2c62" mask="url(#nk-m)"/>
+  <g fill="url(#nk-t)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+  <circle cx="67.4" cy="69.5" r="4.7" fill="#1f2c62"/><circle cx="66.2" cy="70.2" r="3.8" fill="#14b9da"/>
+  <text x="62.2" y="98" dx="-2 2.5 0 1 1.5 0.75" font-family="Montserrat, sans-serif" font-weight="800" font-size="42.5" letter-spacing="1.1" fill="#1f2c62">ınf<tspan fill="#14b9da">y</tspan>ta</text>
+</svg></span></a>
+  <nav aria-label="Main"><ul class="nav__links">
+    <li><a href="#top" data-goto="home" data-nav="home" aria-current="page">Home</a></li>
+    <li class="has-menu"><a href="#services" data-goto="home" data-hash="#services" aria-haspopup="true">Services</a>
+      <div class="menu"><a href="#" data-goto="service">Software Development</a><a href="#" data-goto="service">Network Infrastructure</a><a href="#" data-goto="service">IT Support &amp; Consultancy</a><a href="#" data-goto="service">Security &amp; Surveillance</a><a href="#" data-goto="service">Server &amp; Cloud Solutions</a></div></li>
+    <li><a href="#advisor" data-goto="home" data-hash="#advisor">Team</a></li>
+    <li><a href="#expertise" data-goto="home" data-hash="#expertise">About</a></li>
+    <li><a href="#contact" data-goto="home" data-hash="#contact">Contact</a></li>
+  </ul></nav>
+  <div class="nav__meta">
+    <span class="status label" data-status><i class="dot"></i><span data-status-short>Sat to Thu, 9 AM to 6 PM</span></span>
+    <a class="tel" href="tel:+8801318121558">+880 1318 121558</a>
+    <a class="btn btn--sm" href="#contact" data-goto="home" data-hash="#contact">Get Started</a>
+  </div>
+  <a class="nav__call" href="tel:+8801318121558" aria-label="Call +880 1318 121558"><span style="width:20px;height:20px;display:block"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg></span></a>
+  <button class="nav__burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="mm"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+</div></header>
+<main id="main">
+<div data-view="home">
+<div id="top"><section class="hero hero--sheet cover" data-hero="sheet"><div class="wrap">
+  <div class="sheet sheet--hero">
+    <div class="tb">
+      <div class="tb__title"><h1>Limitless tech solutions for a digital world</h1><div class="hero__cta"><a class="btn" href="#contact">Get Started</a><a class="btn btn--ghost" href="#services">Explore Solutions</a></div></div>
+      <div class="tb__lede"><p class="lede">Infyta is an IT solutions company in Dhaka offering software development, network setup, servers and cloud, CCTV and IT support for businesses in Bangladesh.</p></div>
+    </div>
+    <figure class="sheet__fig"><div class="sheet__dwg"><svg class="dwg dwg--wide" viewBox="0 0 1200 408" role="group" aria-label="Drawing of a typical office network. Each numbered part links to the Infyta service that builds it.">
+    <a class="svc" data-svc="it-support-consultancy" href="#services" data-goto="service" aria-label="IT Support and Consultancy: the whole office">
+    <rect class="hit" x="196" y="20" width="984" height="372" rx="12"/>
+    <rect class="boundary fade" style="--d:2.3s" x="196" y="20" width="984" height="372" rx="12"/>
+    <g class="fade" style="--d:2.3s"><rect class="knock" x="214" y="9" width="84" height="22"/><text x="222" y="25" class="t1">Your office</text>
+    <rect class="knock" x="958" y="9" width="204" height="22"/><text x="1124" y="25" class="t1" text-anchor="end">IT Support &amp; Consultancy</text></g>
+    <g class="bub rise" style="--d:2.5s" transform="translate(1146 20)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">3</text></g></a><a class="svc" data-svc="server-cloud-solutions" href="#services" data-goto="service" aria-label="Server and Cloud Solutions">
+    <rect class="hit" x="20" y="24" width="168" height="140"/><rect class="hit" x="862" y="130" width="150" height="220"/>
+    <use href="#d-cloud" x="44" y="46" class="rise" style="--d:0.1s" />
+    <g class="rise" style="--d:.1s"><text x="88" y="120" class="t1" text-anchor="middle">Cloud</text><text x="88" y="135" class="t2" text-anchor="middle">AWS, Azure,</text><text x="88" y="149" class="t2" text-anchor="middle">Google Cloud</text></g>
+    <g class="bub rise" style="--d:2.4s" transform="translate(142 40)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">5</text></g>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M700 100V142Q700 150 708 150H912Q920 150 920 158V236"/>
+    <g class="flag rise" style="--d:1.7s" transform="translate(920 204)"><rect x="-25" y="-9" width="50" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Servers</text></g>
+    <use href="#d-server" x="876" y="236" class="rise" style="--d:1.75s" /><use href="#d-server" x="876" y="258" class="rise" style="--d:1.8s" /><use href="#d-server" x="876" y="280" class="rise" style="--d:1.85s" />
+    <g class="rise" style="--d:1.85s"><text x="920" y="320" class="t1" text-anchor="middle">Servers</text><text x="920" y="335" class="t2" text-anchor="middle">Windows, Linux, VMware</text></g>
+    <path class="thin rise" style="--d:2.4s" d="M968 246h12"/><g class="bub rise" style="--d:2.4s" transform="translate(992 246)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">5</text></g></a><a class="svc" data-svc="network-infrastructure" href="#services" data-goto="service" aria-label="Network Infrastructure">
+    <rect class="hit" x="236" y="36" width="650" height="104"/><rect class="hit" x="236" y="140" width="290" height="190"/>
+    <path class="wan fade" style="--d:.15s" d="M132 76H252"/><g class="fade" style="--d:.15s"><text x="140" y="95" class="t2">Internet</text></g>
+    <use href="#d-router" x="252" y="58" class="rise" style="--d:0.3s" /><g class="rise" style="--d:.3s"><text x="252" y="114" class="t1">Router</text><text x="252" y="129" class="t2">MikroTik</text></g>
+    <path class="wire quick" pathLength="1" style="--d:0.45s" d="M332 76H404"/>
+    <use href="#d-firewall" x="404" y="58" class="rise" style="--d:0.6s" /><g class="rise" style="--d:.6s"><text x="404" y="114" class="t1">Firewall</text><text x="404" y="129" class="t2">Fortinet</text></g>
+    <path class="wire quick" pathLength="1" style="--d:0.75s" d="M484 76H560"/>
+    <use href="#d-switch" x="560" y="52" class="rise" style="--d:0.9s" /><g class="rise" style="--d:.9s"><text x="814" y="72" class="t1">Core switch</text><text x="814" y="87" class="t2">Cisco</text></g>
+    <path class="thin rise" style="--d:2.3s" d="M368 50v22"/><g class="bub rise" style="--d:2.3s" transform="translate(368 38)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">2</text></g>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M604 100V142Q604 150 596 150H308Q300 150 300 158V236"/>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M628 100V164Q628 172 620 172H478Q470 172 470 180V241"/>
+    <g class="flag rise" style="--d:1.7s" transform="translate(300 204)"><rect x="-20" y="-9" width="40" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Staff</text></g><g class="flag rise" style="--d:1.7s" transform="translate(470 204)"><rect x="-33" y="-9" width="66" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Guest Wi-Fi</text></g>
+    <path class="rise" style="--d:1.75s" d="M262 246V236H338V246M300 236V246"/>
+    <use href="#d-pc" x="247" y="246" class="rise" style="--d:1.75s" /><use href="#d-pc" x="285" y="246" class="rise" style="--d:1.8s" /><use href="#d-pc" x="323" y="246" class="rise" style="--d:1.85s" />
+    <g class="rise" style="--d:1.85s"><text x="300" y="296" class="t1" text-anchor="middle">Staff workstations</text></g>
+    <use href="#d-ap" x="470" y="256" class="rise" style="--d:1.8s" />
+    <g class="rise" style="--d:1.85s"><text x="470" y="296" class="t1" text-anchor="middle">Office Wi-Fi</text><text x="470" y="311" class="t2" text-anchor="middle">Guest access</text></g></a><a class="svc" data-svc="security-surveillance" href="#services" data-goto="service" aria-label="Security and Surveillance">
+    <rect class="hit" x="596" y="140" width="258" height="200"/>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M652 100V236"/>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M676 100V164Q676 172 684 172H782Q790 172 790 180V236"/>
+    <g class="flag rise" style="--d:1.7s" transform="translate(652 204)"><rect x="-26" y="-9" width="52" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Cameras</text></g><g class="flag rise" style="--d:1.7s" transform="translate(790 204)"><rect x="-20" y="-9" width="40" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Doors</text></g>
+    <use href="#d-nvr" x="614" y="236" class="rise" style="--d:1.75s" />
+    <path class="rise" style="--d:1.85s" d="M630 264V288M674 264V288"/>
+    <use href="#d-dome" x="618" y="288" class="rise" style="--d:1.9s" /><use href="#d-bullet" x="669" y="288" class="rise" style="--d:1.9s" />
+    <g class="rise" style="--d:1.9s"><text x="652" y="328" class="t1" text-anchor="middle">CCTV cameras</text><text x="652" y="343" class="t2" text-anchor="middle">Recorder</text></g>
+    <use href="#d-door" x="775" y="236" class="rise" style="--d:1.8s" />
+    <g class="rise" style="--d:1.85s"><text x="790" y="302" class="t1" text-anchor="middle">Access control</text><text x="790" y="317" class="t2" text-anchor="middle">Biometric attendance</text></g>
+    <path class="thin rise" style="--d:2.35s" d="M694 250h24M744 250h28"/><g class="bub rise" style="--d:2.35s" transform="translate(731 250)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">4</text></g></a><a class="svc" data-svc="software-development" href="#services" data-goto="service" aria-label="Software Development">
+    <rect class="hit" x="1024" y="204" width="152" height="184"/>
+    <path class="wire quick" pathLength="1" style="--d:1.9s" d="M964 267H1052"/>
+    <use href="#d-app" x="1052" y="232" class="rise" style="--d:2s" />
+    <path class="rise" style="--d:2.05s" d="M1094 288V306"/>
+    <use href="#d-db" x="1076" y="306" class="rise" style="--d:2.05s" />
+    <g class="rise" style="--d:2.1s"><text x="1094" y="362" class="t1" text-anchor="middle">Business software</text><text x="1094" y="377" class="t2" text-anchor="middle">SQL Server, MySQL, MongoDB</text></g>
+    <g class="bub rise" style="--d:2.45s" transform="translate(1152 222)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">1</text></g></a></svg><svg class="dwg dwg--tall" viewBox="0 0 360 752" role="group" aria-label="Drawing of a typical office network. Each numbered part links to the Infyta service that builds it.">
+    <a class="svc" data-svc="it-support-consultancy" href="#services" data-goto="service" aria-label="IT Support and Consultancy: the whole office">
+    <rect class="hit" x="6" y="96" width="348" height="648" rx="12"/>
+    <rect class="boundary fade" style="--d:2.3s" x="6" y="96" width="348" height="648" rx="12"/>
+    <g class="fade" style="--d:2.3s"><rect class="knock" x="16" y="85" width="78" height="22"/><text x="22" y="101" class="t1">Your office</text>
+    <rect class="knock" x="160" y="85" width="166" height="22"/><text x="318" y="101" class="t1" text-anchor="end">IT Support &amp; Consultancy</text></g>
+    <g class="bub rise" style="--d:2.5s" transform="translate(338 96)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">3</text></g></a><a class="svc" data-svc="server-cloud-solutions" href="#services" data-goto="service" aria-label="Server and Cloud Solutions">
+    <rect class="hit" x="6" y="0" width="348" height="74"/><rect class="hit" x="16" y="550" width="330" height="80"/>
+    <use href="#d-cloud" class="rise" style="--d:.1s" transform="translate(19 8) scale(.8)"/>
+    <g class="rise" style="--d:.1s"><text x="110" y="30" class="t1">Cloud</text><text x="110" y="45" class="t2">AWS, Azure, Google Cloud</text></g><g class="bub rise" style="--d:2.4s" transform="translate(338 32)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">5</text></g>
+    <path class="rise" style="--d:1.7s" d="M42 588H62"/><circle class="tap rise" style="--d:1.7s" cx="42" cy="588" r="2.6"/>
+    <use href="#d-server" x="62" y="557" class="rise" style="--d:1.75s" /><use href="#d-server" x="62" y="579" class="rise" style="--d:1.8s" /><use href="#d-server" x="62" y="601" class="rise" style="--d:1.85s" />
+    <g class="rise" style="--d:1.85s"><text x="166" y="584" class="t1">Servers</text><text x="166" y="599" class="t2">Windows, Linux, VMware</text></g><g class="bub rise" style="--d:2.4s" transform="translate(338 588)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">5</text></g></a><a class="svc" data-svc="network-infrastructure" href="#services" data-goto="service" aria-label="Network Infrastructure">
+    <rect class="hit" x="8" y="108" width="344" height="270"/>
+    <path class="wan fade" style="--d:.15s" d="M54 52V116"/><g class="fade" style="--d:.15s"><text x="64" y="80" class="t2">Internet</text></g>
+    <use href="#d-router" x="14" y="116" class="rise" style="--d:0.3s" /><g class="rise" style="--d:.3s"><text x="110" y="131" class="t1">Router</text><text x="110" y="146" class="t2">MikroTik</text></g><g class="bub rise" style="--d:2.3s" transform="translate(338 134)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">2</text></g>
+    <path class="wire quick" pathLength="1" style="--d:0.45s" d="M54 152V172"/>
+    <use href="#d-firewall" x="14" y="172" class="rise" style="--d:0.6s" /><g class="rise" style="--d:.6s"><text x="110" y="187" class="t1">Firewall</text><text x="110" y="202" class="t2">Fortinet</text></g>
+    <path class="wire quick" pathLength="1" style="--d:0.75s" d="M54 208V228"/>
+    <use href="#d-switch-s" x="14" y="228" class="rise" style="--d:0.9s" /><g class="rise" style="--d:.9s"><text x="150" y="245" class="t1">Core switch</text><text x="150" y="260" class="t2">Cisco</text></g>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M42 268V588"/>
+    <path class="rise" style="--d:1.5s" d="M42 312H62M42 370H69"/><circle class="tap rise" style="--d:1.5s" cx="42" cy="312" r="2.6"/><circle class="tap rise" style="--d:1.5s" cx="42" cy="370" r="2.6"/>
+    <use href="#d-pc" x="62" y="299" class="rise" style="--d:1.55s" /><use href="#d-pc" x="100" y="299" class="rise" style="--d:1.6s" />
+    <g class="rise" style="--d:1.6s"><text x="150" y="316" class="t1">Staff workstations</text></g>
+    <use href="#d-ap" x="84" y="370" class="rise" style="--d:1.6s" />
+    <g class="rise" style="--d:1.65s"><text x="150" y="366" class="t1">Office Wi-Fi</text><text x="150" y="381" class="t2">Guest access</text></g></a><a class="svc" data-svc="security-surveillance" href="#services" data-goto="service" aria-label="Security and Surveillance">
+    <rect class="hit" x="16" y="404" width="330" height="140"/>
+    <path class="rise" style="--d:1.6s" d="M42 430H62M42 512H62"/><circle class="tap rise" style="--d:1.6s" cx="42" cy="430" r="2.6"/><circle class="tap rise" style="--d:1.6s" cx="42" cy="512" r="2.6"/>
+    <use href="#d-nvr" x="62" y="416" class="rise" style="--d:1.65s" />
+    <path class="rise" style="--d:1.75s" d="M78 444V458M118 444V458"/>
+    <use href="#d-dome" x="66" y="458" class="rise" style="--d:1.8s" /><use href="#d-bullet" x="113" y="458" class="rise" style="--d:1.8s" />
+    <g class="rise" style="--d:1.75s"><text x="150" y="428" class="t1">CCTV cameras</text><text x="150" y="443" class="t2">Recorder</text></g><g class="bub rise" style="--d:2.35s" transform="translate(338 430)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">4</text></g>
+    <use href="#d-door" x="62" y="489" class="rise" style="--d:1.75s" />
+    <g class="rise" style="--d:1.8s"><text x="150" y="508" class="t1">Access control</text><text x="150" y="523" class="t2">Biometric attendance</text></g></a><a class="svc" data-svc="software-development" href="#services" data-goto="service" aria-label="Software Development">
+    <rect class="hit" x="16" y="630" width="330" height="108"/>
+    <path class="wire quick" pathLength="1" style="--d:1.9s" d="M106 619V640"/>
+    <use href="#d-app" x="62" y="640" class="rise" style="--d:2s" />
+    <path class="rise" style="--d:2.05s" d="M146 668H166"/>
+    <use href="#d-db" x="166" y="651" class="rise" style="--d:2.05s" />
+    <g class="rise" style="--d:2.1s"><text x="62" y="716" class="t1">Business software</text><text x="62" y="731" class="t2">SQL Server, MySQL, MongoDB</text></g><g class="bub rise" style="--d:2.45s" transform="translate(338 668)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">1</text></g></a></svg></div></figure>
+    <dl class="titleblock"><div><dt>Drawing</dt><dd>Typical office network</dd></div>
+      <div><dt>Drawn by</dt><dd>Infyta, Azimpur, Dhaka</dd></div>
+      <div><dt>Scale</dt><dd>Not to scale</dd></div>
+      <div><dt>Key</dt><dd>1 to 5 are our services. Select any part.</dd></div></dl>
+  </div>
+</div></section><section class="hero cover" data-hero="stack"><div class="wrap">
+  <h1>Limitless tech solutions <br class="wide-only">for a digital world</h1>
+  <div class="hero__row">
+    <p class="lede">Infyta is an IT solutions company in Dhaka offering software development, network setup, servers and cloud, CCTV and IT support for businesses in Bangladesh.</p>
+    <div class="hero__cta"><a class="btn" href="#contact">Get Started</a><a class="btn btn--ghost" href="#services">Explore Solutions</a></div>
+  </div>
+  <figure class="sheet">
+    <div class="sheet__dwg"><svg class="dwg dwg--wide" viewBox="0 0 1200 408" role="group" aria-label="Drawing of a typical office network. Each numbered part links to the Infyta service that builds it.">
+    <a class="svc" data-svc="it-support-consultancy" href="#services" data-goto="service" aria-label="IT Support and Consultancy: the whole office">
+    <rect class="hit" x="196" y="20" width="984" height="372" rx="12"/>
+    <rect class="boundary fade" style="--d:2.3s" x="196" y="20" width="984" height="372" rx="12"/>
+    <g class="fade" style="--d:2.3s"><rect class="knock" x="214" y="9" width="84" height="22"/><text x="222" y="25" class="t1">Your office</text>
+    <rect class="knock" x="958" y="9" width="204" height="22"/><text x="1124" y="25" class="t1" text-anchor="end">IT Support &amp; Consultancy</text></g>
+    <g class="bub rise" style="--d:2.5s" transform="translate(1146 20)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">3</text></g></a><a class="svc" data-svc="server-cloud-solutions" href="#services" data-goto="service" aria-label="Server and Cloud Solutions">
+    <rect class="hit" x="20" y="24" width="168" height="140"/><rect class="hit" x="862" y="130" width="150" height="220"/>
+    <use href="#d-cloud" x="44" y="46" class="rise" style="--d:0.1s" />
+    <g class="rise" style="--d:.1s"><text x="88" y="120" class="t1" text-anchor="middle">Cloud</text><text x="88" y="135" class="t2" text-anchor="middle">AWS, Azure,</text><text x="88" y="149" class="t2" text-anchor="middle">Google Cloud</text></g>
+    <g class="bub rise" style="--d:2.4s" transform="translate(142 40)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">5</text></g>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M700 100V142Q700 150 708 150H912Q920 150 920 158V236"/>
+    <g class="flag rise" style="--d:1.7s" transform="translate(920 204)"><rect x="-25" y="-9" width="50" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Servers</text></g>
+    <use href="#d-server" x="876" y="236" class="rise" style="--d:1.75s" /><use href="#d-server" x="876" y="258" class="rise" style="--d:1.8s" /><use href="#d-server" x="876" y="280" class="rise" style="--d:1.85s" />
+    <g class="rise" style="--d:1.85s"><text x="920" y="320" class="t1" text-anchor="middle">Servers</text><text x="920" y="335" class="t2" text-anchor="middle">Windows, Linux, VMware</text></g>
+    <path class="thin rise" style="--d:2.4s" d="M968 246h12"/><g class="bub rise" style="--d:2.4s" transform="translate(992 246)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">5</text></g></a><a class="svc" data-svc="network-infrastructure" href="#services" data-goto="service" aria-label="Network Infrastructure">
+    <rect class="hit" x="236" y="36" width="650" height="104"/><rect class="hit" x="236" y="140" width="290" height="190"/>
+    <path class="wan fade" style="--d:.15s" d="M132 76H252"/><g class="fade" style="--d:.15s"><text x="140" y="95" class="t2">Internet</text></g>
+    <use href="#d-router" x="252" y="58" class="rise" style="--d:0.3s" /><g class="rise" style="--d:.3s"><text x="252" y="114" class="t1">Router</text><text x="252" y="129" class="t2">MikroTik</text></g>
+    <path class="wire quick" pathLength="1" style="--d:0.45s" d="M332 76H404"/>
+    <use href="#d-firewall" x="404" y="58" class="rise" style="--d:0.6s" /><g class="rise" style="--d:.6s"><text x="404" y="114" class="t1">Firewall</text><text x="404" y="129" class="t2">Fortinet</text></g>
+    <path class="wire quick" pathLength="1" style="--d:0.75s" d="M484 76H560"/>
+    <use href="#d-switch" x="560" y="52" class="rise" style="--d:0.9s" /><g class="rise" style="--d:.9s"><text x="814" y="72" class="t1">Core switch</text><text x="814" y="87" class="t2">Cisco</text></g>
+    <path class="thin rise" style="--d:2.3s" d="M368 50v22"/><g class="bub rise" style="--d:2.3s" transform="translate(368 38)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">2</text></g>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M604 100V142Q604 150 596 150H308Q300 150 300 158V236"/>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M628 100V164Q628 172 620 172H478Q470 172 470 180V241"/>
+    <g class="flag rise" style="--d:1.7s" transform="translate(300 204)"><rect x="-20" y="-9" width="40" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Staff</text></g><g class="flag rise" style="--d:1.7s" transform="translate(470 204)"><rect x="-33" y="-9" width="66" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Guest Wi-Fi</text></g>
+    <path class="rise" style="--d:1.75s" d="M262 246V236H338V246M300 236V246"/>
+    <use href="#d-pc" x="247" y="246" class="rise" style="--d:1.75s" /><use href="#d-pc" x="285" y="246" class="rise" style="--d:1.8s" /><use href="#d-pc" x="323" y="246" class="rise" style="--d:1.85s" />
+    <g class="rise" style="--d:1.85s"><text x="300" y="296" class="t1" text-anchor="middle">Staff workstations</text></g>
+    <use href="#d-ap" x="470" y="256" class="rise" style="--d:1.8s" />
+    <g class="rise" style="--d:1.85s"><text x="470" y="296" class="t1" text-anchor="middle">Office Wi-Fi</text><text x="470" y="311" class="t2" text-anchor="middle">Guest access</text></g></a><a class="svc" data-svc="security-surveillance" href="#services" data-goto="service" aria-label="Security and Surveillance">
+    <rect class="hit" x="596" y="140" width="258" height="200"/>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M652 100V236"/>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M676 100V164Q676 172 684 172H782Q790 172 790 180V236"/>
+    <g class="flag rise" style="--d:1.7s" transform="translate(652 204)"><rect x="-26" y="-9" width="52" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Cameras</text></g><g class="flag rise" style="--d:1.7s" transform="translate(790 204)"><rect x="-20" y="-9" width="40" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Doors</text></g>
+    <use href="#d-nvr" x="614" y="236" class="rise" style="--d:1.75s" />
+    <path class="rise" style="--d:1.85s" d="M630 264V288M674 264V288"/>
+    <use href="#d-dome" x="618" y="288" class="rise" style="--d:1.9s" /><use href="#d-bullet" x="669" y="288" class="rise" style="--d:1.9s" />
+    <g class="rise" style="--d:1.9s"><text x="652" y="328" class="t1" text-anchor="middle">CCTV cameras</text><text x="652" y="343" class="t2" text-anchor="middle">Recorder</text></g>
+    <use href="#d-door" x="775" y="236" class="rise" style="--d:1.8s" />
+    <g class="rise" style="--d:1.85s"><text x="790" y="302" class="t1" text-anchor="middle">Access control</text><text x="790" y="317" class="t2" text-anchor="middle">Biometric attendance</text></g>
+    <path class="thin rise" style="--d:2.35s" d="M694 250h24M744 250h28"/><g class="bub rise" style="--d:2.35s" transform="translate(731 250)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">4</text></g></a><a class="svc" data-svc="software-development" href="#services" data-goto="service" aria-label="Software Development">
+    <rect class="hit" x="1024" y="204" width="152" height="184"/>
+    <path class="wire quick" pathLength="1" style="--d:1.9s" d="M964 267H1052"/>
+    <use href="#d-app" x="1052" y="232" class="rise" style="--d:2s" />
+    <path class="rise" style="--d:2.05s" d="M1094 288V306"/>
+    <use href="#d-db" x="1076" y="306" class="rise" style="--d:2.05s" />
+    <g class="rise" style="--d:2.1s"><text x="1094" y="362" class="t1" text-anchor="middle">Business software</text><text x="1094" y="377" class="t2" text-anchor="middle">SQL Server, MySQL, MongoDB</text></g>
+    <g class="bub rise" style="--d:2.45s" transform="translate(1152 222)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">1</text></g></a></svg><svg class="dwg dwg--tall" viewBox="0 0 360 752" role="group" aria-label="Drawing of a typical office network. Each numbered part links to the Infyta service that builds it.">
+    <a class="svc" data-svc="it-support-consultancy" href="#services" data-goto="service" aria-label="IT Support and Consultancy: the whole office">
+    <rect class="hit" x="6" y="96" width="348" height="648" rx="12"/>
+    <rect class="boundary fade" style="--d:2.3s" x="6" y="96" width="348" height="648" rx="12"/>
+    <g class="fade" style="--d:2.3s"><rect class="knock" x="16" y="85" width="78" height="22"/><text x="22" y="101" class="t1">Your office</text>
+    <rect class="knock" x="160" y="85" width="166" height="22"/><text x="318" y="101" class="t1" text-anchor="end">IT Support &amp; Consultancy</text></g>
+    <g class="bub rise" style="--d:2.5s" transform="translate(338 96)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">3</text></g></a><a class="svc" data-svc="server-cloud-solutions" href="#services" data-goto="service" aria-label="Server and Cloud Solutions">
+    <rect class="hit" x="6" y="0" width="348" height="74"/><rect class="hit" x="16" y="550" width="330" height="80"/>
+    <use href="#d-cloud" class="rise" style="--d:.1s" transform="translate(19 8) scale(.8)"/>
+    <g class="rise" style="--d:.1s"><text x="110" y="30" class="t1">Cloud</text><text x="110" y="45" class="t2">AWS, Azure, Google Cloud</text></g><g class="bub rise" style="--d:2.4s" transform="translate(338 32)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">5</text></g>
+    <path class="rise" style="--d:1.7s" d="M42 588H62"/><circle class="tap rise" style="--d:1.7s" cx="42" cy="588" r="2.6"/>
+    <use href="#d-server" x="62" y="557" class="rise" style="--d:1.75s" /><use href="#d-server" x="62" y="579" class="rise" style="--d:1.8s" /><use href="#d-server" x="62" y="601" class="rise" style="--d:1.85s" />
+    <g class="rise" style="--d:1.85s"><text x="166" y="584" class="t1">Servers</text><text x="166" y="599" class="t2">Windows, Linux, VMware</text></g><g class="bub rise" style="--d:2.4s" transform="translate(338 588)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">5</text></g></a><a class="svc" data-svc="network-infrastructure" href="#services" data-goto="service" aria-label="Network Infrastructure">
+    <rect class="hit" x="8" y="108" width="344" height="270"/>
+    <path class="wan fade" style="--d:.15s" d="M54 52V116"/><g class="fade" style="--d:.15s"><text x="64" y="80" class="t2">Internet</text></g>
+    <use href="#d-router" x="14" y="116" class="rise" style="--d:0.3s" /><g class="rise" style="--d:.3s"><text x="110" y="131" class="t1">Router</text><text x="110" y="146" class="t2">MikroTik</text></g><g class="bub rise" style="--d:2.3s" transform="translate(338 134)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">2</text></g>
+    <path class="wire quick" pathLength="1" style="--d:0.45s" d="M54 152V172"/>
+    <use href="#d-firewall" x="14" y="172" class="rise" style="--d:0.6s" /><g class="rise" style="--d:.6s"><text x="110" y="187" class="t1">Firewall</text><text x="110" y="202" class="t2">Fortinet</text></g>
+    <path class="wire quick" pathLength="1" style="--d:0.75s" d="M54 208V228"/>
+    <use href="#d-switch-s" x="14" y="228" class="rise" style="--d:0.9s" /><g class="rise" style="--d:.9s"><text x="150" y="245" class="t1">Core switch</text><text x="150" y="260" class="t2">Cisco</text></g>
+    <path class="wire " pathLength="1" style="--d:1.15s" d="M42 268V588"/>
+    <path class="rise" style="--d:1.5s" d="M42 312H62M42 370H69"/><circle class="tap rise" style="--d:1.5s" cx="42" cy="312" r="2.6"/><circle class="tap rise" style="--d:1.5s" cx="42" cy="370" r="2.6"/>
+    <use href="#d-pc" x="62" y="299" class="rise" style="--d:1.55s" /><use href="#d-pc" x="100" y="299" class="rise" style="--d:1.6s" />
+    <g class="rise" style="--d:1.6s"><text x="150" y="316" class="t1">Staff workstations</text></g>
+    <use href="#d-ap" x="84" y="370" class="rise" style="--d:1.6s" />
+    <g class="rise" style="--d:1.65s"><text x="150" y="366" class="t1">Office Wi-Fi</text><text x="150" y="381" class="t2">Guest access</text></g></a><a class="svc" data-svc="security-surveillance" href="#services" data-goto="service" aria-label="Security and Surveillance">
+    <rect class="hit" x="16" y="404" width="330" height="140"/>
+    <path class="rise" style="--d:1.6s" d="M42 430H62M42 512H62"/><circle class="tap rise" style="--d:1.6s" cx="42" cy="430" r="2.6"/><circle class="tap rise" style="--d:1.6s" cx="42" cy="512" r="2.6"/>
+    <use href="#d-nvr" x="62" y="416" class="rise" style="--d:1.65s" />
+    <path class="rise" style="--d:1.75s" d="M78 444V458M118 444V458"/>
+    <use href="#d-dome" x="66" y="458" class="rise" style="--d:1.8s" /><use href="#d-bullet" x="113" y="458" class="rise" style="--d:1.8s" />
+    <g class="rise" style="--d:1.75s"><text x="150" y="428" class="t1">CCTV cameras</text><text x="150" y="443" class="t2">Recorder</text></g><g class="bub rise" style="--d:2.35s" transform="translate(338 430)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">4</text></g>
+    <use href="#d-door" x="62" y="489" class="rise" style="--d:1.75s" />
+    <g class="rise" style="--d:1.8s"><text x="150" y="508" class="t1">Access control</text><text x="150" y="523" class="t2">Biometric attendance</text></g></a><a class="svc" data-svc="software-development" href="#services" data-goto="service" aria-label="Software Development">
+    <rect class="hit" x="16" y="630" width="330" height="108"/>
+    <path class="wire quick" pathLength="1" style="--d:1.9s" d="M106 619V640"/>
+    <use href="#d-app" x="62" y="640" class="rise" style="--d:2s" />
+    <path class="rise" style="--d:2.05s" d="M146 668H166"/>
+    <use href="#d-db" x="166" y="651" class="rise" style="--d:2.05s" />
+    <g class="rise" style="--d:2.1s"><text x="62" y="716" class="t1">Business software</text><text x="62" y="731" class="t2">SQL Server, MySQL, MongoDB</text></g><g class="bub rise" style="--d:2.45s" transform="translate(338 668)"><circle r="11.5"/><text text-anchor="middle" dy="4.4">1</text></g></a></svg></div>
+    <figcaption><dl class="titleblock"><div><dt>Drawing</dt><dd>Typical office network</dd></div>
+      <div><dt>Drawn by</dt><dd>Infyta, Azimpur, Dhaka</dd></div>
+      <div><dt>Scale</dt><dd>Not to scale</dd></div>
+      <div><dt>Key</dt><dd>1 to 5 are our services. Select any part.</dd></div></dl></figcaption>
+  </figure>
+</div></section></div>
+<section class="band paper" id="services"><div class="wrap">
+  <div class="head"><h2>Our Services</h2><p>Infyta is an IT solutions company in Azimpur, Dhaka, Bangladesh. We provide software development, network infrastructure, IT support and consultancy, security and surveillance, and server and cloud solutions. Infyta's team includes certified engineers and instructors, and we work with businesses in Dhaka and across Bangladesh.</p></div>
+  <div class="key"><a class="key__row" href="#" data-goto="service" data-svc="software-development">
+  <span class="num">1</span>
+  <div><h3>Software Development</h3><p>Custom solutions tailored to your business needs with cutting-edge technologies.</p></div>
+  <div class="key__with"><span class="label">Web and mobile apps, SQL Server, MySQL, MongoDB</span><div class="tags"><span class="tag">Certified Scrum Master</span><span class="tag">Google Certified</span><span class="tag">SQL Server Specialist</span><span class="tag">Oracle Certified</span></div></div>
+  <svg class="dwg dwg--mini" viewBox="0 0 168 60" aria-hidden="true" focusable="false"><use href="#d-app" transform="translate(18 6) scale(.84)"/><path d="M89 30H112"/><use href="#d-db" x="112" y="12"/></svg>
+</a><a class="key__row" href="#" data-goto="service" data-svc="network-infrastructure">
+  <span class="num">2</span>
+  <div><h3>Network Infrastructure</h3><p>Design, implementation, and maintenance of robust network systems.</p></div>
+  <div class="key__with"><span class="label">MikroTik, Cisco, Fortinet, wireless deployments</span><div class="tags"><span class="tag">CCNA</span><span class="tag">MTCNA</span><span class="tag">MTCRE</span><span class="tag">MTCSE</span></div></div>
+  <svg class="dwg dwg--mini" viewBox="0 0 168 60" aria-hidden="true" focusable="false"><path class="wan" d="M0 30H14"/><use href="#d-router" transform="translate(14 17) scale(.72)"/><path d="M72 30H92"/><use href="#d-firewall" transform="translate(92 17) scale(.72)"/><path d="M150 30H168"/></svg>
+</a><a class="key__row" href="#" data-goto="service" data-svc="it-support-consultancy">
+  <span class="num">3</span>
+  <div><h3>IT Support &amp; Consultancy</h3><p>Expert guidance and support for your IT operations and strategy.</p></div>
+  <div class="key__with"><span class="label">Windows and Linux servers, Active Directory, office networks</span><div class="tags"><span class="tag">MCITP</span><span class="tag">RHCSA</span><span class="tag">VMware Certified</span><span class="tag">CCNA</span></div></div>
+  <svg class="dwg dwg--mini" viewBox="0 0 168 60" aria-hidden="true" focusable="false"><rect class="boundary" x="6" y="5" width="156" height="50" rx="8"/><use href="#d-pc" x="22" y="17"/><use href="#d-server" transform="translate(64 21) scale(.92)"/></svg>
+</a><a class="key__row" href="#" data-goto="service" data-svc="security-surveillance">
+  <span class="num">4</span>
+  <div><h3>Security &amp; Surveillance</h3><p>Comprehensive CCTV, access control, and attendance systems.</p></div>
+  <div class="key__with"><span class="label">CCTV, access control, biometric attendance</span><div class="tags"><span class="tag">CCTV Specialist</span><span class="tag">Access Control Specialist</span></div></div>
+  <svg class="dwg dwg--mini" viewBox="0 0 168 60" aria-hidden="true" focusable="false"><use href="#d-nvr" x="14" y="6"/><path d="M52 34V46H104"/><use href="#d-dome" x="104" y="20"/><path d="M116 8V20"/><use href="#d-bullet" x="134" y="30"/></svg>
+</a><a class="key__row" href="#" data-goto="service" data-svc="server-cloud-solutions">
+  <span class="num">5</span>
+  <div><h3>Server &amp; Cloud Solutions</h3><p>Scalable server setups and cloud migration services.</p></div>
+  <div class="key__with"><span class="label">VMware, Hyper-V, AWS, Azure, Google Cloud</span><div class="tags"><span class="tag">MCITP</span><span class="tag">RHCSA</span><span class="tag">VMware Certified</span><span class="tag">AWS Specialist</span></div></div>
+  <svg class="dwg dwg--mini" viewBox="0 0 168 60" aria-hidden="true" focusable="false"><use href="#d-server" transform="translate(10 12) scale(.9)"/><use href="#d-server" transform="translate(10 32) scale(.9)"/><path class="wan" d="M89 30H106"/><use href="#d-cloud" transform="translate(102 6) scale(.72)"/></svg>
+</a></div>
+  <div class="after"><a class="btn btn--ghost" href="#" data-goto="service">Explore All Services</a></div>
+</div></section>
+<section class="band paper" id="expertise" style="padding-top:0"><div class="wrap">
+  <div class="head"><h2>Our Core Expertise</h2><p>Comprehensive IT solutions across multiple domains, delivered by certified professionals</p></div>
+  <table class="sched"><caption>Core expertise, technologies and certifications</caption>
+    <thead><tr><th scope="col">Domain</th><th scope="col">What we work with</th><th scope="col">Certifications and specialists</th></tr></thead>
+    <tbody><tr><th scope="row">Server Infrastructure</th><td>Windows/Linux Server administration, Active Directory, Virtualization (VMware, Hyper-V)</td><td><div class="tags"><span class="tag">MCITP</span><span class="tag">RHCSA</span><span class="tag">VMware Certified</span></div></td></tr><tr><th scope="row">Network Solutions</th><td>Enterprise networking, MikroTik, Cisco, Fortinet solutions, Wireless deployments</td><td><div class="tags"><span class="tag">CCNA</span><span class="tag">MTCNA</span><span class="tag">MTCRE</span><span class="tag">MTCSE</span></div></td></tr><tr><th scope="row">Software Development</th><td>Custom applications, web development, mobile apps, and system integration</td><td><div class="tags"><span class="tag">Certified Scrum Master</span><span class="tag">Google Certified</span></div></td></tr><tr><th scope="row">Security &amp; Surveillance</th><td>CCTV systems, access control, biometric devices, attendance management systems</td><td><div class="tags"><span class="tag">CCTV Specialist</span><span class="tag">Access Control Specialist</span></div></td></tr><tr><th scope="row">Cloud Solutions</th><td>Cloud migration, hybrid cloud setups, AWS, Azure, and Google Cloud implementations</td><td><div class="tags"><span class="tag">AWS Specialist</span></div></td></tr><tr><th scope="row">Database Management</th><td>SQL Server, MySQL, MongoDB administration and optimization</td><td><div class="tags"><span class="tag">SQL Server Specialist</span><span class="tag">Oracle Certified</span><span class="tag">NoSQL Specialist</span></div></td></tr></tbody>
+  </table>
+</div></section>
+<section class="band blueprint" id="advisor"><div class="wrap advisor">
+  <figure class="portrait"><img src="data:image/webp;base64,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" width="640" height="640" alt="Md. Arif, Chief Advisor at Infyta" loading="lazy"></figure>
+  <div>
+    <h2 class="label" style="font-size:1rem">Our Chief Advisor</h2>
+    <p class="advisor__name">Md. Arif</p>
+    <p class="advisor__role">Chief Advisor &amp; Senior Instructor</p>
+    <ul class="ticks"><li>28+ years of experience in ICT infrastructure</li><li>Expert in Windows Server, Linux Server, and Network Administration</li><li>Certified Instructor for CCNA, MTCNA, MTCRE, MTCSE</li><li>Managed 15K+ nodes network infrastructure</li><li>Developed multiple data centers and disaster recovery solutions</li><li>Specialized in IT security and cloud solutions</li></ul>
+    <div class="tags"><span class="tag">Cisco Network Administrator</span><span class="tag">MCITP - Windows Server Active Directory</span><span class="tag">Digital Marketing Specialist</span><span class="tag">Data Center Professional (CDCP)</span></div>
+    <a class="btn" href="#advisor">View Our Team</a>
+  </div>
+</div></section>
+<section class="band paper" id="contact"><div class="wrap contact">
+  <div>
+    <h2>Ready to Transform Your Business?</h2>
+    <p class="lede">Let’s discuss how Infyta can help you achieve your technology goals.</p>
+    <div class="contact__cta">
+      <a class="btn" href="#contact">Get Started</a>
+      <a class="btn btn--ghost btn--icon" href="https://wa.me/8801318121558" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z"/><path d="M9.3 8.2c-.5.9-.2 2.4 1.5 4.1s3.200 2 4.1 1.500l.6-1.100-1.700-1-.800.700c-.600-.300-1.700-1.400-2-2l.700-.800-1-1.700z" fill="currentColor" stroke="none"/></svg>WhatsApp</a>
+      <a class="btn btn--ghost btn--icon" href="tel:+8801318121558"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>+880 1318 121558</a>
+    </div>
+  </div>
+  <div class="panel">
+  <div class="hours__state"><i class="dot" data-status-dot></i><span data-status-long>Saturday to Thursday, 9 AM to 6 PM</span></div>
+  <p class="label" style="margin-top:4px">Dhaka time</p>
+  <div class="week" aria-hidden="true"><div data-day="6"><b>Sat</b><span>9 to 6</span></div><div data-day="0"><b>Sun</b><span>9 to 6</span></div><div data-day="1"><b>Mon</b><span>9 to 6</span></div><div data-day="2"><b>Tue</b><span>9 to 6</span></div><div data-day="3"><b>Wed</b><span>9 to 6</span></div><div data-day="4"><b>Thu</b><span>9 to 6</span></div><div class="is-off" data-day="5"><b>Fri</b><span>Closed</span></div></div>
+  <dl class="facts">
+    <div class="wide"><dt>Our office</dt><dd><address style="font-style:normal">4A, 44/3 Swarnolota, Sha-sab bari, Bottola, Azimpur, Dhaka, Bangladesh</address><span class="bn" lang="bn">আজিমপুর, ঢাকা</span> &nbsp; <a class="textlink" href="https://www.google.com/maps/search/?api=1&query=4A%2C%2044%2F3%20Swarnolota%2C%20Sha-sab%20bari%2C%20Bottola%2C%20Azimpur%2C%20Dhaka%2C%20Bangladesh" target="_blank" rel="noopener noreferrer">Open in Google Maps</a></dd></div>
+    <div><dt>Phone</dt><dd><a class="tel" href="tel:+8801318121558">+880 1318 121558</a></dd></div>
+    <div><dt>Email</dt><dd><a href="mailto:infytaofficial@gmail.com">infytaofficial@gmail.com</a></dd></div>
+  </dl>
+</div>
+</div></section>
+</div>
+<div data-view="service" hidden>
+  <section class="paper"><div class="wrap svc-hero">
+    <div>
+      <nav class="crumb" aria-label="Breadcrumb"><a href="#" data-goto="home" data-hash="#services">Services</a><span aria-hidden="true">/</span><span>Network Infrastructure</span></nav>
+      <h1>Network Infrastructure</h1>
+      <p class="lede">Design, installation and maintenance of office networks for businesses in Dhaka.</p>
+      <div class="hero__cta"><a class="btn" href="#" data-goto="home" data-hash="#contact">Get Started Today</a><a class="btn btn--ghost btn--icon" href="tel:+8801318121558"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>+880 1318 121558</a></div>
+    </div>
+    <figure><svg class="dwg dwg--detail" viewBox="0 0 600 250" role="img" aria-label="Drawing: internet link, router, firewall and switch feeding separate segments for cameras, guest Wi-Fi and staff.">
+    <path class="wan" d="M0 48H40"/><text x="2" y="36" class="t2">Internet</text>
+    <use href="#d-router" x="40" y="30"/><text x="40" y="86" class="t1">Router</text><text x="40" y="101" class="t2">MikroTik</text>
+    <path d="M120 48H176"/>
+    <use href="#d-firewall" x="176" y="30"/><text x="176" y="86" class="t1">Firewall</text><text x="176" y="101" class="t2">Fortinet</text>
+    <path d="M256 48H312"/>
+    <use href="#d-switch" x="312" y="24"/>
+    <path d="M356 72V114Q356 122 348 122H238Q230 122 230 130V172"/>
+    <path d="M380 72V172"/>
+    <path d="M404 72V114Q404 122 412 122H502Q510 122 510 130V160"/>
+    <g class="flag" transform="translate(230 148)"><rect x="-27" y="-9" width="54" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Cameras</text></g>
+    <g class="flag" transform="translate(380 148)"><rect x="-34" y="-9" width="68" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Guest Wi-Fi</text></g>
+    <g class="flag" transform="translate(510 148)"><rect x="-21" y="-9" width="42" height="18" rx="3"/><text text-anchor="middle" dy="3.8">Staff</text></g>
+    <use href="#d-dome" x="218" y="172"/><text x="230" y="206" class="t1" text-anchor="middle">CCTV</text>
+    <use href="#d-ap" x="380" y="187"/><text x="380" y="226" class="t1" text-anchor="middle">Office Wi-Fi</text>
+    <path d="M491 170V160H529V170"/><use href="#d-pc" x="476" y="170"/><use href="#d-pc" x="514" y="170"/><text x="510" y="216" class="t1" text-anchor="middle">Workstations</text>
+  </svg></figure>
+  </div></section>
+  <section class="band paper" style="padding-top:clamp(24px,3vw,40px)"><div class="wrap split">
+    <div class="prose"><h2>Overview</h2><p>Infyta designs, installs and maintains computer networks for offices and businesses in Dhaka. A typical project covers the wired network, Wi-Fi, switches, routers and firewalls, set up so that staff stay connected and business systems are protected. We work on networks of different sizes, from a single small office to larger enterprise networks.</p><p>Our engineers work with MikroTik, Cisco and Fortinet equipment, and the team includes engineers and instructors certified in CCNA, MTCNA, MTCRE and MTCSE. We can build a network for a new office, expand one that has outgrown its original design, or review and fix a network that has become slow or unreliable. Once the network is running, we can maintain it and adjust it as your business changes.</p></div>
+    <aside class="spec"><h3>What’s Included</h3><ul style="margin-top:16px"><li><b>Network Design</b><span>Planning the layout, equipment and addressing for a new or expanded office network.</span></li><li><b>Structured Cabling</b><span>Structured cabling that connects workstations, switches and other network equipment.</span></li><li><b>Router and Firewall Setup</b><span>Configuration of MikroTik, Cisco and Fortinet routers and firewalls.</span></li><li><b>Wireless Deployments</b><span>Office Wi-Fi planned for coverage across your premises, with separate guest access where needed.</span></li><li><b>VLANs and Segmentation</b><span>Separating departments, guests and devices such as cameras onto their own network segments.</span></li><li><b>Monitoring and Maintenance</b><span>Checking network health and fixing problems as your needs change.</span></li></ul></aside>
+  </div></section>
+  <section class="band blueprint"><div class="wrap">
+    <h2>Our Approach</h2>
+    <ol class="steps"><li><b>Requirement analysis.</b> We review your office layout, users and current equipment with you.</li><li><b>Network design.</b> We plan the cabling, equipment and segmentation before installation begins.</li><li>Installation and configuration of cabling, switches, routers, firewalls and Wi-Fi.</li><li>Testing and handover, followed by ongoing maintenance.</li></ol>
+  </div></section>
+  <section class="band paper"><div class="wrap">
+    <div class="head"><h2>Technologies &amp; Certifications</h2><p></p></div>
+    <table class="sched"><caption>Technologies and certifications</caption><tbody><tr><th scope="row">Network Solutions</th><td>Enterprise networking, MikroTik, Cisco, Fortinet solutions, Wireless deployments</td><td><div class="tags"><span class="tag">CCNA</span><span class="tag">MTCNA</span><span class="tag">MTCRE</span><span class="tag">MTCSE</span></div></td></tr></tbody></table>
+  </div></section>
+  <section class="band paper" style="padding-top:0"><div class="wrap split" style="grid-template-columns:minmax(0,4fr) minmax(0,8fr)">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq"><details open><summary>Do you set up office networks in Dhaka?</summary><p>Yes. Infyta designs and installs office networks for businesses in Dhaka, including cabling, switches, routers, firewalls and Wi-Fi. We can set up a network for a new office or extend an existing one.</p></details><details><summary>Which network equipment brands do you work with?</summary><p>Our engineers work with MikroTik, Cisco and Fortinet equipment for routing, switching and firewalls. The team includes engineers and instructors certified in CCNA, MTCNA, MTCRE and MTCSE.</p></details><details><summary>Can you improve Wi-Fi coverage in our office?</summary><p>Yes. Wireless deployment is part of our network infrastructure service. We review where coverage is weak, plan where access points should go and configure the wireless network, including separate guest access if you need it.</p></details><details><summary>Can you fix or upgrade our existing network instead of replacing it?</summary><p>Yes. We can review your current network, identify what is causing problems and recommend changes. Where the existing equipment is suitable, we reconfigure and extend it rather than replace it.</p></details><details><summary>Do you maintain networks after installation?</summary><p>Yes. Maintenance is part of Infyta's network infrastructure service. After installation, we can monitor the network, make configuration changes and troubleshoot problems as your business grows.</p></details></div>
+  </div></section>
+  <section class="band paper" style="padding-top:0"><div class="wrap">
+    <div class="head"><h2>Related Services</h2><p></p></div>
+    <div class="key"><a class="key__row" href="#" data-goto="service" data-svc="security-surveillance">
+  <span class="num">4</span>
+  <div><h3>Security &amp; Surveillance</h3><p>Comprehensive CCTV, access control, and attendance systems.</p></div>
+  <div class="key__with"><span class="label">CCTV, access control, biometric attendance</span><div class="tags"><span class="tag">CCTV Specialist</span><span class="tag">Access Control Specialist</span></div></div>
+  <svg class="dwg dwg--mini" viewBox="0 0 168 60" aria-hidden="true" focusable="false"><use href="#d-nvr" x="14" y="6"/><path d="M52 34V46H104"/><use href="#d-dome" x="104" y="20"/><path d="M116 8V20"/><use href="#d-bullet" x="134" y="30"/></svg>
+</a><a class="key__row" href="#" data-goto="service" data-svc="it-support-consultancy">
+  <span class="num">3</span>
+  <div><h3>IT Support &amp; Consultancy</h3><p>Expert guidance and support for your IT operations and strategy.</p></div>
+  <div class="key__with"><span class="label">Windows and Linux servers, Active Directory, office networks</span><div class="tags"><span class="tag">MCITP</span><span class="tag">RHCSA</span><span class="tag">VMware Certified</span><span class="tag">CCNA</span></div></div>
+  <svg class="dwg dwg--mini" viewBox="0 0 168 60" aria-hidden="true" focusable="false"><rect class="boundary" x="6" y="5" width="156" height="50" rx="8"/><use href="#d-pc" x="22" y="17"/><use href="#d-server" transform="translate(64 21) scale(.92)"/></svg>
+</a></div>
+  </div></section>
+  <section class="band paper" style="padding-top:0"><div class="wrap"><div class="panel endcta">
+    <h2>Ready to discuss your project?</h2>
+    <div class="hero__cta"><a class="btn" href="#" data-goto="home" data-hash="#contact">Get Started Today</a><a class="btn btn--ghost btn--icon" href="https://wa.me/8801318121558" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z"/><path d="M9.3 8.2c-.5.9-.2 2.4 1.5 4.1s3.200 2 4.1 1.500l.6-1.100-1.700-1-.800.700c-.600-.300-1.700-1.400-2-2l.700-.800-1-1.700z" fill="currentColor" stroke="none"/></svg>WhatsApp</a></div>
+  </div></div></section>
+</div>
+</main>
+<footer class="foot blueprint"><div class="wrap">
+  <div class="foot__grid">
+    <div><a class="logo" href="#top" data-goto="home" aria-label="Infyta, home"><span class="l-rev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 125" role="img" aria-label="Infyta">
+  <defs>
+    <linearGradient id="fr-w" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108"><stop offset="0" stop-color="#14b9da"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <linearGradient id="fr-t" gradientUnits="userSpaceOnUse" x1="70" y1="2" x2="45" y2="45"><stop offset="0" stop-color="#3cc4c4"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <mask id="fr-m" maskUnits="userSpaceOnUse" x="-2" y="-4" width="205" height="130">
+      <rect x="-2" y="-4" width="205" height="130" fill="#fff"/>
+      <g fill="#000" transform="translate(2 4.2)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+    </mask>
+  </defs>
+  <path d="M0 51.49Q0 49.4 1.8 50.45L53.51 80.63Q55 81.5 55 83.22L55 108.11Q55 120.3 44.47 114.16L0.6 88.55Q0 88.2 0 87.51Z" fill="url(#fr-w)"/>
+  <path d="M7.76 48.88Q5.5 47.5 7.77 46.14L62.5 13.3Q62.5 13.3 62.5 13.3L62.5 52.6Q62.5 52.6 62.5 52.6L38.83 66.8Q38 67.3 37.17 66.8Z" fill="#ffffff" mask="url(#fr-m)"/>
+  <g fill="url(#fr-t)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+  <circle cx="67.4" cy="69.5" r="4.7" fill="#ffffff"/><circle cx="66.2" cy="70.2" r="3.8" fill="#14b9da"/>
+  <text x="62.2" y="98" dx="-2 2.5 0 1 1.5 0.75" font-family="Montserrat, sans-serif" font-weight="800" font-size="42.5" letter-spacing="1.1" fill="#ffffff">ınf<tspan fill="#14b9da">y</tspan>ta</text>
+  <text x="63" y="117.2" font-family="'Barlow Semi Condensed', sans-serif" font-weight="500" font-size="9.8" textLength="136" lengthAdjust="spacingAndGlyphs" fill="#ffffff" opacity=".88">Engineering Tomorrow’s Tech Today</text>
+</svg></span><span class="l-ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 125" role="img" aria-label="Infyta">
+  <defs>
+    <linearGradient id="fk-w" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108"><stop offset="0" stop-color="#14b9da"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <linearGradient id="fk-t" gradientUnits="userSpaceOnUse" x1="70" y1="2" x2="45" y2="45"><stop offset="0" stop-color="#3cc4c4"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <mask id="fk-m" maskUnits="userSpaceOnUse" x="-2" y="-4" width="205" height="130">
+      <rect x="-2" y="-4" width="205" height="130" fill="#fff"/>
+      <g fill="#000" transform="translate(2 4.2)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+    </mask>
+  </defs>
+  <path d="M0 51.49Q0 49.4 1.8 50.45L53.51 80.63Q55 81.5 55 83.22L55 108.11Q55 120.3 44.47 114.16L0.6 88.55Q0 88.2 0 87.51Z" fill="url(#fk-w)"/>
+  <path d="M7.76 48.88Q5.5 47.5 7.77 46.14L62.5 13.3Q62.5 13.3 62.5 13.3L62.5 52.6Q62.5 52.6 62.5 52.6L38.83 66.8Q38 67.3 37.17 66.8Z" fill="#1f2c62" mask="url(#fk-m)"/>
+  <g fill="url(#fk-t)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+  <circle cx="67.4" cy="69.5" r="4.7" fill="#1f2c62"/><circle cx="66.2" cy="70.2" r="3.8" fill="#14b9da"/>
+  <text x="62.2" y="98" dx="-2 2.5 0 1 1.5 0.75" font-family="Montserrat, sans-serif" font-weight="800" font-size="42.5" letter-spacing="1.1" fill="#1f2c62">ınf<tspan fill="#14b9da">y</tspan>ta</text>
+  <text x="63" y="117.2" font-family="'Barlow Semi Condensed', sans-serif" font-weight="500" font-size="9.8" textLength="136" lengthAdjust="spacingAndGlyphs" fill="#1f2c62" opacity=".88">Engineering Tomorrow’s Tech Today</text>
+</svg></span></a><p class="small" style="margin-top:16px;max-width:26ch">Limitless Tech Solutions for a Digital World</p></div>
+    <div><h4>Quick Links</h4><ul><li><a href="#top" data-goto="home">Home</a></li><li><a href="#services" data-goto="home" data-hash="#services">Services</a></li><li><a href="#advisor" data-goto="home" data-hash="#advisor">Team</a></li><li><a href="#expertise" data-goto="home" data-hash="#expertise">About Us</a></li><li><a href="#contact" data-goto="home" data-hash="#contact">Contact</a></li></ul></div>
+    <div><h4>Services</h4><ul><li><a href="#" data-goto="service">Software Development</a></li><li><a href="#" data-goto="service">Network Infrastructure</a></li><li><a href="#" data-goto="service">IT Support &amp; Consultancy</a></li><li><a href="#" data-goto="service">Security &amp; Surveillance</a></li><li><a href="#" data-goto="service">Server &amp; Cloud Solutions</a></li></ul></div>
+    <div><h4>Contact</h4><ul>
+      <li><a class="tel" href="tel:+8801318121558">+880 1318 121558</a></li>
+      <li><a href="mailto:infytaofficial@gmail.com">infytaofficial@gmail.com</a></li>
+      <li><a href="https://www.google.com/maps/search/?api=1&query=4A%2C%2044%2F3%20Swarnolota%2C%20Sha-sab%20bari%2C%20Bottola%2C%20Azimpur%2C%20Dhaka%2C%20Bangladesh" target="_blank" rel="noopener noreferrer">4A, 44/3 Swarnolota, Sha-sab bari, Bottola, Azimpur, Dhaka, Bangladesh</a></li>
+      <li class="small">Saturday – Thursday: 9 AM – 6 PM</li><li class="small">Friday: Closed</li>
+    </ul></div>
+  </div>
+  <div class="foot__end"><span>© 2026 Infyta. All rights reserved.</span><span class="status" data-status><i class="dot"></i><span data-status-short></span></span></div>
+</div></footer>
+<div class="mm" id="mm" role="dialog" aria-modal="true" aria-label="Menu">
+  <div class="mm__top"><a class="logo" href="#top" data-goto="home" aria-label="Infyta, home"><span class="l-rev"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 112" role="img" aria-label="Infyta">
+  <defs>
+    <linearGradient id="mr-w" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108"><stop offset="0" stop-color="#14b9da"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <linearGradient id="mr-t" gradientUnits="userSpaceOnUse" x1="70" y1="2" x2="45" y2="45"><stop offset="0" stop-color="#3cc4c4"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <mask id="mr-m" maskUnits="userSpaceOnUse" x="-2" y="-4" width="205" height="130">
+      <rect x="-2" y="-4" width="205" height="130" fill="#fff"/>
+      <g fill="#000" transform="translate(2 4.2)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+    </mask>
+  </defs>
+  <path d="M0 51.49Q0 49.4 1.8 50.45L53.51 80.63Q55 81.5 55 83.22L55 108.11Q55 120.3 44.47 114.16L0.6 88.55Q0 88.2 0 87.51Z" fill="url(#mr-w)"/>
+  <path d="M7.76 48.88Q5.5 47.5 7.77 46.14L62.5 13.3Q62.5 13.3 62.5 13.3L62.5 52.6Q62.5 52.6 62.5 52.6L38.83 66.8Q38 67.3 37.17 66.8Z" fill="#ffffff" mask="url(#mr-m)"/>
+  <g fill="url(#mr-t)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+  <circle cx="67.4" cy="69.5" r="4.7" fill="#ffffff"/><circle cx="66.2" cy="70.2" r="3.8" fill="#14b9da"/>
+  <text x="62.2" y="98" dx="-2 2.5 0 1 1.5 0.75" font-family="Montserrat, sans-serif" font-weight="800" font-size="42.5" letter-spacing="1.1" fill="#ffffff">ınf<tspan fill="#14b9da">y</tspan>ta</text>
+</svg></span><span class="l-ink"><svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 112" role="img" aria-label="Infyta">
+  <defs>
+    <linearGradient id="mk-w" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108"><stop offset="0" stop-color="#14b9da"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <linearGradient id="mk-t" gradientUnits="userSpaceOnUse" x1="70" y1="2" x2="45" y2="45"><stop offset="0" stop-color="#3cc4c4"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <mask id="mk-m" maskUnits="userSpaceOnUse" x="-2" y="-4" width="205" height="130">
+      <rect x="-2" y="-4" width="205" height="130" fill="#fff"/>
+      <g fill="#000" transform="translate(2 4.2)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+    </mask>
+  </defs>
+  <path d="M0 51.49Q0 49.4 1.8 50.45L53.51 80.63Q55 81.5 55 83.22L55 108.11Q55 120.3 44.47 114.16L0.6 88.55Q0 88.2 0 87.51Z" fill="url(#mk-w)"/>
+  <path d="M7.76 48.88Q5.5 47.5 7.77 46.14L62.5 13.3Q62.5 13.3 62.5 13.3L62.5 52.6Q62.5 52.6 62.5 52.6L38.83 66.8Q38 67.3 37.17 66.8Z" fill="#1f2c62" mask="url(#mk-m)"/>
+  <g fill="url(#mk-t)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+  <circle cx="67.4" cy="69.5" r="4.7" fill="#1f2c62"/><circle cx="66.2" cy="70.2" r="3.8" fill="#14b9da"/>
+  <text x="62.2" y="98" dx="-2 2.5 0 1 1.5 0.75" font-family="Montserrat, sans-serif" font-weight="800" font-size="42.5" letter-spacing="1.1" fill="#1f2c62">ınf<tspan fill="#14b9da">y</tspan>ta</text>
+</svg></span></a><button class="nav__burger" id="mmClose" aria-label="Close menu" style="display:inline-grid"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <nav aria-label="Mobile" style="margin-top:18px">
+    <a href="#top" data-goto="home">Home</a>
+    <a href="#services" data-goto="home" data-hash="#services">Services</a>
+    <div class="sub"><a href="#" data-goto="service">Software Development</a><a href="#" data-goto="service">Network Infrastructure</a><a href="#" data-goto="service">IT Support &amp; Consultancy</a><a href="#" data-goto="service">Security &amp; Surveillance</a><a href="#" data-goto="service">Server &amp; Cloud Solutions</a></div>
+    <a href="#advisor" data-goto="home" data-hash="#advisor">Team</a>
+    <a href="#expertise" data-goto="home" data-hash="#expertise">About</a>
+    <a href="#contact" data-goto="home" data-hash="#contact">Contact</a>
+  </nav>
+  <div class="mm__cta"><span class="status" data-status><i class="dot"></i><span data-status-short></span></span>
+    <a class="btn btn--icon" href="tel:+8801318121558"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>Call +880 1318 121558</a>
+    <a class="btn btn--ghost btn--icon" href="https://wa.me/8801318121558"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z"/><path d="M9.3 8.2c-.5.9-.2 2.4 1.5 4.1s3.200 2 4.1 1.500l.6-1.100-1.700-1-.800.700c-.600-.300-1.700-1.400-2-2l.700-.800-1-1.700z" fill="currentColor" stroke="none"/></svg>WhatsApp</a></div>
+</div>
+<div class="mockbar" role="group" aria-label="Mockup controls">
+  <div class="seg" aria-label="Hero layout"><button data-set-hero="sheet" data-choice="hero-sheet">Sheet hero</button><button data-set-hero="stack" data-choice="hero-stack">Stacked hero</button></div>
+  <div class="seg" aria-label="Cover colour"><button data-set-cover="blueprint" data-choice="cover-blueprint">Blueprint</button><button data-set-cover="paper" data-choice="cover-paper">Paper</button></div>
+  <div class="seg" aria-label="Page"><button data-goto="home" data-page="home">Home</button><button data-goto="service" data-page="service">Service page</button></div>
+</div>
+<script>(function(){
+  var root=document.documentElement, nav=document.getElementById('nav'), mm=document.getElementById('mm'), burger=document.getElementById('burger');
+  var views=[].slice.call(document.querySelectorAll('main [data-view]'));
+  var params={}; location.hash.replace(/^#/,'').split('&').forEach(function(kv){var p=kv.split('=');if(p[1])params[p[0]]=p[1];});
+  function pressed(){
+    document.querySelectorAll('[data-set-cover]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.setCover===root.dataset.cover));});
+    document.querySelectorAll('[data-set-hero]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.setHero===root.dataset.hero));});
+    document.querySelectorAll('[data-page]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.page===root.dataset.view));});
+  }
+  function syncNav(){
+    var hero=document.getElementById('top');
+    var paper=root.dataset.cover==='paper'||root.dataset.view!=='home'||window.scrollY>hero.offsetHeight-70;
+    nav.classList.toggle('is-paper',paper);
+  }
+  function show(name,hash){
+    views.forEach(function(v){v.hidden=v.dataset.view!==name;});
+    root.dataset.view=name; pressed();
+    var home=document.querySelector('[data-nav="home"]'); if(home){ if(name==='home') home.setAttribute('aria-current','page'); else home.removeAttribute('aria-current'); }
+    var el=hash&&document.querySelector(hash);
+    if(el) el.scrollIntoView({behavior:'instant',block:'start'}); else window.scrollTo(0,0);
+    syncNav();
+  }
+  function closeMenu(){mm.classList.remove('is-open');burger.setAttribute('aria-expanded','false');document.body.style.overflow='';}
+  document.addEventListener('click',function(e){
+    var c=e.target.closest('[data-set-cover]'); if(c){root.dataset.cover=c.dataset.setCover;pressed();syncNav();return;}
+    var h=e.target.closest('[data-set-hero]'); if(h){root.dataset.hero=h.dataset.setHero;pressed();syncNav();window.scrollTo(0,0);return;}
+    var a=e.target.closest('[data-goto]'); if(a){e.preventDefault();closeMenu();show(a.dataset.goto,a.dataset.hash);return;}
+    if(e.target.closest('.mm a')) closeMenu();
+  });
+  burger.addEventListener('click',function(){mm.classList.add('is-open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';document.getElementById('mmClose').focus();});
+  document.getElementById('mmClose').addEventListener('click',function(){closeMenu();burger.focus();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+  window.addEventListener('scroll',syncNav,{passive:true});
+
+  // Opening hours, always in Dhaka time (Saturday to Thursday, 9 AM to 6 PM).
+  function dhaka(){
+    var parts=new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Dhaka',weekday:'short',hour:'2-digit',minute:'2-digit',hour12:false}).formatToParts(new Date());
+    var get=function(t){return parts.filter(function(p){return p.type===t;})[0].value;};
+    return {day:{Sun:0,Mon:1,Tue:2,Wed:3,Thu:4,Fri:5,Sat:6}[get('weekday')],mins:(parseInt(get('hour'),10)%24)*60+parseInt(get('minute'),10)};
+  }
+  var names=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  function status(){
+    var now=dhaka(), open=function(d){return d!==5;}, O=540, C=1080;
+    if(open(now.day)&&now.mins>=O&&now.mins<C) return {open:true,day:now.day,short:'Open now, until 6 PM',long:'Open now. Closes at 6 PM.'};
+    if(open(now.day)&&now.mins<O) return {open:false,day:now.day,short:'Closed, opens 9 AM',long:'Closed now. Opens today at 9 AM.'};
+    var n=(now.day+1)%7,k=1; while(!open(n)){n=(n+1)%7;k++;}
+    var when=k===1?'tomorrow':names[n];
+    return {open:false,day:now.day,short:'Closed, opens '+when+' 9 AM',long:'Closed now. Opens '+when+' at 9 AM.'};
+  }
+  function paint(){
+    var s=status();
+    document.querySelectorAll('[data-status]').forEach(function(el){el.classList.toggle('is-closed',!s.open);});
+    document.querySelectorAll('[data-status-short]').forEach(function(el){el.textContent=s.short;});
+    document.querySelectorAll('[data-status-long]').forEach(function(el){el.textContent=s.long;});
+    document.querySelectorAll('[data-status-dot]').forEach(function(el){el.style.background=s.open?'':'var(--amber)';el.style.boxShadow=s.open?'':'0 0 0 3px rgba(233,162,59,.25)';});
+    document.querySelectorAll('.week [data-day]').forEach(function(el){el.classList.toggle('is-today',Number(el.dataset.day)===s.day);});
+  }
+  paint(); setInterval(paint,60000);
+
+  // The services list and the drawing light each other up.
+  function light(slug,on){
+    document.querySelectorAll('.dwg--wide,.dwg--tall').forEach(function(svg){
+      svg.classList.toggle('has-on',on);
+      svg.querySelectorAll('.svc').forEach(function(g){g.classList.toggle('is-on',on&&g.dataset.svc===slug);});
+    });
+  }
+  document.querySelectorAll('.key__row[data-svc]').forEach(function(row){
+    row.addEventListener('mouseenter',function(){light(row.dataset.svc,true);});
+    row.addEventListener('mouseleave',function(){light(row.dataset.svc,false);});
+    row.addEventListener('focus',function(){light(row.dataset.svc,true);});
+    row.addEventListener('blur',function(){light(row.dataset.svc,false);});
+  });
+
+  root.dataset.cover=params.cover||root.dataset.cover||'blueprint'; root.dataset.hero=params.hero||root.dataset.hero||'sheet'; show(params.view||'home');
+  if(params.on) light(params.on,true);
+  if(params.y) window.scrollTo(0,Number(params.y));
+})();</script>
+</body>
+</html>

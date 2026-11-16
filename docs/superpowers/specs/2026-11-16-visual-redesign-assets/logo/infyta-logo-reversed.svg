@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 125" role="img" aria-label="Infyta">
+  <defs>
+    <linearGradient id="r-w" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108"><stop offset="0" stop-color="#14b9da"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <linearGradient id="r-t" gradientUnits="userSpaceOnUse" x1="70" y1="2" x2="45" y2="45"><stop offset="0" stop-color="#3cc4c4"/><stop offset="1" stop-color="#212b60"/></linearGradient>
+    <mask id="r-m" maskUnits="userSpaceOnUse" x="-2" y="-4" width="205" height="130">
+      <rect x="-2" y="-4" width="205" height="130" fill="#fff"/>
+      <g fill="#000" transform="translate(2 4.2)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+    </mask>
+  </defs>
+  <path d="M0 51.49Q0 49.4 1.8 50.45L53.51 80.63Q55 81.5 55 83.22L55 108.11Q55 120.3 44.47 114.16L0.6 88.55Q0 88.2 0 87.51Z" fill="url(#r-w)"/>
+  <path d="M7.76 48.88Q5.5 47.5 7.77 46.14L62.5 13.3Q62.5 13.3 62.5 13.3L62.5 52.6Q62.5 52.6 62.5 52.6L38.83 66.8Q38 67.3 37.17 66.8Z" fill="#ffffff" mask="url(#r-m)"/>
+  <g fill="url(#r-t)"><path d="M25.5 26.6Q25.5 24.9 26.96 24.03L42.26 14.85Q46.8 12.12 46.8 17.42L46.8 30.22Q46.8 31.92 45.34 32.79L30.04 41.97Q25.5 44.7 25.5 39.4Z"/><path d="M51.5 11Q51.5 9.3 52.96 8.43L66.26 0.45Q70.8 -2.28 70.8 3.02L70.8 13.52Q70.8 15.22 69.34 16.09L56.04 24.07Q51.5 26.8 51.5 21.5Z"/><path d="M51.5 33.13Q51.5 31.2 53.15 30.21L70.65 19.71Q75.8 16.62 75.8 22.63L75.8 37.89Q75.8 39.82 74.15 40.81L56.65 51.31Q51.5 54.4 51.5 48.39Z"/></g>
+  <circle cx="67.4" cy="69.5" r="4.7" fill="#ffffff"/><circle cx="66.2" cy="70.2" r="3.8" fill="#14b9da"/>
+  <text x="62.2" y="98" dx="-2 2.5 0 1 1.5 0.75" font-family="Montserrat, sans-serif" font-weight="800" font-size="42.5" letter-spacing="1.1" fill="#ffffff">ınf<tspan fill="#14b9da">y</tspan>ta</text>
+  <text x="63" y="117.2" font-family="'Barlow Semi Condensed', sans-serif" font-weight="500" font-size="9.8" textLength="136" lengthAdjust="spacingAndGlyphs" fill="#ffffff" opacity=".88">Engineering Tomorrow’s Tech Today</text>
+</svg>
