@@ -440,7 +440,7 @@ git add -A && git commit -m "feat: add theme tokens, base styles, Archivo and th
   - `certsFor(expertiseKeys, limit = 4) -> string[]`, `splitStep(text) -> { lead: string | null, rest: string }`.
   - `site.closedDates: string[]` (empty), `site.whatsappUrl: 'https://wa.me/8801318121558'`, `service.worksWith: string`, `pages.home.heading: 'Infyta – Limitless Tech Solutions'` (en dash, U+2013).
 
-- [ ] **Step 1: Write `tests/unit/hours.test.mjs`**
+- [x] **Step 1: Write `tests/unit/hours.test.mjs`**
 
 ```js
 import test from 'node:test';
@@ -493,7 +493,7 @@ test('week strip starts on Saturday and marks today and closures', () => {
 
 The week strip shows the current Saturday-to-Friday week that contains `now.date`.
 
-- [ ] **Step 2: Write `tests/unit/enquiry.test.mjs`**
+- [x] **Step 2: Write `tests/unit/enquiry.test.mjs`**
 
 ```js
 import test from 'node:test';
@@ -533,7 +533,7 @@ test('special characters survive the round trip', () => {
 
 Use `encodeURIComponent` for every value in both URLs.
 
-- [ ] **Step 3: Write `tests/unit/small-libs.test.mjs` and extend `tests/unit/site.test.mjs`**
+- [x] **Step 3: Write `tests/unit/small-libs.test.mjs` and extend `tests/unit/site.test.mjs`**
 
 ```js
 // small-libs.test.mjs
@@ -576,17 +576,17 @@ test('closed dates and WhatsApp link', () => {
 });
 ```
 
-- [ ] **Step 4: Run the tests and see them fail**
+- [x] **Step 4: Run the tests and see them fail**
 
 Run: `npm test`
 Expected: FAIL (modules not found).
 
-- [ ] **Step 5: Implement the four modules and the content fields**
+- [x] **Step 5: Implement the four modules and the content fields**
 
 - `hours.js`: read the time with `Intl.DateTimeFormat` and `timeZone: 'Asia/Dhaka'`. Format `'09:00'` as `9 AM`, `'18:00'` as `6 PM`, `'09:30'` as `9:30 AM`. Find the next open day by stepping the date forward one day at a time (use `Date.UTC` arithmetic on the date string, never the local clock), skipping non-working weekdays and listed dates. Say "tomorrow" when it is the very next date, otherwise the weekday name. Week strip text is opening and closing hour on a 12-hour clock joined by " to ".
 - `site.js`: add `closedDates: []` with a comment: dates the office is closed, as `'YYYY-MM-DD'` in Dhaka time, for example public holidays.
 
-- [ ] **Step 6: Run everything and commit**
+- [x] **Step 6: Run everything and commit**
 
 Run: `npm run check`
 Expected: PASS.
