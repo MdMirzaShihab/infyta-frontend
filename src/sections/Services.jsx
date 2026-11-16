@@ -1,54 +1,11 @@
-import { motion } from "framer-motion";
-import { 
-  FaCode, 
-  FaServer, 
-  FaShieldAlt, 
-  FaNetworkWired, 
-  FaCloud, 
-  FaMobileAlt,
-  FaChalkboardTeacher,
-  FaVideo
-} from "react-icons/fa";
-import React from "react";
+"use client";
 
-const services = [
-  {
-    icon: FaCode,
-    title: "Software Development",
-    desc: "Custom solutions tailored to your business needs.",
-    color: "from-blue-500 to-purple-500"
-  },
-  {
-    icon: FaNetworkWired,
-    title: "Network Infrastructure",
-    desc: "Robust network design and implementation.",
-    color: "from-green-500 to-blue-500"
-  },
-  {
-    icon: FaShieldAlt,
-    title: "IT Support & Consultancy",
-    desc: "Expert guidance for your IT operations.",
-    color: "from-yellow-500 to-orange-500"
-  },
-  {
-    icon: FaVideo,
-    title: "Security & Surveillance",
-    desc: "Comprehensive CCTV and access control systems.",
-    color: "from-red-500 to-pink-500"
-  },
-  {
-    icon: FaServer,
-    title: "Server & Cloud Solutions",
-    desc: "Scalable server and cloud services.",
-    color: "from-purple-500 to-indigo-500"
-  },
-  {
-    icon: FaCloud,
-    title: "Cloud Services",
-    desc: "Cloud migration and management.",
-    color: "from-amber-500 to-red-500"
-  }
-];
+import { motion } from "framer-motion";
+import Link from "next/link";
+import ServiceIcon from "@/components/ServiceIcon";
+import { services } from "@/content/services";
+
+const MotionLink = motion.create(Link);
 
 // Define your primary and secondary colors here to ensure they match with referenced values
 const colors = {
@@ -104,7 +61,7 @@ export default function Services() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {services.map((service, index) => (
             <motion.div
-              key={index}
+              key={service.slug}
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -113,6 +70,7 @@ export default function Services() {
               className="relative group"
             >
               {/* Enhanced glass card with better contrast against background */}
+              <Link href={`/services/${service.slug}`} className="block h-full">
               <div className="relative h-full backdrop-blur-xl bg-white/70 rounded-xl overflow-hidden border border-white/80 shadow-xl group-hover:shadow-2xl transition-all">
                 {/* Gradient accent */}
                 <div className={`absolute top-0 left-0 w-full h-2 bg-gradient-to-r ${service.color}`} />
@@ -133,10 +91,7 @@ export default function Services() {
                 <div className="p-6 h-full flex flex-col relative">
                   {/* Icon with proper color rendering */}
                   <div className={`mb-4`}>
-                    {React.createElement(service.icon, { 
-                      size: 24, 
-                      className: `text-gradient-${index}` // Using dynamic class for gradient
-                    })}
+                    <ServiceIcon slug={service.slug} className={`text-2xl text-gradient-${index}`} />
                     
                     {/* Dynamic gradient styles for each icon */}
                     <style dangerouslySetInnerHTML={{
@@ -148,8 +103,8 @@ export default function Services() {
                     }} />
                   </div>
                   
-                  <h3 className="text-xl font-bold text-dark mb-3">{service.title}</h3>
-                  <p className="text-gray-600 flex-grow">{service.desc}</p>
+                  <h3 className="text-xl font-bold text-dark mb-3">{service.name}</h3>
+                  <p className="text-gray-600 flex-grow">{service.summary}</p>
                   
                   {/* Learn more link */}
                   <div className="mt-4">
@@ -165,6 +120,7 @@ export default function Services() {
                   </div>
                 </div>
               </div>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -177,19 +133,20 @@ export default function Services() {
           transition={{ delay: 0.4 }}
           className="text-center mt-16"
         >
-          <motion.button
+          <MotionLink
+            href="/services"
             whileHover={{ 
               scale: 1.05,
               boxShadow: "0 0 20px rgba(59, 130, 246, 0.5)"
             }}
             whileTap={{ scale: 0.95 }}
-            className="relative bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full font-bold shadow-lg overflow-hidden"
+            className="inline-block relative bg-gradient-to-r from-primary to-secondary text-white px-8 py-3 rounded-full font-bold shadow-lg overflow-hidden"
           >
             <span className="relative z-10">Explore All Services</span>
             <motion.span 
               className="absolute inset-0 bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
             />
-          </motion.button>
+          </MotionLink>
         </motion.div>
       </div>
     </section>

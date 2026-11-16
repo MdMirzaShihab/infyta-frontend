@@ -1,18 +1,23 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+"use client";
 
-export default function ServiceCard({ icon, title, description, color, url }) {
+import { motion } from "framer-motion";
+import Link from "next/link";
+import ServiceIcon from "@/components/ServiceIcon";
+
+export default function ServiceCard({ service }) {
   return (
     <motion.div
       whileHover={{ y: -10 }}
       className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100 hover:shadow-xl transition-shadow"
     >
-      <Link to={url}>
-        <div className={`bg-gradient-to-r ${color} h-2 w-full`}></div>
+      <Link href={`/services/${service.slug}`} className="block">
+        <div className={`bg-gradient-to-r ${service.color} h-2 w-full`}></div>
         <div className="p-8">
-          <div className="text-primary mb-4">{icon}</div>
-          <h3 className="text-xl font-bold mb-2 text-dark">{title}</h3>
-          <p className="text-gray-600">{description}</p>
+          <div className="text-primary mb-4">
+            <ServiceIcon slug={service.slug} className="text-4xl" />
+          </div>
+          <h3 className="text-xl font-bold mb-2 text-dark">{service.name}</h3>
+          <p className="text-gray-600">{service.summary}</p>
           <div className="mt-4 text-primary font-semibold flex items-center">
             Learn more
             <svg
@@ -20,6 +25,7 @@ export default function ServiceCard({ icon, title, description, color, url }) {
               className="h-5 w-5 ml-1"
               viewBox="0 0 20 20"
               fill="currentColor"
+              aria-hidden="true"
             >
               <path
                 fillRule="evenodd"

@@ -1,17 +1,19 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade } from 'swiper/modules';
-import 'swiper/css';
-import 'swiper/css/effect-fade';
+import Link from "next/link";
 
-// Import your local images
-import DataCenter from '../assets/hero/Data.webp';
-import Holographic from '../assets/hero/Holographic.webp';
-import Developer from '../assets/hero/Developer.webp';
-import Network from '../assets/hero/Network.webp';
-import Security from '../assets/hero/Padlock.webp';
-import TeamCollaboration from '../assets/hero/Team.webp';
+const MotionLink = motion.create(Link);
+
+const TeamCollaboration = '/images/hero/team.webp';
+const DataCenter = '/images/hero/data.webp';
+const Developer = '/images/hero/developer.webp';
+const Network = '/images/hero/network.webp';
+const Security = '/images/hero/padlock.webp';
+const Holographic = '/images/hero/holographic.webp';
 
 export default function Hero() {
   const heroImages = [
@@ -73,7 +75,7 @@ export default function Hero() {
                 alt={image.alt}
                 className="w-full h-full object-cover"
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
               />
               
               {/* Optional text overlay per slide (alternative to main content) */}
@@ -102,20 +104,22 @@ export default function Hero() {
           Engineering Tomorrow’s Tech Today
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <motion.button
+            <MotionLink
+              href="/contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-primary hover:bg-secondary px-8 py-3 rounded-full font-bold flex items-center gap-2 shadow-lg"
+              className="bg-primary hover:bg-secondary px-8 py-3 rounded-full font-bold flex items-center justify-center gap-2 shadow-lg"
             >
               Get Started <FiArrowRight />
-            </motion.button>
-            <motion.button
+            </MotionLink>
+            <MotionLink
+              href="/services"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="bg-transparent border-2 border-white hover:border-primary text-white hover:text-primary px-8 py-3 rounded-full font-bold"
+              className="text-center bg-transparent border-2 border-white hover:border-primary text-white hover:text-primary px-8 py-3 rounded-full font-bold"
             >
               Explore Solutions
-            </motion.button>
+            </MotionLink>
           </div>
         </div>
       </motion.div>

@@ -1,8 +1,26 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
 import { FiMenu, FiX, FiChevronDown } from "react-icons/fi";
-import { Link } from "react-router-dom";
-import logo from "../assets/logo/infyta-logo.png";
+import Link from "next/link";
+import { services } from "@/content/services";
+
+const MotionLink = motion.create(Link);
+
+const links = [
+  { name: "Home", path: "/" },
+  {
+    name: "Services",
+    submenu: [
+      { name: "All Services", path: "/services" },
+      ...services.map((s) => ({ name: s.name, path: `/services/${s.slug}` })),
+    ],
+  },
+  { name: "Team", path: "/team" },
+  { name: "About", path: "/about" },
+  { name: "Contact", path: "/contact" },
+];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,25 +34,6 @@ export default function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const links = [
-    { name: "Home", path: "/" },
-    { 
-      name: "Services", 
-      submenu: [
-        { name: "Software Development", path: "/services/software-development" },
-        { name: "Network Infrastructure", path: "/services/network-infrastructure" },
-        { name: "IT Support & Consultancy", path: "/services/it-support-consultancy" },
-        { name: "Security & Surveillance", path: "/services/security-surveillance" },
-        { name: "Server & Cloud Solutions", path: "/services/server-cloud-solutions" },
-        { name: "Mobile Applications", path: "/services/mobile-applications" },
-        { name: "Cloud Services", path: "/services/cloud-services" }
-      ]
-    },
-    { name: "Team", path: "/team" },
-    { name: "About", path: "/about" },
-    { name: "Contact", path: "/contact" },
-  ];
 
   const toggleDropdown = (name) => {
     setActiveDropdown(activeDropdown === name ? null : name);
@@ -62,11 +61,13 @@ export default function Navbar() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-            <Link to="/" className="relative" onClick={closeAllDropdowns}>
-              <img 
-                src={logo} 
-                alt="Infyta Logo" 
-                className={`h-12 transition-all ${scrolled ? "h-10" : "h-12"}`}
+            <Link href="/" className="relative" onClick={closeAllDropdowns}>
+              <img
+                src="/images/infyta-logo.png"
+                width={200}
+                height={119}
+                alt="Infyta"
+                className={`w-auto h-12 transition-all ${scrolled ? "h-10" : "h-12"}`}
               />
             </Link>
           </motion.div>
@@ -84,6 +85,7 @@ export default function Navbar() {
                       className="flex items-center text-white hover:text-primary font-medium transition-colors"
                       whileHover={{ scale: 1.05 }}
                       onClick={() => toggleDropdown(link.name)}
+                      aria-expanded={activeDropdown === link.name}
                     >
                       {link.name}
                       <FiChevronDown className={`ml-1 transition-transform ${
@@ -103,7 +105,7 @@ export default function Navbar() {
                       {link.submenu.map((sub) => (
                         <Link
                           key={sub.name}
-                          to={sub.path}
+                          href={sub.path}
                           className="block px-4 py-2 text-white/80 hover:text-white hover:bg-primary/10 transition-colors"
                           onClick={closeAllDropdowns}
                         >
@@ -115,7 +117,7 @@ export default function Navbar() {
                 ) : (
                   <motion.div whileHover={{ scale: 1.05 }}>
                     <Link
-                      to={link.path}
+                      href={link.path}
                       className="font-medium text-white hover:text-primary transition-colors"
                       onClick={closeAllDropdowns}
                     >
@@ -125,7 +127,8 @@ export default function Navbar() {
                 )}
               </div>
             ))}
-            <motion.button
+            <MotionLink
+              href="/contact"
               whileHover={{ 
                 scale: 1.05,
                 boxShadow: "0 0 15px rgba(58, 193, 194, 0.5)"
@@ -135,7 +138,7 @@ export default function Navbar() {
               onClick={closeAllDropdowns}
             >
               Get Started
-            </motion.button>
+            </MotionLink>
           </div>
 
           {/* Mobile Menu Button */}
@@ -143,6 +146,8 @@ export default function Navbar() {
             className="md:hidden text-2xl z-50 text-white"
             onClick={() => setIsOpen(!isOpen)}
             whileTap={{ scale: 0.9 }}
+            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isOpen}
           >
             {isOpen ? <FiX /> : <FiMenu />}
           </motion.button>
@@ -170,6 +175,7 @@ export default function Navbar() {
                   <button 
                     className="text-white font-bold text-lg flex items-center"
                     onClick={() => toggleDropdown(link.name)}
+                    aria-expanded={activeDropdown === link.name}
                   >
                     {link.name}
                     <FiChevronDown className={`ml-2 transition-transform ${
@@ -187,7 +193,7 @@ export default function Navbar() {
                         transition={{ delay: index * 0.1 }}
                       >
                         <Link
-                          to={sub.path}
+                          href={sub.path}
                           className="block text-white/80 hover:text-white transition-colors py-2"
                           onClick={closeAllDropdowns}
                         >
@@ -203,7 +209,7 @@ export default function Navbar() {
                   animate={{ opacity: 1, x: 0 }}
                 >
                   <Link
-                    to={link.path}
+                    href={link.path}
                     className="block text-white font-bold text-lg hover:text-primary transition-colors py-2"
                     onClick={closeAllDropdowns}
                   >
@@ -213,13 +219,14 @@ export default function Navbar() {
               )}
             </motion.div>
           ))}
-          <motion.button 
-            className="w-full bg-primary text-white py-3 rounded-full font-bold mt-8"
+          <MotionLink
+            href="/contact"
+            className="block text-center w-full bg-primary text-white py-3 rounded-full font-bold mt-8"
             whileTap={{ scale: 0.95 }}
             onClick={closeAllDropdowns}
           >
             Contact Us
-          </motion.button>
+          </MotionLink>
         </motion.div>
       )}
     </motion.nav>

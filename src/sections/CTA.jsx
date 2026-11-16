@@ -1,5 +1,10 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { FiArrowRight } from "react-icons/fi";
+import Link from "next/link";
+
+const MotionLink = motion.create(Link);
 
 export default function CTA() {
   return (
@@ -16,23 +21,25 @@ export default function CTA() {
               Ready to Transform Your Business?
             </h2>
             <p className="text-xl text-white mb-8">
-              Let's discuss how Infyta can help you achieve your technology goals.
+              Let&apos;s discuss how Infyta can help you achieve your technology goals.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <motion.button
+              <MotionLink
+                href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="bg-white text-dark px-8 py-3 rounded-full font-bold flex items-center justify-center gap-2"
               >
                 Get Started <FiArrowRight />
-              </motion.button>
-              <motion.button
+              </MotionLink>
+              <MotionLink
+                href="/contact"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold"
+                className="text-center bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-bold"
               >
                 Contact Sales
-              </motion.button>
+              </MotionLink>
             </div>
           </motion.div>
         </div>

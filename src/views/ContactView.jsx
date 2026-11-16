@@ -1,38 +1,17 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope, FaClock, FaPaperPlane } from "react-icons/fa";
+import FloatingOrbs from "@/components/FloatingOrbs";
+import { site, publicEmails } from "@/content/site";
 
-export default function Contact() {
+export default function ContactView() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-dark to-primary text-white py-32 overflow-hidden">
         {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden z-0">
-          {[...Array(5)].map((_, i) => (
-            <motion.div
-              key={i}
-              animate={{
-                x: [0, 100, 0],
-                y: [0, 50, 0],
-                rotate: [0, 180, 360],
-              }}
-              transition={{
-                duration: 15 + Math.random() * 10,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "linear",
-              }}
-              className="absolute rounded-full opacity-10"
-              style={{
-                width: `${100 + Math.random() * 200}px`,
-                height: `${100 + Math.random() * 200}px`,
-                background: `radial-gradient(circle, #3ac1c2, transparent)`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-            />
-          ))}
-        </div>
+        <FloatingOrbs count={5} opacityClass="opacity-10" />
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.h1 
@@ -48,7 +27,7 @@ export default function Contact() {
             transition={{ delay: 0.2 }}
             className="text-xl md:text-2xl max-w-3xl mx-auto"
           >
-            Let's discuss how we can transform your business with our tech solutions
+            Let&apos;s discuss how we can transform your business with our tech solutions
           </motion.p>
         </div>
       </section>
@@ -134,7 +113,11 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-lg">Our Office</h4>
-                      <p className="text-white/90">184/5/3 Lalbagh Road, Rasulbagh, Dhaka-1211, Bangladesh</p>
+                      <address className="not-italic text-white/90">
+                        <a href={site.mapsUrl} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                          {site.address.display}
+                        </a>
+                      </address>
                     </div>
                   </motion.div>
                   
@@ -147,8 +130,9 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-lg">Phone</h4>
-                      <p className="text-white/90">+880 1869 976843</p>
-                      <p className="text-white/90">+880 1720 331586</p>
+                      <p className="text-white/90">
+                        <a href={`tel:${site.phone.e164}`} className="hover:underline">{site.phone.display}</a>
+                      </p>
                     </div>
                   </motion.div>
                   
@@ -161,8 +145,11 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-lg">Email</h4>
-                      <p className="text-white/90">info@infyta.com</p>
-                      <p className="text-white/90">infytaofficial@gmail.com</p>
+                      {publicEmails().map((email) => (
+                        <p key={email} className="text-white/90">
+                          <a href={`mailto:${email}`} className="hover:underline">{email}</a>
+                        </p>
+                      ))}
                     </div>
                   </motion.div>
                   
@@ -175,8 +162,9 @@ export default function Contact() {
                     </div>
                     <div>
                       <h4 className="font-semibold text-lg">Working Hours</h4>
-                      <p className="text-white/90">Saturday - Thursday: 9AM - 6PM</p>
-                      <p className="text-white/90">Friday: Closed</p>
+                      {site.hours.display.map((line) => (
+                        <p key={line} className="text-white/90">{line}</p>
+                      ))}
                     </div>
                   </motion.div>
                 </div>
@@ -194,7 +182,7 @@ export default function Contact() {
                   scrolling="no" 
                   marginHeight="0" 
                   marginWidth="0" 
-                  src="https://maps.google.com/maps?q=184%2F5%2F3%20Lalbagh%20Road%2C%20Rasulbagh%2C%20Dhaka-1211&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                  src={site.mapEmbedUrl}
                   className="filter grayscale(30%) hover:grayscale(0%) transition-all duration-500"
                   title="Infyta Office Location"
                   loading="lazy"

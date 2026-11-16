@@ -1,16 +1,14 @@
+"use client";
+
 import { motion } from "framer-motion";
 import { FaUsers, FaGlobe, FaLightbulb, FaRocket, FaShieldAlt, FaHandshake } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import React from "react";
+import FloatingOrbs from "@/components/FloatingOrbs";
 
-export default function About() {
-  // Define your primary and secondary colors to ensure consistency
-  const colors = {
-    primary: "#3B82F6", // blue-500
-    secondary: "#3AC1C2", // custom teal 
-    dark: "#1F2937", // gray-800
-  };
+const MotionLink = motion.create(Link);
 
+export default function AboutView() {
   const values = [
     { 
       icon: FaUsers, 
@@ -74,32 +72,7 @@ export default function About() {
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-dark to-primary text-white py-32 overflow-hidden">
         {/* Animated background elements */}
-        <div className="absolute inset-0 overflow-hidden z-0">
-          {[...Array(6)].map((_, i) => (
-            <motion.div
-              key={i}
-              animate={{
-                x: [0, 100, 0],
-                y: [0, 50, 0],
-                rotate: [0, 180, 360],
-              }}
-              transition={{
-                duration: 20 + Math.random() * 20,
-                repeat: Infinity,
-                repeatType: "reverse",
-                ease: "linear",
-              }}
-              className="absolute rounded-full opacity-10"
-              style={{
-                width: `${100 + Math.random() * 200}px`,
-                height: `${100 + Math.random() * 200}px`,
-                background: `radial-gradient(circle, ${colors.secondary}, transparent)`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-              }}
-            />
-          ))}
-        </div>
+        <FloatingOrbs count={6} opacityClass="opacity-10" />
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.h1 
@@ -115,7 +88,7 @@ export default function About() {
             transition={{ delay: 0.2 }}
             className="text-xl md:text-2xl max-w-3xl mx-auto"
           >
-            Engineering Tomorrow's Tech Today
+            Engineering Tomorrow&apos;s Tech Today
           </motion.p>
         </div>
       </section>
@@ -138,7 +111,7 @@ export default function About() {
                 <h2 className="text-2xl md:text-3xl font-bold">Our Vision</h2>
               </div>
               <p className="text-lg md:text-xl text-white/90">
-                "To be the most trusted global partner for transformative IT solutions, empowering businesses to thrive in a digitally limitless world."
+                &quot;To be the most trusted global partner for transformative IT solutions, empowering businesses to thrive in a digitally limitless world.&quot;
               </p>
             </motion.div>
 
@@ -156,7 +129,7 @@ export default function About() {
                 <h2 className="text-2xl md:text-3xl font-bold text-dark">Our Mission</h2>
               </div>
               <p className="text-lg md:text-xl text-gray-600">
-                "We deliver cutting-edge, secure, and scalable IT solutions—from software to infrastructure—helping businesses overcome challenges with innovation and excellence. Our commitment is to make technology an enabler, not a barrier, for growth."
+                &quot;We deliver cutting-edge, secure, and scalable IT solutions—from software to infrastructure—helping businesses overcome challenges with innovation and excellence. Our commitment is to make technology an enabler, not a barrier, for growth.&quot;
               </p>
             </motion.div>
           </div>
@@ -231,16 +204,17 @@ export default function About() {
           >
             The brilliant minds behind our innovative solutions
           </motion.p>
-          <motion.button
+          <MotionLink
+            href="/team"
             whileHover={{ 
               scale: 1.05,
               boxShadow: "0 0 20px rgba(58, 193, 194, 0.5)"
             }}
             whileTap={{ scale: 0.95 }}
-            className="bg-white text-dark hover:bg-gray-100 px-8 py-3 rounded-full font-bold shadow-lg transition-all"
+            className="inline-block bg-white text-dark hover:bg-gray-100 px-8 py-3 rounded-full font-bold shadow-lg transition-all"
           >
-            <Link to="/team">View Our Team</Link>
-          </motion.button>
+            View Our Team
+          </MotionLink>
         </div>
       </section>
     </div>

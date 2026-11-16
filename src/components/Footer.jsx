@@ -1,15 +1,38 @@
+"use client";
+
 import { motion } from "framer-motion";
-import { 
-  FaLinkedin, 
-  FaTwitter, 
+import {
+  FaLinkedin,
+  FaTwitter,
   FaGithub,
+  FaFacebook,
+  FaGlobe,
   FaPhone,
   FaMapMarkerAlt,
-  FaEnvelope
+  FaEnvelope,
+  FaClock
 } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import Link from "next/link";
+import FloatingOrbs from "@/components/FloatingOrbs";
+import { site, primaryEmail } from "@/content/site";
+import { services } from "@/content/services";
+
+const SOCIAL_ICONS = [
+  ["linkedin.com", FaLinkedin],
+  ["twitter.com", FaTwitter],
+  ["x.com", FaTwitter],
+  ["github.com", FaGithub],
+  ["facebook.com", FaFacebook],
+];
+
+function socialIcon(url) {
+  const match = SOCIAL_ICONS.find(([host]) => url.includes(host));
+  const Icon = match ? match[1] : FaGlobe;
+  return <Icon />;
+}
 
 export default function Footer() {
+  const email = primaryEmail();
   const footerLinks = [
     {
       title: "Quick Links",
@@ -23,58 +46,23 @@ export default function Footer() {
     },
     {
       title: "Services",
-      links: [
-        { name: "Software Development", path: "/services/software-development" },
-        { name: "Network Infrastructure", path: "/services/network-infrastructure" },
-        { name: "Security & Surveillance", path: "/services/security-surveillance" },
-        { name: "Cloud Solutions", path: "/services/server-cloud-solutions" },
-      ]
+      links: services.map((s) => ({ name: s.name, path: `/services/${s.slug}` }))
     },
     {
       title: "Contact",
       links: [
-        { name: "+880 1869 976843", icon: <FaPhone className="inline mr-2" /> },
-        { name: "184/5/3 Lalbagh Road, Rasulbagh, Dhaka-1211, Bangladesh", icon: <FaMapMarkerAlt className="inline mr-2" /> },
-        { name: "info@infyta.com", icon: <FaEnvelope className="inline mr-2" /> }
+        { name: site.phone.display, href: `tel:${site.phone.e164}`, icon: <FaPhone className="inline mr-2" /> },
+        { name: site.address.display, href: site.mapsUrl, external: true, icon: <FaMapMarkerAlt className="inline mr-2" /> },
+        { name: email, href: `mailto:${email}`, icon: <FaEnvelope className="inline mr-2" /> },
+        ...site.hours.display.map((line) => ({ name: line, icon: <FaClock className="inline mr-2" /> }))
       ]
     }
-  ];
-
-  const socialLinks = [
-    { icon: <FaLinkedin />, url: "https://linkedin.com" },
-    { icon: <FaTwitter />, url: "https://twitter.com" },
-    { icon: <FaGithub />, url: "https://github.com" }
   ];
 
   return (
     <footer className="relative bg-dark text-white pt-16 pb-8 overflow-hidden">
       {/* Animated background elements */}
-      <div className="absolute inset-0 overflow-hidden z-0">
-        {[...Array(6)].map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              x: [0, 100, 0],
-              y: [0, 50, 0],
-              rotate: [0, 180, 360],
-            }}
-            transition={{
-              duration: 20 + Math.random() * 20,
-              repeat: Infinity,
-              repeatType: "reverse",
-              ease: "linear",
-            }}
-            className="absolute rounded-full opacity-5"
-            style={{
-              width: `${100 + Math.random() * 200}px`,
-              height: `${100 + Math.random() * 200}px`,
-              background: `radial-gradient(circle, #3ac1c2, transparent)`,
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+      <FloatingOrbs count={6} opacityClass="opacity-5" />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -89,20 +77,21 @@ export default function Footer() {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">Infyta</span>
               </h3>
               <p className="text-gray-400 mb-6">
-                Limitless Tech Solutions for a Digital World
+                {site.tagline}
               </p>
               <div className="flex space-x-4">
-                {socialLinks.map((social, index) => (
+                {site.socials.map((social) => (
                   <motion.a
-                    key={index}
+                    key={social.url}
                     href={social.url}
+                    aria-label={social.name}
                     target="_blank"
                     rel="noopener noreferrer"
                     whileHover={{ y: -3, scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="text-xl text-gray-400 hover:text-primary transition-colors"
                   >
-                    {social.icon}
+                    {socialIcon(social.url)}
                   </motion.a>
                 ))}
               </div>
@@ -126,13 +115,28 @@ export default function Footer() {
                     whileHover={{ x: 5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >
-                    <Link
-                      to={link.path || "#"}
-                      className="flex items-center text-gray-400 hover:text-primary transition-colors"
-                    >
-                      {link.icon && <span className="mr-2">{link.icon}</span>}
-                      {link.name}
-                    </Link>
+                    {link.path ? (
+                      <Link
+                        href={link.path}
+                        className="flex items-center text-gray-400 hover:text-primary transition-colors"
+                      >
+                        {link.name}
+                      </Link>
+                    ) : link.href ? (
+                      <a
+                        href={link.href}
+                        {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                        className="flex items-center text-gray-400 hover:text-primary transition-colors"
+                      >
+                        {link.icon && <span className="mr-2">{link.icon}</span>}
+                        {link.name}
+                      </a>
+                    ) : (
+                      <span className="flex items-center text-gray-400">
+                        {link.icon && <span className="mr-2">{link.icon}</span>}
+                        {link.name}
+                      </span>
+                    )}
                   </motion.li>
                 ))}
               </ul>
@@ -147,7 +151,7 @@ export default function Footer() {
           transition={{ delay: 0.4 }}
           className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400"
         >
-          <p>© {new Date().getFullYear()} Infyta. All rights reserved.</p>
+          <p>© <span suppressHydrationWarning>{new Date().getFullYear()}</span> Infyta. All rights reserved.</p>
           <p className="mt-2 text-sm">
             Designed with ❤️ by Infyta Team
           </p>
