@@ -1,12 +1,32 @@
-# React + Vite
+# Infyta website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Marketing site for Infyta, an IT company in Dhaka, Bangladesh. Built with Next.js (App Router) as a static export, with Tailwind CSS, Framer Motion and Swiper.
 
-Currently, two official plugins are available:
+## Scripts
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+| Command | What it does |
+|---------|--------------|
+| `npm run dev` | Start the dev server |
+| `npm run build` | Build the static site into `out/` |
+| `npm test` | Unit tests (`tests/unit`) |
+| `npm run test:build` | Tests that inspect the built `out/` (run `npm run build` first) |
+| `npm run check` | Unit tests, build, build tests and lint in one go |
+| `npm run preview` | Serve `out/` locally with Cloudflare's runtime (`wrangler pages dev`) |
 
-## Expanding the ESLint configuration
+## Content
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+All business data and copy live in `src/content/`:
+
+- `site.js`: name, address, phone, email, hours, geo and social links (one source of truth)
+- `services.js`: the five services, with their page content and FAQs
+- `pages.js`: page metadata, home intro and the list of routes
+
+`docs/review-list.md` lists the copy the owner should review.
+
+## Email switch
+
+`domainEmailActive` in `src/content/site.js` is `false`, so the site publishes `infytaofficial@gmail.com`. Set it to `true` only after `info@infyta.com` receives mail (see the runbook).
+
+## Deployment
+
+`out/` is deployed to Cloudflare Pages by the owner. See [docs/deploy-cloudflare.md](docs/deploy-cloudflare.md) for the step-by-step runbook. Redirects and headers live in `public/_redirects` and `public/_headers`.
