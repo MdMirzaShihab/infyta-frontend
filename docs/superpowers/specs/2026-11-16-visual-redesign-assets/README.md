@@ -14,7 +14,39 @@ design spec; nothing here ships with the site.
 | Design spec (`docs/superpowers/specs/2026-11-16-visual-redesign-design.md`) | Approved by the owner on 2026-11-16, including all nine calls in section 12 |
 | Implementation plan (`docs/superpowers/plans/2026-11-16-visual-redesign.md`) | Approved by the owner on 2026-11-16. Nine tasks, to be run with subagent-driven development in a new session |
 | Prompt to start or resume | `docs/superpowers/plans/2026-11-16-visual-redesign-START-PROMPT.md` |
-| Implementation | Not started. Nothing in `src/` has changed |
+| Implementation | In progress, see below |
+
+## Implementation progress
+
+Updated by the controller session at every checkpoint (task dispatched, task committed, review
+passed, fix round committed), so work can resume after a power cut. Resume with the start prompt;
+the controller's ledger is `.superpowers/sdd/2026-11-16-visual-redesign/progress.md` (git-ignored,
+on disk). If that file is lost, this table and `git log` are the record.
+
+| Task | Status | Commits |
+| --- | --- | --- |
+| 1. Foundation | Implemented, in review | 6d9d24b |
+| 2. Logic and content | Not started | |
+| 3. Logo and brand images | Not started | |
+| 4. Site shell | Not started | |
+| 5. Home and hero drawing | Not started | |
+| 6. Services and detail drawings | Not started | |
+| 7. About and Team | Not started | |
+| 8. Contact and 404 | Not started | |
+| 9. Cleanup, docs, verification | Not started | |
+| Whole-branch review | Not started | |
+
+Execution rulings (made by the controller where the plan was silent or disagreed with the spec):
+
+- Commit trailer is `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>` (the session's model).
+- Tasks 1, 2 and 9 get one Sonnet reviewer for spec and quality; Tasks 3 to 8 get a Sonnet spec
+  reviewer and a quality reviewer on the model in the plan's table.
+- The "no hex colour" rule binds components and stylesheets; `src/lib/theme-script.js` and `scripts/`
+  are exempt.
+- Task 3 also writes the no-tagline logo variants that spec section 11 asks for:
+  `infyta-logo-notagline.svg` and `infyta-logo-reversed-notagline.svg`.
+- Body order in the layout: skip link, the hidden drawing symbols, header, main, footer.
+- `TitleBlock` renders `<dl class="titleblock">` with a `<dt>`/`<dd>` pair per cell, so Task 7 can reuse it.
 
 Published mockup (private artifact): https://claude.ai/artifact/CRwP51kC15zT6pDpGCDqMA
 
