@@ -59,7 +59,7 @@ dl{margin:0}
 .portrait::after{content:"";position:absolute;inset:0;background:var(--ink);mix-blend-mode:screen;pointer-events:none}
 .advisor h2.label{font-size:1rem}
 .advisor__name{font-stretch:var(--w-display);font-weight:700;font-size:clamp(2.1rem,4.4vw,3.6rem);line-height:1;letter-spacing:-.024em;margin-top:14px}
-.advisor__role{margin-top:10px;font-size:1.125rem;color:var(--accent);font-weight:560}
+.advisor__role{margin-top:10px;font-size:1.125rem;color:var(--fg2);font-weight:560}
 .ticks{display:grid;grid-template-columns:1fr 1fr;gap:12px 32px;margin-top:28px}
 .ticks li{position:relative;padding-left:20px;color:var(--fg2);line-height:1.45}
 .ticks li::before{content:"";position:absolute;left:0;top:.56em;width:8px;height:8px;border-radius:50%;background:var(--signal)}

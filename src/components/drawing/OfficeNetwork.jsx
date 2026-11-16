@@ -97,6 +97,9 @@ function Wide() {
 function Tall() {
   return (
     <svg className="dwg dwg--tall" viewBox="0 0 360 752" role="group" aria-label={ARIA}>
+      {/* The Internet line runs through the "Your office" label, so it is painted before that label's knockout,
+          outside its part's link; drawing.css lights and dims it with the Network Infrastructure part. */}
+      <g className="svc-line" data-svc="network-infrastructure"><path className="wan fade" style={delay(0.15)} d="M54 52V116" /></g>
       <Part slug="it-support-consultancy" label="IT Support & Consultancy: the whole office">
         <rect className="hit" x="6" y="96" width="348" height="648" rx="12" />
         <rect className="boundary fade" style={delay(2.3)} x="6" y="96" width="348" height="648" rx="12" />
@@ -118,7 +121,7 @@ function Tall() {
 
       <Part slug="network-infrastructure" label="Network Infrastructure">
         <rect className="hit" x="8" y="108" width="344" height="270" />
-        <path className="wan fade" style={delay(0.15)} d="M54 52V116" /><Fade d={0.15}><T x={64} y={80} cls="t2">Internet</T></Fade>
+        <Fade d={0.15}><T x={64} y={80} cls="t2">Internet</T></Fade>
         <Use id="d-router" x={14} y={116} d={0.3} /><Rise d={0.3}><T x={110} y={131}>Router</T><T x={110} y={146} cls="t2">MikroTik</T></Rise><Bub n={CALLOUT["network-infrastructure"]} x={338} y={134} d={2.3} />
         <Wire d="M54 152V172" t={0.45} cls="quick" />
         <Use id="d-firewall" x={14} y={172} d={0.6} /><Rise d={0.6}><T x={110} y={187}>Firewall</T><T x={110} y={202} cls="t2">Fortinet</T></Rise>

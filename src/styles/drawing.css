@@ -24,6 +24,10 @@
 .dwg .svc:hover .bub circle,.dwg .svc:focus-visible .bub circle{fill:currentColor}
 .dwg .svc:hover .bub text,.dwg .svc:focus-visible .bub text{fill:var(--body)}
 .dwg:has(.svc:is(:hover,:focus-visible)) .svc:not(:hover,:focus-visible){opacity:.42}
+/* The tall drawing's Internet line sits outside its part's link (OfficeNetwork.jsx): it follows that part's states. */
+.dwg .svc-line{transition:color .16s,opacity .16s}
+.dwg:has(.svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .svc-line{color:var(--accent)}
+.dwg:has(.svc:not([data-svc="network-infrastructure"]):is(:hover,:focus-visible)) .svc-line{opacity:.42}
 .dwg--tall{display:none;max-width:460px}
 .dwg--mini{width:168px;flex:none}
 .dwg--mini,.dwg--detail{color:inherit}
@@ -45,6 +49,9 @@ main:has(.key__row[data-svc="network-infrastructure"]:is(:hover,:focus-visible))
 main:has(.key__row[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .dwg .svc[data-svc="it-support-consultancy"] .bub text,
 main:has(.key__row[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .dwg .svc[data-svc="security-surveillance"] .bub text,
 main:has(.key__row[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .dwg .svc[data-svc="server-cloud-solutions"] .bub text{fill:var(--body)}
+
+main:has(.key__row[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .dwg .svc-line{color:var(--accent)}
+main:has(.key__row:not([data-svc="network-infrastructure"]):is(:hover,:focus-visible)) .dwg .svc-line{opacity:.42}
 
 /* The reverse: hovering or focusing a part of the drawing lights its service row (same look as hovering the row). Other rows stay as they are. */
 main:has(.dwg .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"]{background:var(--panel);border-top-color:transparent}
