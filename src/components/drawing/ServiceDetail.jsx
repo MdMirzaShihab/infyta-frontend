@@ -66,9 +66,11 @@ const DRAWINGS = {
     body: (
       <>
         <use href="#d-switch-s" x="272" y="22" /><T x={408} y={47}>Switch</T>
-        <path d="M300 62V112" /><Tap x={300} y={112} />
-        <path d="M140 138V120Q140 112 148 112H452Q460 112 460 120V138" />
-        <Flag x={300} y={88} w={54}>Cameras</Flag>
+        {/* The symbol lights one port; the door terminal's cable needs a second (port 2, lit here, not in d-switch-s). */}
+        <g className="port"><rect className="lit" x="308" y="46" width="8" height="8" rx="1" /></g>
+        <path d="M300 62V80Q300 88 292 88H148Q140 88 140 96V138" />
+        <path d="M312 62V80Q312 88 320 88H452Q460 88 460 96V138" />
+        <Flag x={140} y={116} w={54}>Cameras</Flag><Flag x={460} y={116} w={54}>Cameras</Flag>
         <use href="#d-nvr" x="102" y="138" /><T x={190} y={157}>Recorder</T>
         <path d="M118 166V182M162 166V182" />
         <use href="#d-dome" x="106" y="182" /><use href="#d-bullet" x="157" y="182" /><T x={140} y={222} anchor="middle">CCTV cameras</T>
