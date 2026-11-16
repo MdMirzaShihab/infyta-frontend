@@ -36,6 +36,10 @@
 .themeseg button:first-child{border-radius:5px 0 0 5px}
 .themeseg button:last-child{border-radius:0 5px 5px 0}
 .themeseg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
+/* Print drops the pressed fill by default, so the pressed label prints dark on no fill, like .btn. */
+@media print{
+  .themeseg button[aria-pressed="true"]{background:transparent;color:var(--fg)}
+}
 .nav__burger,.nav__call{display:none}
 .nav__call svg{width:20px;height:20px}
 

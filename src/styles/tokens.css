@@ -33,3 +33,13 @@
   --btn-bg: var(--white); --btn-fg: var(--ink); --hatch: rgba(255,255,255,.08);
   background: var(--bg); color: var(--fg);
 }
+/* Print: browsers drop backgrounds by default, so every theme and every inverse band prints as Paper,
+   navy line and text on white. Kept after the theme blocks, as one selector list. */
+@media print {
+  :root, :root[data-theme="dark"], :root:not([data-theme="light"]), .inverse {
+    --bg: var(--paper); --fg: var(--ink); --fg2: rgba(31,44,98,.76); --rule: rgba(31,44,98,.17);
+    --body: var(--white); --sheet: var(--white); --panel: var(--white); --accent: var(--signal-deep);
+    --btn-bg: var(--ink); --btn-fg: var(--white); --hatch: rgba(31,44,98,.07);
+    color-scheme: light;
+  }
+}

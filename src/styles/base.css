@@ -35,6 +35,10 @@ h3{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spa
 .btn svg{width:18px;height:18px;margin-left:-2px}
 .btn--icon::before{display:none}
 .textlink{font-weight:600;text-decoration:underline}
+/* Print drops the fill, so a filled button prints as its outline with dark text. */
+@media print{
+  .btn{background:transparent;color:var(--fg)}
+}
 
 .num{display:inline-grid;place-items:center;width:24px;height:24px;border:1.5px solid currentColor;border-radius:50%;font-size:.78rem;font-weight:700;line-height:1;flex:none;font-variant-numeric:tabular-nums}
 .panel{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:clamp(20px,3vw,40px)}

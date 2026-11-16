@@ -56,3 +56,16 @@ for (const [name, scope] of Object.entries(themes)) {
     }
   });
 }
+// Printing drops backgrounds, so white line on navy would print white on white: print resets every theme to Paper.
+test('print: every theme and inverse band prints with the Paper tokens', () => {
+  const m = css.match(/@media print\s*\{\s*([^{]+)\{([^}]*)\}/);
+  assert.ok(m, 'no @media print block');
+  const selectors = m[1].split(',').map((s) => s.trim());
+  for (const s of [':root', ':root[data-theme="dark"]', ':root:not([data-theme="light"])', '.inverse']) assert.ok(selectors.includes(s), `print does not reset ${s}`);
+  const print = Object.fromEntries([...m[2].matchAll(/(--[\w-]+)\s*:\s*([^;]+);/g)].map((d) => [d[1], d[2].trim()]));
+  for (const k of new Set([...Object.keys(darkAttr), ...Object.keys(inverse)])) {
+    if (k === '--inv-bg' || k === '--inv-panel') continue; // only used to build .inverse, which print resets directly
+    assert.equal(print[k], root[k], `${k} in print`);
+  }
+  assert.match(m[2], /color-scheme:\s*light/);
+});
