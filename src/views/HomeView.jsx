@@ -8,7 +8,7 @@ import ContactPanel from "@/components/ContactPanel";
 import { PhoneIcon, WhatsAppIcon } from "@/components/Icons";
 import { services } from "@/content/services";
 import { expertise } from "@/content/expertise";
-import { pages, homeIntro } from "@/content/pages";
+import { pages, homeIntro, expertiseIntro } from "@/content/pages";
 import { site } from "@/content/site";
 
 const DRAWING_NOTES = [
@@ -56,7 +56,7 @@ export default function HomeView({ email }) {
         <div className="wrap">
           <div className="head">
             <h2>Our Core Expertise</h2>
-            <p>Comprehensive IT solutions across multiple domains, delivered by certified professionals</p>
+            <p>{expertiseIntro}</p>
           </div>
           <Schedule rows={expertise} caption="Core expertise, technologies and certifications" />
         </div>

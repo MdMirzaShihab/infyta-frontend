@@ -130,7 +130,31 @@ dl{margin:0}
 .faq p{padding:0 0 22px;max-width:70ch;color:var(--fg2)}
 .endcta{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
 
+/* About */
+.statements{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px)}
+.statements h2{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spacing:-.01em}
+.statements p{margin-top:14px;max-width:40ch;font-stretch:104%;font-weight:500;font-size:clamp(1.25rem,1.9vw,1.6rem);line-height:1.35;color:var(--fg)}
+.titleblock--facts{border:1.5px solid var(--fg);border-radius:6px;background:var(--sheet);grid-template-columns:repeat(3,minmax(0,1fr));overflow:hidden}
+.titleblock--facts div{padding:18px 20px;border:0}
+.titleblock--facts div:nth-child(3n+2),.titleblock--facts div:nth-child(3n){border-left:1px solid var(--rule)}
+.titleblock--facts div:nth-child(n+4){border-top:1px solid var(--rule)}
+.titleblock--facts dd{font-weight:500;line-height:1.5}
+.titleblock--facts address{font-style:normal}
+.titleblock--facts a{color:var(--accent)}
+.titleblock--facts .line{display:block}
+.values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-top:1px solid var(--rule)}
+.values li{padding:24px 24px 24px 0;border-bottom:1px solid var(--rule)}
+.values p{margin-top:6px;color:var(--fg2);max-width:34ch}
+.inverse .endcta h2{max-width:14ch}
+.inverse .endcta .lede{margin-top:14px}
+
 @media (max-width:1039px){
+  .statements{grid-template-columns:1fr}
+  .titleblock--facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .titleblock--facts div:nth-child(n){border-left:0;border-top:1px solid var(--rule)}
+  .titleblock--facts div:nth-child(even){border-left:1px solid var(--rule)}
+  .titleblock--facts div:nth-child(-n+2){border-top:0}
+  .values{grid-template-columns:repeat(2,minmax(0,1fr))}
   .sheet--hero .sheet__fig{order:0;border-top:1.5px solid var(--fg);border-bottom:0}
   .sheet--hero .titleblock{border-top:1.5px solid var(--fg)}
   .tb{grid-template-columns:minmax(0,1fr)}
@@ -147,6 +171,11 @@ dl{margin:0}
   .steps{grid-template-columns:1fr 1fr;row-gap:36px}
 }
 @media (max-width:719px){
+  .titleblock--facts{grid-template-columns:1fr}
+  .titleblock--facts div:nth-child(n){border-left:0;border-top:1px solid var(--rule)}
+  .titleblock--facts div:first-child{border-top:0}
+  .values{grid-template-columns:1fr}
+  .values li{padding-right:0}
   .key__row{grid-template-columns:28px minmax(0,1fr);padding-block:22px}
   .key__row .dwg--mini{display:none}
   .sched thead{display:none}
