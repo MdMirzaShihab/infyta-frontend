@@ -1183,7 +1183,7 @@ git add -A && git commit -m "feat: rebuild Contact page with a hand-off form, an
 **Interfaces:**
 - Consumes: everything above. Produces nothing new.
 
-- [ ] **Step 1: Write `tests/build/cleanup.test.mjs`**
+- [x] **Step 1: Write `tests/build/cleanup.test.mjs`**
 
 ```js
 const GONE = ['swiper', 'framer-motion', 'react-icons', 'tailwindcss', 'autoprefixer'];
@@ -1213,29 +1213,29 @@ test('home ships less JavaScript than before the redesign', () => {
 
 `sourceFiles` walks `.js`, `.jsx` and `.css` files, as in `tests/unit/render-purity.test.mjs`.
 
-- [ ] **Step 2: Build and see it fail**
+- [x] **Step 2: Build and see it fail**
 
 Run: `npm run build; node --test tests/build/cleanup.test.mjs`
 Expected: FAIL on the dependency test.
 
-- [ ] **Step 3: Remove the old system**
+- [x] **Step 3: Remove the old system**
 
 Run: `npm uninstall swiper framer-motion react-icons tailwindcss autoprefixer postcss`
 
 Delete the files listed above. Delete `src/app/globals.css` and its import in `layout.jsx`; add it to the delete list above. Remove the hero entries from `scripts/resize-images.mjs`, keeping the advisor photo job. Search `src/` for any leftover `"use client"` in a view and remove it where the file no longer needs it.
 
-- [ ] **Step 4: Update the documents**
+- [x] **Step 4: Update the documents**
 
 - `docs/review-list.md`: add a section "4. Visible changes in the redesign" listing, for the owner to read: the new look and two themes; the home page's new sections; the nine calls from spec section 12; every new label from spec section 6.9, including each drawing's labels; and the two removed lines.
 - `docs/deploy-cloudflare.md`: in the preview steps replace the branch name `nextjs-seo-migration` with `visual-redesign`; replace the "Visual" check that says the preview should match the old site with: compare the preview with `docs/superpowers/specs/2026-11-16-visual-redesign-assets/mockup.html` in both themes; raise the Lighthouse line to Performance 95 or more and Accessibility 98 or more.
 - `README.md`: update anything that names Tailwind, Swiper or the hero images.
 
-- [ ] **Step 5: Run everything**
+- [x] **Step 5: Run everything**
 
 Run: `npm run check`
 Expected: PASS, every test file.
 
-- [ ] **Step 6: Measure with Lighthouse**
+- [x] **Step 6: Measure with Lighthouse**
 
 ```bash
 (npx wrangler pages dev out --port 8788 >/dev/null 2>&1 &) && sleep 6
@@ -1248,11 +1248,11 @@ pkill -f "wrangler pages dev"
 
 Expected: Performance 0.95 or more and Accessibility 0.98 or more on both. If Performance is short, first narrow the font: build Archivo with only the ranges the design uses (width 78 to 116, weight 400 to 720). If Accessibility is short, fix what the report lists. Record the four scores in the new section of `docs/review-list.md`. If Lighthouse cannot run here, say so in that section instead of leaving it blank.
 
-- [ ] **Step 7: Final look at every route**
+- [x] **Step 7: Final look at every route**
 
 Run the Visual check for all ten routes and `/404.html`, in both themes and at 500px. Confirm on the home page that the drawing draws itself once on load, and with reduced motion turned on in the OS that it appears complete at once.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add -A && git commit -m "chore: remove Tailwind, Swiper, framer-motion and react-icons; update docs"
