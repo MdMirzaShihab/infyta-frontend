@@ -3,13 +3,15 @@ import { logoPaths } from './logo-paths.js';
 
 // The Infyta logo, drawn from the outlines that scripts/make-logo.mjs generates.
 // Wordmark, floor and the dot ring take currentColor; gradients and the cyan y and dot are fixed brand colours.
+// Without the tagline the viewBox ends at y 108 (the mock's layout box) but the wall reaches y 116.2,
+// so overflow is visible and the tip of the wall hangs below the box.
 const CYAN = '#14b9da';
 
 export default function Logo({ tagline = false, className }) {
   const id = useId().replace(/[^A-Za-z0-9_-]/g, '');
   const tiles = logoPaths.tiles.map((d, i) => <path key={i} d={d} />);
   return (
-    <svg viewBox={`-2 -4 205 ${tagline ? 125 : 112}`} role="img" aria-label="Infyta" className={className}>
+    <svg viewBox={`-2 -4 205 ${tagline ? 125 : 112}`} overflow="visible" role="img" aria-label="Infyta" className={className}>
       <defs>
         <linearGradient id={`${id}-w`} gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108">
           <stop offset="0" stopColor={CYAN} />

@@ -15,12 +15,12 @@ test('logo files are outlines and need no font', () => {
   assert.match(ink, /fill="#1F2C62"/i);
   assert.match(reversed, /fill="#FFFFFF"/i);
 });
-test('no-tagline logo files are outlines, shorter, and need no font', () => {
+test('no-tagline logo files are outlines, show the whole wall, and need no font', () => {
   const inkShort = readFileSync('public/images/infyta-logo-notagline.svg', 'utf8');
   const reversedShort = readFileSync('public/images/infyta-logo-reversed-notagline.svg', 'utf8');
   for (const svg of [inkShort, reversedShort]) {
     assert.doesNotMatch(svg, /<text|font-family|<style/);
-    assert.match(svg, /viewBox="-2 -4 205 112"/);
+    assert.match(svg, /viewBox="-2 -4 205 121"/);
     assert.equal(svg.includes(logoPaths.tagline), false);
   }
   assert.match(inkShort, /fill="#1F2C62"/i);

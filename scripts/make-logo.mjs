@@ -83,10 +83,11 @@ writeFileSync(
 
 const CYAN = '#14b9da';
 // word: '#ffffff' (reversed, for navy grounds) or '#1f2c62' (ink, for paper grounds).
+// Without the tagline the file is 121 high, not the header's 112, so the whole wall (down to y 116.2) shows.
 function logoSvg({ word, withTagline, id }) {
   const tiles = logoPaths.tiles.map((d) => `<path d="${d}"/>`).join('');
   const letters = logoPaths.word.map((g) => `<path d="${g.d}"${g.accent ? ` fill="${CYAN}"` : ''}/>`).join('');
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 ${withTagline ? 125 : 112}" role="img" aria-label="Infyta">
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-2 -4 205 ${withTagline ? 125 : 121}" role="img" aria-label="Infyta">
   <defs>
     <linearGradient id="${id}-w" gradientUnits="userSpaceOnUse" x1="0" y1="50" x2="48" y2="108"><stop offset="0" stop-color="#14b9da"/><stop offset="1" stop-color="#212b60"/></linearGradient>
     <linearGradient id="${id}-t" gradientUnits="userSpaceOnUse" x1="70" y1="2" x2="45" y2="45"><stop offset="0" stop-color="#3cc4c4"/><stop offset="1" stop-color="#212b60"/></linearGradient>
