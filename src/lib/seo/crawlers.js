@@ -1,0 +1,1 @@
+export const ALLOWED_CRAWLERS = ['Googlebot','Bingbot','Google-Extended','GPTBot','OAI-SearchBot','ChatGPT-User','ClaudeBot','Claude-SearchBot','Claude-User','PerplexityBot','Perplexity-User','Applebot','Applebot-Extended'];
