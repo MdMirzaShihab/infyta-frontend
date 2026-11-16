@@ -14,7 +14,9 @@ const ORBS = [
   { size: 205, left: 80, top: 44, duration: 17 },
 ];
 
-export default function FloatingOrbs({ count = ORBS.length, opacityClass = "opacity-10" }) {
+const DEFAULT_COLORS = ["#3ac1c2"];
+
+export default function FloatingOrbs({ count = ORBS.length, opacityClass = "opacity-10", colors = DEFAULT_COLORS }) {
   return (
     <div className="absolute inset-0 overflow-hidden z-0">
       {ORBS.slice(0, count).map((orb, i) => (
@@ -35,7 +37,7 @@ export default function FloatingOrbs({ count = ORBS.length, opacityClass = "opac
           style={{
             width: `${orb.size}px`,
             height: `${orb.size}px`,
-            background: "radial-gradient(circle, #3ac1c2, transparent)",
+            background: `radial-gradient(circle, ${colors[i % colors.length]}, transparent)`,
             left: `${orb.left}%`,
             top: `${orb.top}%`,
           }}

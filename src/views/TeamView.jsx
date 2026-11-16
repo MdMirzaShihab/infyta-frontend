@@ -25,7 +25,7 @@ const EXPERTISE_ICONS = {
 export default function TeamView() {
   return (
     <div className="min-h-screen bg-gray-50 relative overflow-hidden">
-      <FloatingOrbs count={8} opacityClass="opacity-10" />
+      <FloatingOrbs count={8} opacityClass="opacity-10" colors={["#3ac1c2", "#14b9da"]} />
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-br from-dark via-dark/90 to-primary/80 text-white py-32 z-10">
