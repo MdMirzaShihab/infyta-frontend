@@ -62,6 +62,8 @@ dl{margin:0}
 .ticks li{position:relative;padding-left:20px;color:var(--fg2);line-height:1.45}
 .ticks li::before{content:"";position:absolute;left:0;top:.56em;width:8px;height:8px;border-radius:50%;background:var(--signal)}
 .advisor .tags{margin-top:26px}
+.advisor__sub{margin-top:28px}
+.advisor .advisor__sub + .ticks,.advisor .advisor__sub + .tags{margin-top:10px}
 .advisor .btn{margin-top:32px}
 
 /* Contact */

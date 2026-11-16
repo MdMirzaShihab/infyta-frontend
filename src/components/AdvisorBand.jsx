@@ -4,8 +4,8 @@ import { chiefAdvisor } from "@/content/team";
 
 const portrait = (w) => chiefAdvisor.image.replace(".webp", `-${w}.webp`);
 
-// The Chief Advisor band. By default "Our Chief Advisor" is the section heading and the name is a line under it;
-// with `headings` the name is the heading instead (for a page that already has its own h1). `cta` shows "View Our Team".
+// The Chief Advisor band. "Our Chief Advisor" is always the section heading. With `headings`, the highlights and
+// certifications get small sub-headings too (the Team page). `cta` shows "View Our Team".
 export default function AdvisorBand({ headings = false, cta = true }) {
   return (
     <section className="band inverse" id="advisor">
@@ -25,12 +25,14 @@ export default function AdvisorBand({ headings = false, cta = true }) {
           />
         </figure>
         <div>
-          {headings ? <p className="label">Our Chief Advisor</p> : <h2 className="label">Our Chief Advisor</h2>}
-          {headings ? <h2 className="advisor__name">{chiefAdvisor.name}</h2> : <p className="advisor__name">{chiefAdvisor.name}</p>}
+          <h2 className="label">Our Chief Advisor</h2>
+          <p className="advisor__name">{chiefAdvisor.name}</p>
           <p className="advisor__role">{chiefAdvisor.role}</p>
+          {headings && <h3 className="label advisor__sub">Key Highlights</h3>}
           <ul className="ticks">
             {chiefAdvisor.highlights.map((h) => <li key={h}>{h}</li>)}
           </ul>
+          {headings && <h3 className="label advisor__sub">Certifications</h3>}
           <Tags items={chiefAdvisor.certifications} />
           {cta && <Link className="btn" href="/team">View Our Team</Link>}
         </div>
