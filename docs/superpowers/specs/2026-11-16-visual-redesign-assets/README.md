@@ -10,8 +10,8 @@ design spec; nothing here ships with the site.
 | Design audit and direction ("Nothing fake": a drawn office network replaces the stock photo slider) | Done, approved by the owner on 2026-11-16 |
 | Clickable mockup (home page and one service page) | Done |
 | Owner decisions | Sheet hero approved. Blueprint (navy) is the site-wide dark theme, Paper is the light theme. |
-| Mockup converted to site-wide light and dark themes | In progress |
-| Design spec (`docs/superpowers/specs/2026-11-16-visual-redesign-design.md`) | Not written yet |
+| Mockup converted to site-wide light and dark themes (Paper and Blueprint), republished | Done |
+| Design spec (`docs/superpowers/specs/2026-11-16-visual-redesign-design.md`) | In progress |
 | Implementation plan (`docs/superpowers/plans/`) | Not written yet; comes after the owner approves the spec |
 
 Published mockup (private artifact): https://claude.ai/artifact/CRwP51kC15zT6pDpGCDqMA

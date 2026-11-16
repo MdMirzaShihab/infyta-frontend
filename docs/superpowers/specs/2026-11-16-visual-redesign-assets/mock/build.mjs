@@ -33,9 +33,11 @@ const logo = (id, tagline = false) => `<span class="l-rev">${logoSvg({ variant: 
 const icon = {
   phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 3.5h3l1.5 4-2 1.5a12 12 0 0 0 6 6l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z"/></svg>',
   wa: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3.2a8.8 8.8 0 0 0-7.6 13.2L3.2 20.8l4.5-1.2A8.8 8.8 0 1 0 12 3.2z"/><path d="M9.3 8.2c-.5.9-.2 2.4 1.5 4.1s3.200 2 4.1 1.500l.6-1.100-1.700-1-.800.700c-.600-.300-1.700-1.400-2-2l.700-.800-1-1.700z" fill="currentColor" stroke="none"/></svg>',
+  theme: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></svg>',
   menu: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>',
   close: '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
 };
+const themeSeg = `<div class="themeseg"><span class="label">Theme</span><span><button data-set-theme="light">Paper</button><button data-set-theme="dark">Blueprint</button></span></div>`;
 const tel = `tel:${site.phone.e164}`;
 const wa = `https://wa.me/${site.phone.e164.replace('+', '')}`;
 
@@ -61,6 +63,7 @@ const nav = `<header class="nav cover" id="nav"><div class="wrap nav__in">
   <div class="nav__meta">
     <span class="status label" data-status><i class="dot"></i><span data-status-short>Sat to Thu, 9 AM to 6 PM</span></span>
     <a class="tel" href="${tel}">${site.phone.display}</a>
+    <button class="themebtn" data-toggle-theme aria-label="Switch between Paper (light) and Blueprint (dark) theme">${icon.theme}</button>
     <a class="btn btn--sm" href="#contact" data-goto="home" data-hash="#contact">Get Started</a>
   </div>
   <a class="nav__call" href="${tel}" aria-label="Call ${site.phone.display}"><span style="width:20px;height:20px;display:block">${icon.phone}</span></a>
@@ -200,7 +203,7 @@ const footer = `<footer class="foot blueprint"><div class="wrap">
       ${site.hours.display.map((h) => `<li class="small">${esc(h)}</li>`).join('')}
     </ul></div>
   </div>
-  <div class="foot__end"><span>© 2026 Infyta. All rights reserved.</span><span class="status" data-status><i class="dot"></i><span data-status-short></span></span></div>
+  <div class="foot__end"><span>© 2026 Infyta. All rights reserved.</span><span class="status" data-status><i class="dot"></i><span data-status-short></span></span>${themeSeg}</div>
 </div></footer>`;
 
 const mobileMenu = `<div class="mm" id="mm" role="dialog" aria-modal="true" aria-label="Menu">
@@ -213,14 +216,14 @@ const mobileMenu = `<div class="mm" id="mm" role="dialog" aria-modal="true" aria
     <a href="#expertise" data-goto="home" data-hash="#expertise">About</a>
     <a href="#contact" data-goto="home" data-hash="#contact">Contact</a>
   </nav>
-  <div class="mm__cta"><span class="status" data-status><i class="dot"></i><span data-status-short></span></span>
+  <div class="mm__cta"><span class="status" data-status><i class="dot"></i><span data-status-short></span></span>${themeSeg}
     <a class="btn btn--icon" href="${tel}">${icon.phone}Call ${site.phone.display}</a>
     <a class="btn btn--ghost btn--icon" href="${wa}">${icon.wa}WhatsApp</a></div>
 </div>`;
 
 const mockbar = `<div class="mockbar" role="group" aria-label="Mockup controls">
   <div class="seg" aria-label="Hero layout"><button data-set-hero="sheet" data-choice="hero-sheet">Sheet hero</button><button data-set-hero="stack" data-choice="hero-stack">Stacked hero</button></div>
-  <div class="seg" aria-label="Cover colour"><button data-set-cover="blueprint" data-choice="cover-blueprint">Blueprint</button><button data-set-cover="paper" data-choice="cover-paper">Paper</button></div>
+  <div class="seg" aria-label="Theme"><button data-set-theme="dark" data-choice="theme-dark">Dark (Blueprint)</button><button data-set-theme="light" data-choice="theme-light">Light (Paper)</button></div>
   <div class="seg" aria-label="Page"><button data-goto="home" data-page="home">Home</button><button data-goto="service" data-page="service">Service page</button></div>
 </div>`;
 
@@ -228,16 +231,14 @@ const js = `(function(){
   var root=document.documentElement, nav=document.getElementById('nav'), mm=document.getElementById('mm'), burger=document.getElementById('burger');
   var views=[].slice.call(document.querySelectorAll('main [data-view]'));
   var params={}; location.hash.replace(/^#/,'').split('&').forEach(function(kv){var p=kv.split('=');if(p[1])params[p[0]]=p[1];});
+  // Explicit choice if there is one, otherwise the device setting.
+  function theme(){return root.dataset.theme||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');}
   function pressed(){
-    document.querySelectorAll('[data-set-cover]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.setCover===root.dataset.cover));});
+    document.querySelectorAll('[data-set-theme]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.setTheme===theme()));});
     document.querySelectorAll('[data-set-hero]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.setHero===root.dataset.hero));});
     document.querySelectorAll('[data-page]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.page===root.dataset.view));});
   }
-  function syncNav(){
-    var hero=document.getElementById('top');
-    var paper=root.dataset.cover==='paper'||root.dataset.view!=='home'||window.scrollY>hero.offsetHeight-70;
-    nav.classList.toggle('is-paper',paper);
-  }
+  function syncNav(){}
   function show(name,hash){
     views.forEach(function(v){v.hidden=v.dataset.view!==name;});
     root.dataset.view=name; pressed();
@@ -248,7 +249,8 @@ const js = `(function(){
   }
   function closeMenu(){mm.classList.remove('is-open');burger.setAttribute('aria-expanded','false');document.body.style.overflow='';}
   document.addEventListener('click',function(e){
-    var c=e.target.closest('[data-set-cover]'); if(c){root.dataset.cover=c.dataset.setCover;pressed();syncNav();return;}
+    var c=e.target.closest('[data-set-theme]'); if(c){root.dataset.theme=c.dataset.setTheme;pressed();return;}
+    var t=e.target.closest('[data-toggle-theme]'); if(t){root.dataset.theme=theme()==='dark'?'light':'dark';pressed();return;}
     var h=e.target.closest('[data-set-hero]'); if(h){root.dataset.hero=h.dataset.setHero;pressed();syncNav();window.scrollTo(0,0);return;}
     var a=e.target.closest('[data-goto]'); if(a){e.preventDefault();closeMenu();show(a.dataset.goto,a.dataset.hash);return;}
     if(e.target.closest('.mm a')) closeMenu();
@@ -256,7 +258,7 @@ const js = `(function(){
   burger.addEventListener('click',function(){mm.classList.add('is-open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';document.getElementById('mmClose').focus();});
   document.getElementById('mmClose').addEventListener('click',function(){closeMenu();burger.focus();});
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
-  window.addEventListener('scroll',syncNav,{passive:true});
+  if(window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',pressed);
 
   // Opening hours, always in Dhaka time (Saturday to Thursday, 9 AM to 6 PM).
   function dhaka(){
@@ -297,7 +299,7 @@ const js = `(function(){
     row.addEventListener('blur',function(){light(row.dataset.svc,false);});
   });
 
-  root.dataset.cover=params.cover||root.dataset.cover||'blueprint'; root.dataset.hero=params.hero||root.dataset.hero||'sheet'; show(params.view||'home');
+  if(params.theme) root.dataset.theme=params.theme; root.dataset.hero=params.hero||root.dataset.hero||'sheet'; show(params.view||'home');
   if(params.on) light(params.on,true);
   if(params.y) window.scrollTo(0,Number(params.y));
 })();`;
@@ -305,7 +307,7 @@ const js = `(function(){
 const fonts = `<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Anek+Bangla:wght@400..700&family=Montserrat:wght@800&family=Barlow+Semi+Condensed:wght@500&display=swap" rel="stylesheet">`;
 const style = `<style>${css}</style>`;
 // Set the mockup's state before first paint (an artifact page cannot write its own <html> tag).
-const boot = `<script>(function(r){r.lang='en';r.dataset.cover=r.dataset.cover||'blueprint';r.dataset.hero=r.dataset.hero||'sheet';r.dataset.view='home';})(document.documentElement);</script>`;
+const boot = `<script>(function(r){r.lang='en';r.dataset.hero=r.dataset.hero||'sheet';r.dataset.view='home';})(document.documentElement);</script>`;
 const bodyHtml = `<a class="skip" href="#main">Skip to content</a>
 ${symbols}
 ${nav}
