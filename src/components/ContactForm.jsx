@@ -61,7 +61,7 @@ export default function ContactForm({ phoneE164, email }) {
         {error && <p id="cf-error" className="cform__error" role="alert">Write a message first.</p>}
       </div>
       <div className="cform__actions">
-        <button className="btn" type="submit" value="whatsapp"><WhatsAppIcon />Send on WhatsApp</button>
+        <button className="btn btn--icon" type="submit" value="whatsapp"><WhatsAppIcon />Send on WhatsApp</button>
         <button className="btn btn--ghost" type="submit" value="email">Send by email</button>
       </div>
     </form>

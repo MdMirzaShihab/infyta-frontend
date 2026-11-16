@@ -98,10 +98,11 @@ dl{margin:0}
 .cform{display:grid;gap:18px}
 .cform__row{display:grid;gap:18px}
 .cform__field label{display:block;margin-bottom:6px;font-weight:560}
-.cform input,.cform textarea{display:block;width:100%;padding:12px 14px;border:1.5px solid var(--rule);border-radius:5px;background:var(--panel);color:var(--fg);font:inherit;line-height:1.4}
+.cform input,.cform textarea{display:block;width:100%;padding:12px 14px;border:1.5px solid var(--fg2);border-radius:5px;background:var(--panel);color:var(--fg);font:inherit;line-height:1.4}
 .cform textarea{resize:vertical;min-height:9rem}
-.cform [aria-invalid="true"]{border-color:var(--accent)}
-.cform__error{margin-top:8px;font-weight:560;color:var(--accent)}
+.cform ::placeholder{color:var(--fg2);opacity:1}
+.cform [aria-invalid="true"]{border:2px solid var(--fg);padding:11.5px 13.5px}
+.cform__error{margin-top:8px;font-weight:560;color:var(--fg)}
 .cform__actions{display:flex;flex-wrap:wrap;gap:12px}
 .cform__actions .btn{cursor:pointer;font-family:inherit}
 .mapbox{margin-top:clamp(20px,2.6vw,32px)}
@@ -121,8 +122,6 @@ dl{margin:0}
 }
 @media (max-width:1039px){
   .cpage__grid{grid-template-columns:1fr}
-}
-@media (max-width:719px){
   .cpage .facts a,.mapbox__actions .textlink{display:inline-block;min-height:44px;padding-block:10px}
 }
 
