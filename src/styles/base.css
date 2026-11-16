@@ -42,3 +42,7 @@ h3{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spa
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
 }
+
+@media (max-width:719px){
+  .btn{min-height:50px}
+}

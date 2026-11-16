@@ -1,0 +1,23 @@
+import Link from "next/link";
+import ServiceMini from "@/components/drawing/ServiceMini";
+import Tags from "@/components/Tags";
+import { CALLOUT } from "@/components/drawing/callouts";
+import { certsFor } from "@/lib/certs";
+
+// One row of the key to the drawing. Hovering or focusing it lights the matching part of the hero drawing (drawing.css).
+export default function ServiceRow({ service }) {
+  return (
+    <Link className="key__row" href={`/services/${service.slug}`} data-svc={service.slug}>
+      <span className="num">{CALLOUT[service.slug]}</span>
+      <div>
+        <h3>{service.name}</h3>
+        <p>{service.summary}</p>
+      </div>
+      <div className="key__with">
+        <span className="label">{service.worksWith}</span>
+        <Tags items={certsFor(service.expertiseKeys)} />
+      </div>
+      <ServiceMini slug={service.slug} />
+    </Link>
+  );
+}

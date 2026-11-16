@@ -43,19 +43,8 @@ for (const { name, doc } of pages) {
   });
 }
 
-test('home: exactly one high-priority, responsive hero image', () => {
-  const { doc } = loadPage('/');
-  const high = doc.querySelectorAll('img[fetchpriority="high"]');
-  assert.equal(high.length, 1, `expected one img[fetchpriority=high], found ${high.length}`);
-  const srcset = high[0].getAttribute('srcset') || '';
-  for (const w of ['640w', '1280w', '1920w']) assert.ok(srcset.includes(w), `srcset lacks ${w}: "${srcset}"`);
-  assert.ok(high[0].getAttribute('sizes'), 'hero image has no sizes attribute');
-});
-
-test('home: no image other than the hero is loading="eager"', () => {
-  const { doc } = loadPage('/');
-  const hero = doc.querySelector('img[fetchpriority="high"]');
-  const eager = doc.querySelectorAll('img[loading="eager"]');
-  assert.ok(eager.length <= 1, `expected at most one eager image, found ${eager.length}`);
-  for (const img of eager) assert.equal(img, hero, `${img.getAttribute('src')} is eager but is not the hero image`);
+test('home: no hero photo, no eager image', () => {
+  const { html, doc } = loadPage('/');
+  assert.ok(!html.includes('/images/hero/'));
+  assert.equal(doc.querySelectorAll('img[loading="eager"], img[fetchpriority="high"]').length, 0);
 });

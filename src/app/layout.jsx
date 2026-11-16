@@ -2,9 +2,12 @@ import "./globals.css";
 import "@/styles/tokens.css";
 import "@/styles/base.css";
 import "@/styles/shell.css";
+import "@/styles/drawing.css";
+import "@/styles/sections.css";
 import { Archivo } from "next/font/google";
 import { themeScript, THEME_COLORS } from "@/lib/theme-script";
 import { primaryEmail } from "@/content/email";
+import DrawingSymbols from "@/components/drawing/Symbols";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
@@ -30,6 +33,7 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <a className="skip" href="#main">Skip to content</a>
+        <DrawingSymbols />
         <Nav />
         <main id="main">{children}</main>
         <Footer email={primaryEmail()} />

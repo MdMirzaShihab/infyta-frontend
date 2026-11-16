@@ -8,6 +8,7 @@
   --body: var(--white); --sheet: var(--white); --panel: var(--white); --accent: var(--signal-deep);
   --btn-bg: var(--ink); --btn-fg: var(--white); --hatch: rgba(31,44,98,.07);
   --inv-bg: var(--ink); --inv-panel: #243372;
+  --portrait-bg: #DCE9F2;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {

@@ -1,4 +1,5 @@
 import HomeView from "@/views/HomeView";
+import { primaryEmail } from "@/content/email";
 import JsonLd from "@/components/JsonLd";
 import { pages } from "@/content/pages";
 import { pageMetadata } from "@/lib/seo/metadata";
@@ -11,7 +12,7 @@ export default function Page() {
   return (
     <>
       <JsonLd data={webPage({ ...pages.home, name: pages.home.title })} />
-      <HomeView />
+      <HomeView email={primaryEmail()} />
     </>
   );
 }
