@@ -953,7 +953,7 @@ git add -A && git commit -m "feat: rebuild home page around the office network d
 - Consumes: `ServiceRow`, `Schedule`, `Tags`, `splitStep`, icons, `site.whatsappUrl`.
 - Produces: `ServiceDetail({ slug })`, one `<svg class="dwg dwg--detail" viewBox="0 0 600 250" role="img" aria-label>`; `PageHeader({ title, lede, children })` rendering the page's `<h1>` and lede; `EndCta({ title, children })`, a `.panel.endcta`.
 
-- [ ] **Step 1: Write `tests/build/services.test.mjs`**
+- [x] **Step 1: Write `tests/build/services.test.mjs`**
 
 ```js
 const DETAIL = {
@@ -1005,12 +1005,12 @@ test('services index', () => {
 });
 ```
 
-- [ ] **Step 2: Build and see it fail**
+- [x] **Step 2: Build and see it fail**
 
 Run: `npm run build; node --test tests/build/services.test.mjs`
 Expected: FAIL.
 
-- [ ] **Step 3: Create `ServiceDetail.jsx`**
+- [x] **Step 3: Create `ServiceDetail.jsx`**
 
 Network Infrastructure is a port of `networkDetail()` in `mock/diagram.mjs`. Draw the other four in the same 600 × 250 frame with the existing symbols, the same line style, sub-labels in class `t2`, and cable flags for segments. Visible labels are exactly the `words` lists in the test; nothing else may be written in a drawing.
 
@@ -1021,11 +1021,11 @@ Network Infrastructure is a port of `networkDetail()` in `mock/diagram.mjs`. Dra
 | `security-surveillance` | A small switch labelled "Switch"; one cable with the flag "Cameras" to a recorder labelled "Recorder", which feeds a dome and a bullet camera labelled "CCTV cameras"; a second cable to a door terminal labelled "Access control" with sub-label "Biometric attendance". |
 | `server-cloud-solutions` | Three stacked server units labelled "Servers" with sub-label "Windows, Linux, Active Directory"; beside them a larger rounded host box containing three small boxes, labelled "Virtual machines" with sub-label "VMware, Hyper-V"; a dashed link to the cloud labelled "Cloud" with sub-label "AWS, Azure, Google Cloud". |
 
-- [ ] **Step 4: Rewrite the two views as server components**
+- [x] **Step 4: Rewrite the two views as server components**
 
 Port the mock's `serviceView` template and add its styles (`/* Service page */` block and its responsive rules) to `sections.css`. In "Our Approach", `splitStep` gives the bold lead; the words and punctuation of each step are unchanged. Keep every heading of the current `ServicePageView.jsx` ("Overview", "What's Included", "Our Approach", "Technologies & Certifications", "Frequently Asked Questions", "Related Services", "Ready to discuss your project?", "Get Started Today"). The services index is `PageHeader`, the five `ServiceRow`s, and an `EndCta`.
 
-- [ ] **Step 5: Run everything, do the Visual check, commit**
+- [x] **Step 5: Run everything, do the Visual check, commit**
 
 Run: `npm run check`
 Expected: PASS, including the existing word-count, FAQ and related-link tests. Visual check `/services` and `/services/network-infrastructure` against the mock, then look at the other four detail drawings in both themes: no label overlaps a line, nothing touches the sheet edge.
