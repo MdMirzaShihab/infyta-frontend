@@ -25,6 +25,7 @@
 - No source file contains `Math.random(` or `Date.now(`.
 - No `<button>` wraps an `<a>`. Every page's visible text includes the address and the phone number.
 - Breakpoints: 1180px, 1040px, 720px. Content width 1296px. Gutter `clamp(20px, 4vw, 48px)`.
+- Test snippets below leave out their imports. Use `node:test`, `node:assert/strict`, `node:fs`, `node:path`, the helpers in `tests/build/helpers.mjs` (`OUT`, `loadPage`, `allHtmlFiles`, `parse` from `node-html-parser`) and the modules in `src/content/`, as the existing tests do. `assert` is strict: a missing attribute is `undefined`, not `null`.
 - After each task's commit, tick its boxes in this file and update the status table in `docs/superpowers/specs/2026-11-16-visual-redesign-assets/README.md`, then commit that too. The owner's device may lose power; nothing may live only in a temp folder.
 
 ## Port Rules
@@ -55,7 +56,7 @@ CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 "$CH" --headless=new --hide-scrollbars --window-size=500,5000 --virtual-time-budget=9000 --screenshot=/tmp/page-narrow.png http://localhost:8788/
 ```
 
-Headless Chrome cannot go narrower than 500px. Stop the server with `pkill -f "wrangler pages dev"` afterwards. A page passes when layout, spacing, type and colours match the mock in both themes and nothing overflows sideways.
+Headless Chrome cannot go narrower than 500px. If `--force-dark-mode` does not switch the page to Blueprint, run `npm run preview`, switch with the footer control and take the dark screenshots by hand. Stop the server with `pkill -f "wrangler pages dev"` afterwards. A page passes when layout, spacing, type and colours match the mock in both themes and nothing overflows sideways.
 
 ## Review Focus
 
@@ -103,7 +104,7 @@ Deleted by the end: `src/sections/`, `src/components/{Navbar,FloatingOrbs,Motion
 - Test: `tests/unit/tokens.test.mjs`, `tests/unit/theme-script.test.mjs`, `tests/build/theme.test.mjs`
 
 **Interfaces:**
-- Produces: the custom properties in `tokens.css` and the class `.inverse`; from `src/lib/theme-script.js`: `THEME_KEY = 'infyta-theme'`, `THEME_COLORS = { light: '#F4F6FA', dark: '#1F2C62' }`, `themeScript` (string); the CSS variable `--font-archivo` on `<html>`.
+- Produces: the custom properties in `tokens.css` and the class `.inverse`; from `src/lib/theme-script.js`: `THEME_KEY = 'infyta-theme'`, `THEME_COLORS = { light: '#F4F6FA', dark: '#1F2C62' }`, `themeScript` (string), and `saveTheme(theme, getStorage = () => window.localStorage) -> boolean`, which stores the choice and returns `false` instead of throwing; the CSS variable `--font-archivo` on `<html>`.
 
 - [ ] **Step 1: Write `tests/unit/tokens.test.mjs`**
 
@@ -174,7 +175,7 @@ for (const [name, scope] of Object.entries(themes)) {
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import vm from 'node:vm';
-import { themeScript, THEME_KEY, THEME_COLORS } from '../../src/lib/theme-script.js';
+import { themeScript, saveTheme, THEME_KEY, THEME_COLORS } from '../../src/lib/theme-script.js';
 
 function run(extra) {
   const root = { dataset: {} };
@@ -203,11 +204,31 @@ test('storage that throws, or does not exist, changes nothing and does not throw
   assert.equal(run({ localStorage: { getItem() { throw new Error('denied'); } } }).root.dataset.theme, undefined);
   assert.equal(run({}).root.dataset.theme, undefined);
 });
+test('saveTheme stores the choice, and reports failure instead of throwing', () => {
+  const kept = {};
+  assert.equal(saveTheme('dark', () => ({ setItem: (k, v) => { kept[k] = v; } })), true);
+  assert.deepEqual(kept, { [THEME_KEY]: 'dark' });
+  assert.equal(saveTheme('dark', () => { throw new Error('storage is blocked'); }), false);
+  assert.equal(saveTheme('dark', () => ({ setItem() { throw new Error('quota'); } })), false);
+});
 ```
 
 - [ ] **Step 3: Write `tests/build/theme.test.mjs`**
 
-For every file from `allHtmlFiles()` (see `tests/build/helpers.mjs`): the HTML does not match `/<html[^>]*data-theme/`; `head` contains a `<script>` whose text includes `infyta-theme`; there are exactly two `meta[name="theme-color"]`, one with `media="(prefers-color-scheme: light)"` and `content="#F4F6FA"`, one with `media="(prefers-color-scheme: dark)"` and `content="#1F2C62"`; the HTML matches `/<html lang="en" class="[^"]+"/`.
+```js
+for (const file of allHtmlFiles()) {
+  const name = relative(OUT, file);
+  const html = readFileSync(file, 'utf8');
+  const doc = parse(html, { blockTextElements: { script: true, style: false } });
+  test(`${name}: the theme is the visitor's choice, never hard-coded`, () => {
+    assert.doesNotMatch(html, /<html[^>]*data-theme/);
+    assert.match(html, /<html lang="en" class="[^"]+"/);
+    assert.ok(doc.querySelectorAll('head script').some((s) => s.rawText.includes('infyta-theme')));
+    const metas = doc.querySelectorAll('meta[name="theme-color"]').map((m) => [m.getAttribute('media'), m.getAttribute('content').toUpperCase()]);
+    assert.deepEqual(metas.sort(), [['(prefers-color-scheme: dark)', '#1F2C62'], ['(prefers-color-scheme: light)', '#F4F6FA']]);
+  });
+}
+```
 
 - [ ] **Step 4: Run the three tests and see them fail**
 
@@ -259,7 +280,7 @@ Port from `mock/css.mjs`, applying the Port Rules: the reset block (from `*,*::b
 
 - [ ] **Step 7: Create `src/lib/theme-script.js`**
 
-Export `THEME_KEY`, `THEME_COLORS` and `themeScript`. `themeScript` is a self-contained string of plain ES5 that: reads `localStorage.getItem(THEME_KEY)` inside `try/catch`; only if the value is exactly `'light'` or `'dark'`, sets `document.documentElement.dataset.theme` to it and sets `content` of every `meta[name="theme-color"]` to the matching `THEME_COLORS` value; otherwise does nothing.
+Export `THEME_KEY`, `THEME_COLORS`, `saveTheme` and `themeScript`. `themeScript` is a self-contained string of plain ES5 that: reads `localStorage.getItem(THEME_KEY)` inside `try/catch`; only if the value is exactly `'light'` or `'dark'`, sets `document.documentElement.dataset.theme` to it and sets `content` of every `meta[name="theme-color"]` to the matching `THEME_COLORS` value; otherwise does nothing.
 
 - [ ] **Step 8: Wire `src/app/layout.jsx`**
 
@@ -268,6 +289,8 @@ Export `THEME_KEY`, `THEME_COLORS` and `themeScript`. `themeScript` is a self-co
 - `<html lang="en" className={archivo.variable} suppressHydrationWarning>`. `lang` stays the first attribute.
 - Inside `<html>`, before `<body>`: `<head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>`.
 - `export const viewport = { themeColor: [{ media: "(prefers-color-scheme: light)", color: THEME_COLORS.light }, { media: "(prefers-color-scheme: dark)", color: THEME_COLORS.dark }] }`.
+
+If ESLint rejects `<head>` in the layout, use `next/script` instead: `<Script id="theme" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />`, which Next.js also places in `<head>`.
 
 - [ ] **Step 9: Run everything**
 
@@ -425,7 +448,14 @@ test('home heading keeps today\'s words', () => {
 });
 ```
 
-In `site.test.mjs` add: `site.closedDates` is an array and every entry matches `/^\d{4}-\d{2}-\d{2}$/`; `site.whatsappUrl === 'https://wa.me/' + site.phone.e164.slice(1)`.
+```js
+// added to site.test.mjs
+test('closed dates and WhatsApp link', () => {
+  assert.ok(Array.isArray(site.closedDates));
+  for (const d of site.closedDates) assert.match(d, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(site.whatsappUrl, 'https://wa.me/' + site.phone.e164.slice(1));
+});
+```
 
 - [ ] **Step 4: Run the tests and see them fail**
 
@@ -552,7 +582,7 @@ git add -A && git commit -m "feat: add outlined vector logo and regenerate brand
 - Test: `tests/build/shell.test.mjs`
 
 **Interfaces:**
-- Consumes: `Logo`; `openStatus`, `weekCells`, `dhakaNow`; `THEME_KEY`, `THEME_COLORS`; `site.whatsappUrl`.
+- Consumes: `Logo`; `openStatus`, `weekCells`, `dhakaNow`; `saveTheme`, `THEME_COLORS`; `site.whatsappUrl`.
 - Produces:
   - `Icons.jsx`: `PhoneIcon`, `WhatsAppIcon`, `MenuIcon`, `CloseIcon`, `ThemeIcon` (the SVGs in the mock's `icon` object in `mock/build.mjs`), all `aria-hidden`.
   - `ThemeControls.jsx` (client): `ThemeButton()` renders `<button class="themebtn" data-theme-toggle aria-label="Switch between Paper (light) and Blueprint (dark) theme">`; `ThemeSwitch()` renders `<div class="themeseg">` with the label "Theme" and two buttons, `data-set-theme="light"` "Paper" and `data-set-theme="dark"` "Blueprint", each with `aria-pressed`.
@@ -631,7 +661,7 @@ Port from `mock/css.mjs`: the `/* Nav */` block (including `.menu`, `.has-menu`,
 
 - [ ] **Step 4: Create `Icons.jsx`, `ThemeControls.jsx`, `OpenStatus.jsx`**
 
-- Theme controls share one hook. Server render and first client render have no theme state (`aria-pressed="false"` on both). After mount the effective theme is `document.documentElement.dataset.theme`, else the device setting. Choosing a theme sets the attribute, writes `localStorage` inside `try/catch`, sets both `theme-color` metas, and tells the other instances through a `window` event named `infyta-theme`. While no explicit choice exists, follow `prefers-color-scheme` changes.
+- Theme controls share one hook. Server render and first client render have no theme state (`aria-pressed="false"` on both). After mount the effective theme is `document.documentElement.dataset.theme`, else the device setting. Choosing a theme sets the attribute, calls `saveTheme` (the switch still works for this page view when it returns `false`), sets both `theme-color` metas, and tells the other instances through a `window` event named `infyta-theme`. While no explicit choice exists, follow `prefers-color-scheme` changes.
 - `OpenStatus`: server render shows `site.hours.display[0]` for `short` and both display lines joined by a space for `long`, with class `is-unknown`. After mount it shows `openStatus(dhakaNow())`, toggles `is-closed`, and refreshes every 60 seconds.
 - `WeekStrip`: server render is `weekCells(null)`; after mount `weekCells(dhakaNow())`. Classes `is-off` and `is-today` as in the mock.
 
@@ -739,7 +769,27 @@ test('nothing in the page is hidden by an inline style', () => {
 
 - [ ] **Step 3: Write `tests/unit/drawing-css.test.mjs`**
 
-Read `src/styles/drawing.css`. Assert it contains an `@media (prefers-reduced-motion: reduce)` block and an `@media print` block, and that each of those blocks contains `animation: none` and `opacity: 1` for the drawing's animated classes (`.wire`, `.rise`, `.fade`).
+```js
+const css = readFileSync('src/styles/drawing.css', 'utf8');
+// Returns the text inside the first block opened by `@media <query> {`.
+function mediaBlock(query) {
+  const start = css.indexOf(query);
+  assert.ok(start >= 0, `no ${query} block`);
+  let depth = 0, i = css.indexOf('{', start);
+  const from = i + 1;
+  for (; i < css.length; i++) { if (css[i] === '{') depth++; if (css[i] === '}' && --depth === 0) break; }
+  return css.slice(from, i);
+}
+for (const query of ['@media (prefers-reduced-motion: reduce)', '@media print']) {
+  test(`${query}: the drawing is complete and still`, () => {
+    const block = mediaBlock(query);
+    for (const cls of ['.wire', '.rise', '.fade']) assert.ok(block.includes(cls), cls);
+    assert.match(block, /animation:\s*none/);
+    assert.match(block, /opacity:\s*1/);
+    assert.match(block, /stroke-dasharray:\s*none/);
+  });
+}
+```
 
 - [ ] **Step 4: Build and see the tests fail**
 
@@ -748,7 +798,7 @@ Expected: FAIL.
 
 - [ ] **Step 5: Create `drawing.css` and `sections.css`**
 
-- `drawing.css`: port the `/* Drawings */` and `/* One load sequence */` blocks. Add an `@media print` block with the same resets as the reduced-motion block. Add the list-to-drawing highlight: for each of the five slugs, a rule that gives `.dwg .svc[data-svc="<slug>"]` the hover colour and filled callout when `main:has(.key__row[data-svc="<slug"]:is(:hover, :focus-visible))`, and one rule that dims the other parts while any row is hovered or focused.
+- `drawing.css`: port the `/* Drawings */` and `/* One load sequence */` blocks. Add an `@media print` block with the same resets as the reduced-motion block. Add the list-to-drawing highlight: for each of the five slugs, a rule that gives `.dwg .svc[data-svc="<slug>"]` the hover colour and filled callout when `main:has(.key__row[data-svc="<slug>"]:is(:hover, :focus-visible))`, and one rule that dims the other parts while any row is hovered or focused.
 - `sections.css`: port `/* Hero */` (only the sheet variant: `.hero`, `.sheet`, `.sheet--hero`, `.sheet__fig`, `.sheet__dwg`, `.tb`, `.titleblock`), `/* Section heads */`, `/* Services: the key to the drawing */`, `/* Expertise schedule */`, `/* Advisor */`, `/* Contact */`, and their rules from the three responsive blocks. Keep the two-class selectors `.hero.hero--sheet` and `.sheet.sheet--hero`.
 
 - [ ] **Step 6: Create the drawing components**
@@ -909,7 +959,11 @@ Expected: FAIL.
 
 - [ ] **Step 3: Implement**
 
-Follow spec sections 7.5 and 7.6. About, in order: `PageHeader` ("About Infyta", `site.slogan`); "Our Vision" and "Our Mission" as two large statements side by side (class `statements`, each an `<h2>` and a paragraph set at the h3 size, one column below 1040px); "Infyta at a glance" as an `<h2>` and a `TitleBlock` rendered as `<dl class="titleblock">` with three columns on desktop; "Our Core Values" as an `<h2>` and a three-by-two list (class `values`) of title and one line, divided by rules; an `inverse` band with the team call to action. Team: `PageHeader`; `AdvisorBand` with `headings` on and `cta` off; "Our Core Expertise" with its line and the `Schedule`. No icons, no drawings, no floating badges on either page. Add the `.statements` and `.values` rules to `sections.css` using existing tokens, type roles and rule lines only.
+Follow spec sections 7.5 and 7.6. About, in order: `PageHeader` ("About Infyta", `site.slogan`); "Our Vision" and "Our Mission" as two large statements side by side (class `statements`, each an `<h2>` and a paragraph set at the h3 size, one column below 1040px); "Infyta at a glance" as an `<h2>` and a `TitleBlock` rendered as `<dl class="titleblock">` with three columns on desktop; "Our Core Values" as an `<h2>` and a three-by-two list (class `values`) of title and one line, divided by rules; an `inverse` band with the team call to action. Team: `PageHeader`; `AdvisorBand` with `headings` on and `cta` off; "Our Core Expertise" with its line and the `Schedule`. No icons, no drawings, no floating badges on either page. Add to `sections.css`:
+
+- `.statements`: grid, two equal columns, gap `clamp(28px, 5vw, 72px)`; one column below 1040px. Its headings use the item-heading role (1.3rem, width 106%, weight 640). Its paragraphs are `clamp(1.25rem, 1.9vw, 1.6rem)`, width 104%, weight 500, line height 1.35, colour `--fg`, at most `40ch` wide.
+- `.titleblock--facts`: the title block as a sheet (1.5px border in `--fg`, 6px radius, `--sheet` fill), three columns; two below 1040px, one below 720px; cells divided by 1px `--rule` lines; cell padding 18px 20px.
+- `.values`: grid, three columns, a 1px `--rule` line on top; two columns below 1040px, one below 720px. Each item has padding `24px 24px 24px 0` and a 1px `--rule` line below; the title is an `<h3>`, the line under it is `--fg2`.
 
 - [ ] **Step 4: Run everything, do the Visual check on both pages, commit**
 
@@ -944,7 +998,7 @@ test('contact page', () => {
   for (const needle of ["Let's discuss how we can transform your business with our tech solutions", 'Send Us A Message', 'Contact Information', 'Our Office', 'Phone', 'WhatsApp', 'Email', 'Working Hours', ...site.hours.display, 'আজিমপুর, ঢাকা']) assert.ok(text.includes(needle), needle);
 
   const form = main.querySelector('form');
-  assert.equal(form.getAttribute('action'), null);
+  assert.ok(!form.hasAttribute('action'));
   const fields = { 'cf-first': 'First Name', 'cf-last': 'Last Name', 'cf-email': 'Email', 'cf-message': 'Message' };
   for (const [id, label] of Object.entries(fields)) {
     assert.ok(form.querySelector('#' + id), id);
@@ -977,13 +1031,13 @@ Expected: FAIL.
 
 - [ ] **Step 3: Implement `ContactForm`**
 
-Four fields with visible labels: `cf-first`, `cf-last`, `cf-email` (type `email`, placeholder `your@email.com`), `cf-message` (textarea, 5 rows, placeholder `Tell us about your project...`). Field styling: 1.5px border in `--rule`, `--panel` fill, 5px radius, the standard focus outline. On submit, prevent the default, read which button was used from the submitter's `value`, and call `buildEnquiry`. If it is not ok: show `<p id="cf-error" role="alert">Write a message first.</p>` under the message field, set `aria-invalid="true"` and `aria-describedby="cf-error"` on it, focus it, and open nothing. Otherwise open `whatsappUrl(phoneE164, text)` in a new tab, or set `window.location.href` to `mailtoUrl(email, subject, text)`. Never show a "sent" message.
+Four fields with visible labels: `cf-first`, `cf-last`, `cf-email` (type `email`, placeholder `your@email.com`), `cf-message` (textarea, 5 rows, placeholder `Tell us about your project...`). Layout: a grid with an 18px gap; First Name and Last Name share a row from 720px up. Labels use weight 560 and sit 6px above their field. Fields are full width with padding 12px 14px, a 1.5px border in `--rule`, `--panel` fill, 5px radius, the text colour `--fg` and the standard focus outline. The two buttons sit in one row and wrap on narrow screens. On submit, prevent the default, read which button was used from the submitter's `value`, and call `buildEnquiry`. If it is not ok: show `<p id="cf-error" role="alert">Write a message first.</p>` under the message field, set `aria-invalid="true"` and `aria-describedby="cf-error"` on it, focus it, and open nothing. Otherwise open `whatsappUrl(phoneE164, text)` in a new tab, or set `window.location.href` to `mailtoUrl(email, subject, text)`. Never show a "sent" message.
 
 - [ ] **Step 4: Implement `MapLoader`, `ContactView`, `not-found.jsx`**
 
 - `MapLoader`: a `.sheet` showing the address, the link "Open in Google Maps" and the button "Show map". Clicking the button replaces it with the existing `<iframe>` (same `src`, `title="Infyta Office Location"`, `loading="lazy"`) at the current height (256px, 320px from 720px up).
 - `ContactView` (server): `PageHeader`; two columns that become one below 1040px. Left: the `<h2>` "Send Us A Message" and `ContactForm`. Right: the `<h2>` "Contact Information"; a `.panel` with `<OpenStatus variant="long" />`, the label "Dhaka time", `<WeekStrip />` and a facts list: Our Office (address, the `lang="bn"` place name, "Open in Google Maps"), Phone, WhatsApp (link text is the phone number), Email (every address from the `emails` prop), Working Hours (`site.hours.display`). Then `MapLoader`.
-- `not-found.jsx`: one `.band` with the existing heading, sentence and two links, styled as `.btn` and `.btn.btn--ghost`. Keep its `metadata`.
+- `not-found.jsx`: one `.band` with the existing heading, sentence and two links, styled as `.btn` and `.btn.btn--ghost`. Keep its `metadata`. No drawing on this page.
 
 - [ ] **Step 5: Run everything, do the Visual check, try the form by hand**
 
@@ -1001,8 +1055,8 @@ git add -A && git commit -m "feat: rebuild Contact page with a hand-off form, an
 ### Task 9: Remove the old system, update the docs, verify
 
 **Files:**
-- Modify: `package.json`, `src/app/globals.css`, `src/app/layout.jsx`, `scripts/resize-images.mjs`, `docs/review-list.md`, `docs/deploy-cloudflare.md`, `README.md`
-- Delete: `tailwind.config.js`, `postcss.config.mjs`, `src/components/FloatingOrbs.jsx`, `src/components/MotionProvider.jsx`, `public/images/hero/`
+- Modify: `package.json`, `src/app/layout.jsx`, `scripts/resize-images.mjs`, `docs/review-list.md`, `docs/deploy-cloudflare.md`, `README.md`
+- Delete: `tailwind.config.js`, `postcss.config.mjs`, `src/app/globals.css`, `src/components/FloatingOrbs.jsx`, `src/components/MotionProvider.jsx`, `public/images/hero/`
 - Test: `tests/build/cleanup.test.mjs`
 
 **Interfaces:**
@@ -1047,7 +1101,7 @@ Expected: FAIL on the dependency test.
 
 Run: `npm uninstall swiper framer-motion react-icons tailwindcss autoprefixer postcss`
 
-Delete the files listed above. `src/app/globals.css` becomes a one-line comment saying styles live in `src/styles/` (or delete it and its import). Remove the hero entries from `scripts/resize-images.mjs`, keeping the advisor photo job. Search `src/` for any leftover `"use client"` in a view and remove it where the file no longer needs it.
+Delete the files listed above. Delete `src/app/globals.css` and its import in `layout.jsx`; add it to the delete list above. Remove the hero entries from `scripts/resize-images.mjs`, keeping the advisor photo job. Search `src/` for any leftover `"use client"` in a view and remove it where the file no longer needs it.
 
 - [ ] **Step 4: Update the documents**
 
