@@ -34,7 +34,7 @@ on disk). If that file is lost, this table and `git log` are the record.
 | 7. About and Team | Done, reviews and re-review passed, `npm run check` passed | 2eb7877, 8cb8695 |
 | 8. Contact and 404 | Done, reviews and re-review passed, `npm run check` passed | ac0ee5d, 9897755 |
 | 9. Cleanup, docs, verification | Done, review passed, `npm run check` passed; Lighthouse met | f3beb46 |
-| Whole-branch review | Done ("with fixes"); one fix wave in progress | |
+| Whole-branch review | Done ("with fixes"); fix wave committed, in re-review | 69a1d4f..90eb6fd |
 
 Execution rulings (made by the controller where the plan was silent or disagreed with the spec):
 
