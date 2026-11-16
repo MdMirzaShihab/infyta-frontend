@@ -67,17 +67,17 @@ export const services = [
     ],
     included: [
       { title: 'Network Design', description: 'Planning the layout, equipment and addressing for a new or expanded office network.' },
-      { title: 'Structured Cabling', description: 'Organized, labeled cabling between workstations, switches and network racks.' },
+      { title: 'Structured Cabling', description: 'Structured cabling that connects workstations, switches and other network equipment.' },
       { title: 'Router and Firewall Setup', description: 'Configuration of MikroTik, Cisco and Fortinet routers and firewalls.' },
       { title: 'Wireless Deployments', description: 'Office Wi-Fi planned for coverage across your premises, with separate guest access where needed.' },
       { title: 'VLANs and Segmentation', description: 'Separating departments, guests and devices such as cameras onto their own network segments.' },
       { title: 'Monitoring and Maintenance', description: 'Checking network health and fixing problems as your needs change.' },
     ],
     approach: [
-      'Site survey and requirement analysis: we look at your premises, users and current equipment.',
+      'Requirement analysis: we review your office layout, users and current equipment with you.',
       'Network design: we plan the cabling, equipment and segmentation before installation begins.',
       'Installation and configuration of cabling, switches, routers, firewalls and Wi-Fi.',
-      'Testing, documentation and handover, followed by ongoing maintenance.',
+      'Testing and handover, followed by ongoing maintenance.',
     ],
     expertiseKeys: ['network'],
     faqs: [
@@ -133,7 +133,7 @@ export const services = [
     faqs: [
       {
         question: 'Do you provide IT support for small businesses in Dhaka?',
-        answer: 'Yes. Infyta provides IT support for businesses in Dhaka, including troubleshooting, maintenance and help with servers and networks. We can support a business that has no in-house IT staff or work alongside an existing IT team.',
+        answer: 'Yes. Infyta provides IT support for businesses in Dhaka, including troubleshooting, maintenance and help with servers and networks. Support covers both day-to-day problems and longer-term upkeep of your systems.',
       },
       {
         question: 'What kind of IT problems can you help with?',
@@ -164,20 +164,20 @@ export const services = [
     heroSubtitle: 'CCTV, access control and attendance systems for business premises in Dhaka.',
     overview: [
       'Infyta designs and installs security and surveillance systems for offices and other business premises in Dhaka. The service covers CCTV camera systems, door access control, biometric devices and staff attendance management, planned around the layout of your building and the areas you need to protect, such as entrances, stock rooms and work floors.',
-      'We choose camera positions, recording storage and access points with you, install and configure the equipment, and show your staff how to view footage and manage users. Attendance systems record staff check-ins with biometric devices such as fingerprint readers, which gives you attendance records without paper registers. Because Infyta also builds networks, we can connect cameras and access devices to your office network and keep them on a separate network segment.',
+      "We choose camera positions, recording storage and access points with you, then install and configure the equipment. Attendance systems record staff check-ins with biometric devices, which gives you attendance records without paper registers. Because Infyta also builds networks, we can connect cameras and access devices to your office network and keep them on a separate network segment. The team's certifications include CCTV Specialist and Access Control Specialist.",
     ],
     included: [
-      { title: 'CCTV Systems', description: 'Cameras, recorders and storage for indoor and outdoor areas, with live and recorded viewing.' },
-      { title: 'Access Control', description: 'Door access with cards, PIN codes or biometrics, so only authorized people enter restricted areas.' },
-      { title: 'Biometric Devices', description: 'Fingerprint and other biometric readers for access control and attendance.' },
+      { title: 'CCTV Systems', description: 'Cameras, recorders and storage, with live and recorded viewing.' },
+      { title: 'Access Control', description: 'Door access control, including biometric devices, so only authorized people enter restricted areas.' },
+      { title: 'Biometric Devices', description: 'Biometric devices for access control and attendance.' },
       { title: 'Attendance Management', description: 'Systems that record staff check-in and check-out times and keep attendance records.' },
       { title: 'Network Integration', description: 'Connecting cameras and devices to your network on their own segment.' },
     ],
     approach: [
-      'Site assessment: we walk through your premises and identify the areas to cover.',
+      'Requirement analysis: we review your building layout and the areas you need to cover with you.',
       'System design: we plan camera positions, access points, storage and cabling.',
       'Installation and configuration of cameras, recorders, access control and attendance devices.',
-      'Handover and training for your staff, followed by maintenance and support.',
+      'Testing and handover, followed by maintenance and support.',
     ],
     expertiseKeys: ['security'],
     faqs: [
@@ -191,11 +191,11 @@ export const services = [
       },
       {
         question: 'What is access control and do we need it?',
-        answer: 'Access control limits who can open particular doors, using cards, PIN codes or biometric readers. It is useful for server rooms, store rooms and other areas that only some staff should enter. We can advise whether it suits your premises during a site assessment.',
+        answer: 'Access control limits who can open particular doors, for example by using biometric devices. It is useful for server rooms, store rooms and other areas that only some staff should enter. We can advise whether it suits your building when we discuss your requirements.',
       },
       {
         question: 'Can you add cameras to our existing CCTV system?',
-        answer: 'In many cases, yes. We first check the existing recorder, cameras and cabling to see whether they can be extended. If parts of the system are outdated, we explain the options before any work starts.',
+        answer: 'In many cases, yes. We first review the existing recorder, cameras and cabling with you to see whether they can be extended. If parts of the system are outdated, we explain the options before any work starts.',
       },
       {
         question: 'Can CCTV and access control share our office network?',
@@ -227,14 +227,14 @@ export const services = [
     approach: [
       'Assessment of your current servers, applications and data.',
       'Planning the target setup, whether on-premises, cloud or hybrid.',
-      'Implementation or migration, planned in stages to limit disruption to your work.',
-      'Testing, handover and ongoing administration.',
+      'Implementation or migration to the agreed setup.',
+      'Testing and ongoing administration.',
     ],
     expertiseKeys: ['server', 'cloud', 'database'],
     faqs: [
       {
         question: 'Can you move our business systems to the cloud?',
-        answer: 'Yes. Infyta plans and carries out cloud migrations to AWS, Microsoft Azure and Google Cloud for businesses in Dhaka. We assess which systems suit the cloud first, then plan the move to limit disruption to your work.',
+        answer: 'Yes. Infyta plans and carries out cloud migrations to AWS, Microsoft Azure and Google Cloud for businesses in Dhaka. We first assess which systems suit the cloud, then plan the move with you.',
       },
       {
         question: 'Should we keep our servers on-premises or move to the cloud?',

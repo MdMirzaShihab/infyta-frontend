@@ -26,8 +26,9 @@ Points to check on the service pages:
 - The certifications named in copy (CCNA, MTCNA, MTCRE, MTCSE, MCITP, RHCSA, VMware Certified,
   AWS Specialist, Certified Scrum Master) are presented as held across the team, as confirmed.
   Please confirm each is still held by someone on the team.
-- The copy says Infyta can maintain networks, provide ongoing support and administer servers
-  after a project. Please confirm these are services you offer.
+- The copy says Infyta can maintain and monitor networks, provide ongoing support and administer
+  servers after a project. These follow from the service summaries already on the site; please
+  confirm they are services you offer.
 
 ### Home page intro
 [Home](https://infyta.com/), in the "Our Services" section (replaces the line "Comprehensive IT
@@ -45,6 +46,8 @@ Lists: what Infyta does, address, the 5 services (as links), opening hours, phon
 ### Owner to confirm
 - Md. Arif's highlight "Managed 15K+ nodes network infrastructure" is copied unchanged from the
   existing Team page. Please confirm the figure.
+- The site already says "Get a free IT consultation" (Contact page description and the Services
+  page). Please confirm free consultations are still offered, or tell us to remove the wording.
 - The logo source file is only 200 × 119 px, so the site icon (`icon.png`) and the logo in the
   social sharing (OG) image are upscaled and may look soft. Please supply a high-resolution logo
   (ideally SVG, or PNG at least 1024 px wide).
@@ -53,7 +56,7 @@ Lists: what Infyta does, address, the 5 services (as links), opening hours, phon
 
 These would help customers and search engines, but we had no source for them, so they are not
 on the site. Supply the facts and we can add them.
-- Pricing or typical cost ranges for any service, and whether quotes or consultations are free.
+- Pricing or typical cost ranges for any service, and whether written quotes are free.
 - Response times for support requests, and whether emergency or out-of-hours support exists.
 - Whether engineers visit sites across all of Dhaka (or outside Dhaka), and any call-out terms.
 - Warranty or after-sales terms for installed CCTV, access control and network equipment.
@@ -62,5 +65,17 @@ on the site. Supply the facts and we can add them.
 - Industries or kinds of businesses Infyta has worked with, and any client names or case studies
   you are happy to publish.
 - Year founded or company history.
+
+Service details removed from the copy until you confirm them (tell us which to add back):
+- Site visits, site surveys or on-premises assessments before a network or security installation
+  (the copy now says only that we review your layout and requirements with you).
+- Training your staff at handover, for example how to view CCTV footage and manage users.
+- Written network documentation handed over after installation.
+- Migrating servers to the cloud in stages to limit disruption to your work.
+- Who IT support is for: businesses with no in-house IT staff, or working alongside an existing
+  IT team.
+- Labeled cabling and network rack installation as part of structured cabling.
+- Card and PIN code access control (the site lists only access control and biometric devices).
+- Fingerprint readers specifically (the site says only "biometric devices").
 
 ## 3. Visible speed changes
