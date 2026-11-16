@@ -1,6 +1,6 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
+import { useEffect, useSyncExternalStore } from "react";
 import { saveTheme, THEME_COLORS } from "@/lib/theme-script";
 import { ThemeIcon } from "@/components/Icons";
 
@@ -30,15 +30,38 @@ function useTheme() {
   return useSyncExternalStore(subscribe, currentTheme, () => null);
 }
 
+// While an explicit choice exists, every theme-color meta carries that theme's colour, so their order
+// and media no longer matter. Writes only on a difference, so the observer below cannot loop.
+function paintThemeColor() {
+  const theme = document.documentElement.dataset.theme;
+  if (theme !== "light" && theme !== "dark") return;
+  for (const meta of document.querySelectorAll('meta[name="theme-color"]')) {
+    if (meta.content !== THEME_COLORS[theme]) meta.content = THEME_COLORS[theme];
+  }
+}
+
+// React owns the theme-color metas (layout `viewport.themeColor`): it re-inserts or resets them with the
+// server values after hydration and on client navigation. Repaint whenever <head> changes.
+// Mounted once, by ThemeButton, which every page renders exactly once.
+function useThemeColorSync() {
+  useEffect(() => {
+    paintThemeColor();
+    const observer = new MutationObserver(paintThemeColor);
+    observer.observe(document.head, { childList: true, subtree: true, attributes: true, attributeFilter: ["content"] });
+    return () => observer.disconnect();
+  }, []);
+}
+
 // Applies for this page view even when storage is blocked (saveTheme then returns false).
 function chooseTheme(theme) {
   document.documentElement.dataset.theme = theme;
   saveTheme(theme);
-  for (const meta of document.querySelectorAll('meta[name="theme-color"]')) meta.content = THEME_COLORS[theme];
+  paintThemeColor();
   window.dispatchEvent(new Event(EVENT));
 }
 
 export function ThemeButton() {
+  useThemeColorSync();
   return (
     <button
       type="button"

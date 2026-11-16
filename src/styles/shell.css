@@ -30,8 +30,11 @@
 .themebtn:hover{border-color:var(--fg)}
 .themebtn svg{width:19px;height:19px}
 .themeseg{display:inline-flex;align-items:center;gap:10px}
-.themeseg span{display:inline-flex;border:1px solid var(--rule);border-radius:6px;overflow:hidden}
+.themeseg span{display:inline-flex;border:1px solid var(--rule);border-radius:6px}
 .themeseg button{padding:6px 12px;font-size:.875rem;font-weight:560;color:var(--fg2)}
+/* Rounded ends keep the pressed fill inside the border without overflow:hidden, which clipped the focus outline. */
+.themeseg button:first-child{border-radius:5px 0 0 5px}
+.themeseg button:last-child{border-radius:0 5px 5px 0}
 .themeseg button[aria-pressed="true"]{background:var(--fg);color:var(--bg)}
 .nav__burger,.nav__call{display:none}
 .nav__call svg{width:20px;height:20px}
@@ -71,6 +74,10 @@
   .logo svg{height:44px}
   .nav__call,.nav__burger{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:6px;border:1.5px solid var(--rule)}
   .nav__call{margin-left:auto}
+  /* 44px touch targets on phone and tablet surfaces (spec section 8). */
+  .themeseg button{min-height:44px}
+  .foot li:has(>a){margin-top:0}
+  .foot li a{display:inline-block;min-height:44px;padding-block:8px}
   .foot__grid{grid-template-columns:1fr 1fr}
   .foot__grid>div:nth-child(3){border-left:0}
   .foot__grid>div:nth-child(n+3){border-top:1px solid var(--rule)}
