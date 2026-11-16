@@ -31,3 +31,6 @@ AGENTS.md
 
 # Wrangler local dev state
 .wrangler/
+
+# Subagent-driven development working files
+.superpowers/

@@ -1,0 +1,34 @@
+/* Paper (light) is a blueline print: navy ink on paper. Blueprint (dark) is white line on navy. */
+:root {
+  --paper: #F4F6FA; --white: #FFFFFF; --ink: #1F2C62; --ink-deep: #172050; --ink-lift: #27367B;
+  --signal: #3AC1C2; --signal-deep: #0B7378; --cyan: #14B9DA; --amber: #E9A23B;
+  --gut: clamp(20px, 4vw, 48px);
+  --w-display: 116%; --w-head: 110%; --w-text: 100%; --w-label: 80%;
+  --bg: var(--paper); --fg: var(--ink); --fg2: rgba(31,44,98,.76); --rule: rgba(31,44,98,.17);
+  --body: var(--white); --sheet: var(--white); --panel: var(--white); --accent: var(--signal-deep);
+  --btn-bg: var(--ink); --btn-fg: var(--white); --hatch: rgba(31,44,98,.07);
+  --inv-bg: var(--ink); --inv-panel: #243372;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: var(--ink); --fg: var(--white); --fg2: rgba(255,255,255,.78); --rule: rgba(255,255,255,.22);
+    --body: var(--ink); --sheet: var(--ink); --panel: var(--ink-lift); --accent: var(--signal);
+    --btn-bg: var(--white); --btn-fg: var(--ink); --hatch: rgba(255,255,255,.08);
+    --inv-bg: var(--ink-deep); --inv-panel: var(--ink);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: var(--ink); --fg: var(--white); --fg2: rgba(255,255,255,.78); --rule: rgba(255,255,255,.22);
+  --body: var(--ink); --sheet: var(--ink); --panel: var(--ink-lift); --accent: var(--signal);
+  --btn-bg: var(--white); --btn-fg: var(--ink); --hatch: rgba(255,255,255,.08);
+  --inv-bg: var(--ink-deep); --inv-panel: var(--ink);
+  color-scheme: dark;
+}
+/* Inverse bands are navy with white line in both themes. */
+.inverse {
+  --bg: var(--inv-bg); --fg: var(--white); --fg2: rgba(255,255,255,.78); --rule: rgba(255,255,255,.22);
+  --body: var(--inv-bg); --sheet: var(--inv-bg); --panel: var(--inv-panel); --accent: var(--signal);
+  --btn-bg: var(--white); --btn-fg: var(--ink); --hatch: rgba(255,255,255,.08);
+  background: var(--bg); color: var(--fg);
+}
