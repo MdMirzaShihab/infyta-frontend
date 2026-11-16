@@ -28,7 +28,7 @@ on disk). If that file is lost, this table and `git log` are the record.
 | 1. Foundation | Done, review passed, `npm run check` passed | 6d9d24b |
 | 2. Logic and content | Done, review passed, `npm run check` passed | c20a30f |
 | 3. Logo and brand images | Done, reviews and re-review passed, `npm run check` passed | 9e51f54, c73c1d1 |
-| 4. Site shell | Implementing | |
+| 4. Site shell | Implemented, in review | 617543e |
 | 5. Home and hero drawing | Not started | |
 | 6. Services and detail drawings | Not started | |
 | 7. About and Team | Not started | |
