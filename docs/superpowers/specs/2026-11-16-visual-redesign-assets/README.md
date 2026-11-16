@@ -25,7 +25,7 @@ on disk). If that file is lost, this table and `git log` are the record.
 
 | Task | Status | Commits |
 | --- | --- | --- |
-| 1. Foundation | Implemented, in review | 6d9d24b |
+| 1. Foundation | Done, review passed, `npm run check` passed | 6d9d24b |
 | 2. Logic and content | Not started | |
 | 3. Logo and brand images | Not started | |
 | 4. Site shell | Not started | |

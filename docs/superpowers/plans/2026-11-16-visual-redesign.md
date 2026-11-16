@@ -225,7 +225,7 @@ Deleted by the end: `src/sections/`, `src/components/{Navbar,FloatingOrbs,Motion
 **Interfaces:**
 - Produces: the custom properties in `tokens.css` and the class `.inverse`; from `src/lib/theme-script.js`: `THEME_KEY = 'infyta-theme'`, `THEME_COLORS = { light: '#F4F6FA', dark: '#1F2C62' }`, `themeScript` (string), and `saveTheme(theme, getStorage = () => window.localStorage) -> boolean`, which stores the choice and returns `false` instead of throwing; the CSS variable `--font-archivo` on `<html>`.
 
-- [ ] **Step 1: Write `tests/unit/tokens.test.mjs`**
+- [x] **Step 1: Write `tests/unit/tokens.test.mjs`**
 
 ```js
 import test from 'node:test';
@@ -288,7 +288,7 @@ for (const [name, scope] of Object.entries(themes)) {
 }
 ```
 
-- [ ] **Step 2: Write `tests/unit/theme-script.test.mjs`**
+- [x] **Step 2: Write `tests/unit/theme-script.test.mjs`**
 
 ```js
 import test from 'node:test';
@@ -332,7 +332,7 @@ test('saveTheme stores the choice, and reports failure instead of throwing', () 
 });
 ```
 
-- [ ] **Step 3: Write `tests/build/theme.test.mjs`**
+- [x] **Step 3: Write `tests/build/theme.test.mjs`**
 
 ```js
 for (const file of allHtmlFiles()) {
@@ -349,12 +349,12 @@ for (const file of allHtmlFiles()) {
 }
 ```
 
-- [ ] **Step 4: Run the three tests and see them fail**
+- [x] **Step 4: Run the three tests and see them fail**
 
 Run: `node --test tests/unit/tokens.test.mjs tests/unit/theme-script.test.mjs`
 Expected: FAIL (files not found).
 
-- [ ] **Step 5: Create `src/styles/tokens.css` with exactly these values**
+- [x] **Step 5: Create `src/styles/tokens.css` with exactly these values**
 
 ```css
 /* Paper (light) is a blueline print: navy ink on paper. Blueprint (dark) is white line on navy. */
@@ -393,15 +393,15 @@ Expected: FAIL (files not found).
 }
 ```
 
-- [ ] **Step 6: Create `src/styles/base.css`**
+- [x] **Step 6: Create `src/styles/base.css`**
 
 Port from `mock/css.mjs`, applying the Port Rules: the reset block (from `*,*::before,*::after` to `.skip:focus`), `.wrap`, `.band`, the `/* Type */` block, `.tag`, `.tags`, the `/* Buttons */` block, `.textlink`, `.num`, `.panel`, `.bn`, and the `prefers-reduced-motion` rule that turns off smooth scrolling. `body` uses `background: var(--bg); color: var(--fg)`.
 
-- [ ] **Step 7: Create `src/lib/theme-script.js`**
+- [x] **Step 7: Create `src/lib/theme-script.js`**
 
 Export `THEME_KEY`, `THEME_COLORS`, `saveTheme` and `themeScript`. `themeScript` is a self-contained string of plain ES5 that: reads `localStorage.getItem(THEME_KEY)` inside `try/catch`; only if the value is exactly `'light'` or `'dark'`, sets `document.documentElement.dataset.theme` to it and sets `content` of every `meta[name="theme-color"]` to the matching `THEME_COLORS` value; otherwise does nothing.
 
-- [ ] **Step 8: Wire `src/app/layout.jsx`**
+- [x] **Step 8: Wire `src/app/layout.jsx`**
 
 - `import { Archivo } from "next/font/google"` with `{ subsets: ["latin"], axes: ["wdth"], display: "swap", variable: "--font-archivo" }`.
 - Import, after `./globals.css` and in this order: `@/styles/tokens.css`, `@/styles/base.css`.
@@ -411,12 +411,12 @@ Export `THEME_KEY`, `THEME_COLORS`, `saveTheme` and `themeScript`. `themeScript`
 
 If ESLint rejects `<head>` in the layout, use `next/script` instead: `<Script id="theme" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeScript }} />`, which Next.js also places in `<head>`.
 
-- [ ] **Step 9: Run everything**
+- [x] **Step 9: Run everything**
 
 Run: `npm run check`
 Expected: PASS. Old pages still render with their Tailwind classes; they will look half-converted until their task.
 
-- [ ] **Step 10: Commit**
+- [x] **Step 10: Commit**
 
 ```bash
 git add -A && git commit -m "feat: add theme tokens, base styles, Archivo and theme script"
