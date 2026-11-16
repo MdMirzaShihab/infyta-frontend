@@ -79,3 +79,25 @@ Service details removed from the copy until you confirm them (tell us which to a
 - Fingerprint readers specifically (the site says only "biometric devices").
 
 ## 3. Visible speed changes
+
+Changes made for mobile speed (spec 5.9 trade-offs 1 to 3). Mobile Lighthouse Performance is now
+0.99 to 1.00 on the pages tested, so trade-offs 4 and 5 were not needed.
+- Home hero: the first slide is a plain image at first. The slider and the other five slides
+  load after the page has finished loading, about a second later on a typical connection.
+  It looks the same until the slider starts. The first slide change then works as before.
+- Home hero: if your device is set to reduce motion, the hero shows only the first slide and
+  does not auto-rotate.
+- Home hero: the heading block now slides up into place without fading in. It is visible straight away.
+- Every page's main heading (Services, each service page, About, Team, Contact) slides into
+  place without fading in. The intro line under the heading on Services, About, Team and Contact
+  no longer fades in. It is visible straight away.
+- The floating background circles (Footer, About, Contact, Team) are no longer shown on
+  phones or small tablets (below 768 px wide), or when your device is set to reduce motion.
+  On larger screens they stay as before.
+- All framer-motion animations (including the floating Team photo and the looping Team
+  banner) now respect your device's reduce-motion setting.
+
+Accessibility to decide (not changed, because brand colours must stay): Lighthouse flags low
+colour contrast for white text on the teal brand colour (#3ac1c2) (the "Get Started" button),
+teal text on white ("Learn more" links, "Touch" highlight), and the small blue tags on service
+pages. Accessibility still scores 0.96. A darker teal for text and buttons would fix it.

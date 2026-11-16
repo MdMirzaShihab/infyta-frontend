@@ -13,6 +13,9 @@ import FloatingOrbs from "@/components/FloatingOrbs";
 import { chiefAdvisor as chiefAdvisorData } from "@/content/team";
 import { expertise } from "@/content/expertise";
 
+// Width variants from scripts/resize-images.mjs (source photo is 1200x1200).
+const advisorVariant = (w) => chiefAdvisorData.image.replace(".webp", `-${w}.webp`);
+
 const EXPERTISE_ICONS = {
   server: FaServer,
   network: FaNetworkWired,
@@ -31,8 +34,8 @@ export default function TeamView() {
       <section className="relative bg-gradient-to-br from-dark via-dark/90 to-primary/80 text-white py-32 z-10">
         <div className="container mx-auto px-6 text-center">
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.8 }}
             className="text-5xl md:text-6xl font-bold mb-6">
             Our{" "}
@@ -40,13 +43,9 @@ export default function TeamView() {
               Dream Team
             </span>
           </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            className="text-xl md:text-2xl max-w-3xl mx-auto">
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto">
             The brilliant minds powering Infyta&apos;s innovative solutions
-          </motion.p>
+          </p>
         </div>
 
         <motion.div
@@ -113,8 +112,14 @@ export default function TeamView() {
                   }}
                   className="relative z-10">
                   <img
-                    src={chiefAdvisorData.image}
-                    alt={chiefAdvisorData.name}
+                    src={advisorVariant(640)}
+                    srcSet={`${advisorVariant(320)} 320w, ${advisorVariant(640)} 640w, ${chiefAdvisorData.image} 1200w`}
+                    sizes="(min-width: 1024px) 400px, 100vw"
+                    width={1200}
+                    height={1200}
+                    loading="lazy"
+                    decoding="async"
+                    alt={`${chiefAdvisorData.name}, Chief Advisor at Infyta`}
                     className="w-full h-auto rounded-xl shadow-2xl border-4 border-white/30 bg-dark/10" // Added bg-dark/10 for fallback
                   />
                 </motion.div>

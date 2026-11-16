@@ -15,20 +15,15 @@ export default function ContactView() {
         
         <div className="container mx-auto px-6 text-center relative z-10">
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"
           >
             Get In <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-white">Touch</span>
           </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl md:text-2xl max-w-3xl mx-auto"
-          >
+          <p className="text-xl md:text-2xl max-w-3xl mx-auto">
             Let&apos;s discuss how we can transform your business with our tech solutions
-          </motion.p>
+          </p>
         </div>
       </section>
 

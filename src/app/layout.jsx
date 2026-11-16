@@ -2,6 +2,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import MotionProvider from "@/components/MotionProvider";
 import { rootMetadata } from "@/lib/seo/metadata";
 import { businessGraph } from "@/lib/seo/jsonld";
 
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body>
         <JsonLd data={businessGraph()} />
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+        <MotionProvider>
+          <Navbar />
+          <main>{children}</main>
+          <Footer />
+        </MotionProvider>
       </body>
     </html>
   );

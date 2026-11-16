@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 
+// Desktop-only decoration: hidden below md and for prefers-reduced-motion (spec 5.9 trade-off 2).
 // Fixed positions so the server HTML and the client render match (no Math.random during render).
 const ORBS = [
   { size: 220, left: 8, top: 12, duration: 24 },
@@ -18,7 +19,7 @@ const DEFAULT_COLORS = ["#3ac1c2"];
 
 export default function FloatingOrbs({ count = ORBS.length, opacityClass = "opacity-10", colors = DEFAULT_COLORS }) {
   return (
-    <div className="absolute inset-0 overflow-hidden z-0">
+    <div className="absolute inset-0 overflow-hidden z-0 hidden md:block motion-reduce:hidden" aria-hidden="true">
       {ORBS.slice(0, count).map((orb, i) => (
         <motion.div
           key={i}

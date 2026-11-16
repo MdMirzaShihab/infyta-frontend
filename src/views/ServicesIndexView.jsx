@@ -14,21 +14,16 @@ export default function ServicesIndexView() {
       <section className="bg-gradient-to-r from-gray-900 to-blue-900 text-white py-32">
         <div className="container mx-auto px-6 text-center">
           <motion.h1 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ y: 20 }}
+            animate={{ y: 0 }}
             transition={{ duration: 0.5 }}
             className="text-5xl font-bold mb-6"
           >
             Our <span className="text-blue-400">Services</span>
           </motion.h1>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="text-xl max-w-3xl mx-auto"
-          >
+          <p className="text-xl max-w-3xl mx-auto">
             Cutting-edge IT solutions designed to drive your business forward in the digital age.
-          </motion.p>
+          </p>
         </div>
       </section>
 
