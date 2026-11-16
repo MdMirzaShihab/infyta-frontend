@@ -1,5 +1,10 @@
 import Link from "next/link";
 
+export const metadata = {
+  title: "Page not found",
+  robots: { index: false, follow: true },
+};
+
 export default function NotFound() {
   return (
     <section className="bg-gradient-to-br from-dark to-primary text-white py-32 min-h-screen flex items-center">
