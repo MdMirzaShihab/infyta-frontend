@@ -48,7 +48,8 @@ main:has(>.inverse:last-child)+.foot{border-top:1px solid var(--rule)}
 .foot__grid>div:first-child{border-left:0}
 .foot .logo svg{height:92px}
 .foot .logo+.small{margin-top:16px;max-width:26ch}
-.foot h4{font-stretch:var(--w-label);font-weight:540;font-size:.9rem;color:var(--fg2);margin-bottom:12px}
+/* Column heads are <h2> for the page outline; line-height and letter-spacing undo the h2 type so they keep the small label look. */
+.foot h2{font-stretch:var(--w-label);font-weight:540;font-size:.9rem;line-height:inherit;letter-spacing:normal;color:var(--fg2);margin-bottom:12px}
 .foot li{margin-top:7px}
 .foot li a{text-decoration:none}
 .foot li a:hover{text-decoration:underline}
@@ -69,6 +70,10 @@ main:has(>.inverse:last-child)+.foot{border-top:1px solid var(--rule)}
 /* Responsive */
 @media (max-width:1180px){
   .nav__meta .status{display:none}
+}
+/* Before the script runs the status shows the full hours line, which is wider: it would overflow up to 1186px. */
+@media (max-width:1260px){
+  .nav__meta .status.is-unknown{display:none}
 }
 @media (max-width:1039px){
   .nav__links,.nav__meta{display:none}

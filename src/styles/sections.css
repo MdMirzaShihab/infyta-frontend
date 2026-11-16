@@ -105,8 +105,12 @@ dl{margin:0}
 .cform__error{margin-top:8px;font-weight:560;color:var(--fg)}
 .cform__actions{display:flex;flex-wrap:wrap;gap:12px}
 .cform__actions .btn{cursor:pointer;font-family:inherit}
+/* Disabled until the script runs (ContactForm): same look, no pointer. */
+.cform__actions .btn:disabled{cursor:not-allowed}
 .mapbox{margin-top:clamp(20px,2.6vw,32px)}
-.mapbox__idle,.mapbox__frame{height:256px}
+/* The idle sheet grows with its text (200% text size); the map frame keeps a fixed height. */
+.mapbox__idle{min-height:256px}
+.mapbox__frame{height:256px}
 .mapbox__idle{display:flex;flex-direction:column;justify-content:center;gap:18px;padding:clamp(18px,3vw,32px)}
 .mapbox__addr{font-weight:560;line-height:1.4}
 .mapbox__actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px}
@@ -118,11 +122,13 @@ dl{margin:0}
 .notfound .contact__cta{margin-top:32px}
 @media (min-width:720px){
   .cform__row{grid-template-columns:1fr 1fr}
-  .mapbox__idle,.mapbox__frame{height:320px}
+  .mapbox__idle{min-height:320px}
+  .mapbox__frame{height:320px}
 }
 @media (max-width:1039px){
   .cpage__grid{grid-template-columns:1fr}
-  .cpage .facts a,.mapbox__actions .textlink{display:inline-block;min-height:44px;padding-block:10px}
+  .facts a,.mapbox__actions .textlink{display:inline-block;min-height:44px;padding-block:10px}
+  .crumb a{display:inline-block;padding-block:10px;margin-block:-10px}
 }
 
 /* Inner page header (not in the mock): the page headline and its lede, spaced like the service page's. */

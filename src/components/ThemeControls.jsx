@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect, useId, useSyncExternalStore } from "react";
 import { saveTheme, THEME_COLORS } from "@/lib/theme-script";
 import { ThemeIcon } from "@/components/Icons";
 
@@ -75,11 +75,13 @@ export function ThemeButton() {
   );
 }
 
+// Rendered twice per page (footer and phone menu), so the label id comes from useId.
 export function ThemeSwitch() {
   const theme = useTheme();
+  const labelId = useId();
   return (
-    <div className="themeseg">
-      <span className="label">Theme</span>
+    <div className="themeseg" role="group" aria-labelledby={labelId}>
+      <span className="label" id={labelId}>Theme</span>
       <span>
         <button type="button" data-set-theme="light" aria-pressed={theme === "light"} onClick={() => chooseTheme("light")}>
           Paper

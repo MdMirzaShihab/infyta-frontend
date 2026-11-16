@@ -20,7 +20,9 @@ test('hero drawing links to every service, in both layouts', () => {
     assert.ok(svg.getAttribute('aria-label'));
     for (const s of services) {
       const a = svg.querySelector(`a[href="/services/${s.slug}"]`);
-      assert.ok(a && a.getAttribute('aria-label'), `${cls}: ${s.slug}`);
+      assert.ok(a, `${cls}: ${s.slug}`);
+      // The accessible name starts with the service's visible name, written the same way ("&", not "and").
+      assert.ok(a.getAttribute('aria-label').startsWith(s.name), `${cls}: "${a.getAttribute('aria-label')}" does not start with "${s.name}"`);
     }
   }
 });

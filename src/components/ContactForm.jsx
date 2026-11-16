@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import { buildEnquiry, mailtoUrl, whatsappUrl } from "@/lib/enquiry";
+import { useHydrated } from "@/lib/use-hydrated";
 import { WhatsAppIcon } from "@/components/Icons";
 
 // Hands the enquiry to WhatsApp or the mail app. Nothing is sent from the page, so it never says "sent".
 export default function ContactForm({ phoneE164, email }) {
   const [error, setError] = useState(false);
+  // Until the script runs, a click would reload /contact with the message in the URL: the buttons wait for it.
+  const live = useHydrated();
 
   function onSubmit(event) {
     event.preventDefault();
@@ -61,8 +64,8 @@ export default function ContactForm({ phoneE164, email }) {
         {error && <p id="cf-error" className="cform__error" role="alert">Write a message first.</p>}
       </div>
       <div className="cform__actions">
-        <button className="btn btn--icon" type="submit" value="whatsapp"><WhatsAppIcon />Send on WhatsApp</button>
-        <button className="btn btn--ghost" type="submit" value="email">Send by email</button>
+        <button className="btn btn--icon" type="submit" value="whatsapp" disabled={!live}><WhatsAppIcon />Send on WhatsApp</button>
+        <button className="btn btn--ghost" type="submit" value="email" disabled={!live}>Send by email</button>
       </div>
     </form>
   );

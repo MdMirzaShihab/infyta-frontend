@@ -37,7 +37,7 @@ export default function Footer({ email }) {
             )}
           </div>
           <div>
-            <h4>Quick Links</h4>
+            <h2>Quick Links</h2>
             <ul>
               {QUICK_LINKS.map(({ href, label }) => (
                 <li key={href}>
@@ -47,7 +47,7 @@ export default function Footer({ email }) {
             </ul>
           </div>
           <div>
-            <h4>Services</h4>
+            <h2>Services</h2>
             <ul>
               {services.map((s) => (
                 <li key={s.slug}>
@@ -57,7 +57,7 @@ export default function Footer({ email }) {
             </ul>
           </div>
           <div>
-            <h4>Contact</h4>
+            <h2>Contact</h2>
             <ul>
               <li>
                 <a className="tel" href={`tel:${site.phone.e164}`}>{site.phone.display}</a>

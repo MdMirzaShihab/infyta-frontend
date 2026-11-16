@@ -2,19 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState } from "react";
 import { services } from "@/content/services";
 import { site } from "@/content/site";
+import { useHydrated } from "@/lib/use-hydrated";
 import { OpenStatus } from "@/components/OpenStatus";
 import { ThemeSwitch } from "@/components/ThemeControls";
 import { CloseIcon, MenuIcon, PhoneIcon, WhatsAppIcon } from "@/components/Icons";
 
 const SERVICE_LINKS = services.map((s) => ({ href: `/services/${s.slug}`, label: s.name }));
 const TEL = `tel:${site.phone.e164}`;
-
-// false on the server and during hydration, true once the browser has taken over.
-const noSubscription = () => () => {};
-const useHydrated = () => useSyncExternalStore(noSubscription, () => true, () => false);
 
 function useCurrent() {
   const pathname = usePathname();
@@ -187,7 +184,7 @@ export function MobileMenu({ logo }) {
             <PhoneIcon />
             Call {site.phone.display}
           </a>
-          <a className="btn btn--ghost btn--icon" href={site.whatsappUrl}>
+          <a className="btn btn--ghost btn--icon" href={site.whatsappUrl} target="_blank" rel="noopener noreferrer">
             <WhatsAppIcon />
             WhatsApp
           </a>

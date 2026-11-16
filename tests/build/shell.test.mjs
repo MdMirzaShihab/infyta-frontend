@@ -53,6 +53,22 @@ for (const file of allHtmlFiles()) {
     assert.ok(paper.length >= 2 && blueprint.length === paper.length);
     for (const b of paper) assert.equal(b.textContent.trim(), 'Paper');
     for (const b of blueprint) assert.equal(b.textContent.trim(), 'Blueprint');
+    const switches = doc.querySelectorAll('.themeseg');
+    assert.equal(switches.length, paper.length);
+    for (const group of switches) {
+      assert.equal(group.getAttribute('role'), 'group');
+      const label = doc.querySelectorAll('[id]').find((el) => el.getAttribute('id') === group.getAttribute('aria-labelledby'));
+      assert.equal(label && label.textContent.trim(), 'Theme');
+    }
+  });
+
+  test(`${name}: every WhatsApp link opens in a new tab`, () => {
+    const links = doc.querySelectorAll(`a[href="${site.whatsappUrl}"]`);
+    assert.ok(links.length >= 1);
+    for (const a of links) {
+      assert.equal(a.getAttribute('target'), '_blank', a.textContent.trim());
+      assert.equal(a.getAttribute('rel'), 'noopener noreferrer', a.textContent.trim());
+    }
   });
 
   test(`${name}: mobile menu`, () => {

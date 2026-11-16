@@ -26,7 +26,7 @@ const ARIA = "Drawing of a typical office network. Each numbered part links to t
 function Wide() {
   return (
     <svg className="dwg dwg--wide" viewBox="0 0 1200 408" role="group" aria-label={ARIA}>
-      <Part slug="it-support-consultancy" label="IT Support and Consultancy: the whole office">
+      <Part slug="it-support-consultancy" label="IT Support & Consultancy: the whole office">
         <rect className="hit" x="196" y="20" width="984" height="372" rx="12" />
         <rect className="boundary fade" style={delay(2.3)} x="196" y="20" width="984" height="372" rx="12" />
         <Fade d={2.3}>
@@ -36,7 +36,7 @@ function Wide() {
         <Bub n={CALLOUT["it-support-consultancy"]} x={1146} y={20} d={2.5} />
       </Part>
 
-      <Part slug="server-cloud-solutions" label="Server and Cloud Solutions">
+      <Part slug="server-cloud-solutions" label="Server & Cloud Solutions">
         <rect className="hit" x="20" y="24" width="168" height="140" /><rect className="hit" x="862" y="130" width="150" height="220" />
         <Use id="d-cloud" x={44} y={46} d={0.1} />
         <Rise d={0.1}><T x={88} y={120} anchor="middle">Cloud</T><T x={88} y={135} cls="t2" anchor="middle">AWS, Azure,</T><T x={88} y={149} cls="t2" anchor="middle">Google Cloud</T></Rise>
@@ -67,7 +67,7 @@ function Wide() {
         <Rise d={1.85}><T x={470} y={296} anchor="middle">Office Wi-Fi</T><T x={470} y={311} cls="t2" anchor="middle">Guest access</T></Rise>
       </Part>
 
-      <Part slug="security-surveillance" label="Security and Surveillance">
+      <Part slug="security-surveillance" label="Security & Surveillance">
         <rect className="hit" x="596" y="140" width="258" height="200" />
         <Wire d="M652 100V236" t={1.15} />
         <Wire d="M676 100V164Q676 172 684 172H782Q790 172 790 180V236" t={1.15} />
@@ -97,7 +97,7 @@ function Wide() {
 function Tall() {
   return (
     <svg className="dwg dwg--tall" viewBox="0 0 360 752" role="group" aria-label={ARIA}>
-      <Part slug="it-support-consultancy" label="IT Support and Consultancy: the whole office">
+      <Part slug="it-support-consultancy" label="IT Support & Consultancy: the whole office">
         <rect className="hit" x="6" y="96" width="348" height="648" rx="12" />
         <rect className="boundary fade" style={delay(2.3)} x="6" y="96" width="348" height="648" rx="12" />
         <Fade d={2.3}>
@@ -107,7 +107,7 @@ function Tall() {
         <Bub n={CALLOUT["it-support-consultancy"]} x={338} y={96} d={2.5} />
       </Part>
 
-      <Part slug="server-cloud-solutions" label="Server and Cloud Solutions">
+      <Part slug="server-cloud-solutions" label="Server & Cloud Solutions">
         <rect className="hit" x="6" y="0" width="348" height="74" /><rect className="hit" x="16" y="550" width="330" height="80" />
         <use href="#d-cloud" className="rise" style={delay(0.1)} transform="translate(19 8) scale(.8)" />
         <Rise d={0.1}><T x={110} y={30}>Cloud</T><T x={110} y={45} cls="t2">AWS, Azure, Google Cloud</T></Rise><Bub n={CALLOUT["server-cloud-solutions"]} x={338} y={32} d={2.4} />
@@ -132,7 +132,7 @@ function Tall() {
         <Rise d={1.65}><T x={150} y={366}>Office Wi-Fi</T><T x={150} y={381} cls="t2">Guest access</T></Rise>
       </Part>
 
-      <Part slug="security-surveillance" label="Security and Surveillance">
+      <Part slug="security-surveillance" label="Security & Surveillance">
         <rect className="hit" x="16" y="404" width="330" height="140" />
         <path className="rise" style={delay(1.6)} d="M42 430H62M42 512H62" /><circle className="tap rise" style={delay(1.6)} cx="42" cy="430" r="2.6" /><circle className="tap rise" style={delay(1.6)} cx="42" cy="512" r="2.6" />
         <Use id="d-nvr" x={62} y={416} d={1.65} />

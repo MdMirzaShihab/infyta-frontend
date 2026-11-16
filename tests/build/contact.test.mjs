@@ -23,6 +23,8 @@ test('contact page', () => {
   }
   assert.ok(!/placeholder="(John|Doe)"/.test(html));
   assert.deepEqual(form.querySelectorAll('button[type="submit"]').map((b) => [b.getAttribute('value'), b.textContent.trim()]), [['whatsapp', 'Send on WhatsApp'], ['email', 'Send by email']]);
+  // Without JavaScript (or before hydration) a click would reload /contact with the message in the URL.
+  for (const b of form.querySelectorAll('button[type="submit"]')) assert.ok(b.hasAttribute('disabled'), `${b.textContent.trim()} is not disabled in the static HTML`);
 
   assert.equal(main.querySelectorAll('iframe').length, 0);
   assert.ok(main.querySelectorAll('button').some((b) => b.textContent.trim() === 'Show map'));
