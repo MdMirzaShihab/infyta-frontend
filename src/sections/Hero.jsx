@@ -76,7 +76,8 @@ function whenPageIdle(callback) {
 export default function Hero() {
   // false on the server and on the first client render, so hydration matches.
   const [sliderWanted, setSliderWanted] = useState(false);
-  // The static first slide stays underneath until the slider first changes slide.
+  // The static first slide (image, overlay, caption) stays mounted until the slider's first slide
+  // change; until then the slider's own first slide shows only its image (see HeroSlider).
   const [sliderShowing, setSliderShowing] = useState(false);
   const swiperRef = useRef(null);
 
@@ -104,6 +105,7 @@ export default function Hero() {
                   swiperRef.current = swiper;
                 }}
                 onFirstChange={() => setSliderShowing(true)}
+                firstSlideBare={!sliderShowing}
               />
             </Suspense>
           </div>
