@@ -4,6 +4,7 @@ export const pages = {
     title: 'Infyta – IT Solutions Company in Dhaka, Bangladesh',
     description: 'Infyta is an IT solutions company in Dhaka offering software development, network setup, servers and cloud, CCTV and IT support for businesses in Bangladesh.',
     absoluteTitle: true,
+    heading: 'Infyta – Limitless Tech Solutions',
   },
   services: {
     path: '/services',

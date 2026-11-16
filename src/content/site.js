@@ -27,6 +27,9 @@ export const site = {
     opens: '09:00',
     closes: '18:00',
   },
+  // Dates the office is closed, as 'YYYY-MM-DD' in Dhaka time, for example public holidays.
+  closedDates: [],
+  whatsappUrl: 'https://wa.me/8801318121558',
   // geo: null, or { latitude: 23.7, longitude: 90.38 } (numbers) -> JSON-LD GeoCoordinates.
   geo: null,
   // socials: array of { name: 'Facebook', url: 'https://facebook.com/...' } (objects, not

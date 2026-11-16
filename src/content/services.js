@@ -5,6 +5,7 @@
 export const services = [
   {
     slug: 'software-development',
+    worksWith: 'Web and mobile apps, SQL Server, MySQL, MongoDB',
     name: 'Software Development',
     summary: 'Custom solutions tailored to your business needs with cutting-edge technologies.',
     color: 'from-blue-500 to-purple-500',
@@ -55,6 +56,7 @@ export const services = [
   },
   {
     slug: 'network-infrastructure',
+    worksWith: 'MikroTik, Cisco, Fortinet, wireless deployments',
     name: 'Network Infrastructure',
     summary: 'Design, implementation, and maintenance of robust network systems.',
     color: 'from-green-500 to-blue-500',
@@ -106,6 +108,7 @@ export const services = [
   },
   {
     slug: 'it-support-consultancy',
+    worksWith: 'Windows and Linux servers, Active Directory, office networks',
     name: 'IT Support & Consultancy',
     summary: 'Expert guidance and support for your IT operations and strategy.',
     color: 'from-yellow-500 to-orange-500',
@@ -156,6 +159,7 @@ export const services = [
   },
   {
     slug: 'security-surveillance',
+    worksWith: 'CCTV, access control, biometric attendance',
     name: 'Security & Surveillance',
     summary: 'Comprehensive CCTV, access control, and attendance systems.',
     color: 'from-red-500 to-pink-500',
@@ -206,6 +210,7 @@ export const services = [
   },
   {
     slug: 'server-cloud-solutions',
+    worksWith: 'VMware, Hyper-V, AWS, Azure, Google Cloud',
     name: 'Server & Cloud Solutions',
     summary: 'Scalable server setups and cloud migration services.',
     color: 'from-purple-500 to-indigo-500',

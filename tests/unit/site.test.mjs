@@ -23,3 +23,9 @@ test('absoluteUrl', () => {
   assert.equal(absoluteUrl('/'), 'https://infyta.com');
   assert.equal(absoluteUrl('/team'), 'https://infyta.com/team');
 });
+
+test('closed dates and WhatsApp link', () => {
+  assert.ok(Array.isArray(site.closedDates));
+  for (const d of site.closedDates) assert.match(d, /^\d{4}-\d{2}-\d{2}$/);
+  assert.equal(site.whatsappUrl, 'https://wa.me/' + site.phone.e164.slice(1));
+});
