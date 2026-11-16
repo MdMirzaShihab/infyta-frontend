@@ -68,7 +68,9 @@ h3{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spa
 .nav__links [aria-current="page"]{font-weight:700}
 .has-menu{position:relative}
 .menu{position:absolute;left:-8px;top:100%;min-width:268px;padding:8px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:0 18px 40px -18px rgba(15,22,56,.45);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .14s,transform .14s,visibility .14s}
-.has-menu:hover .menu,.has-menu:focus-within .menu{opacity:1;visibility:visible;transform:none}
+.has-menu:hover .menu,.has-menu:focus-within .menu,.has-menu.is-open .menu{opacity:1;visibility:visible;transform:none}
+.has-menu>button{display:flex!important;align-items:center;gap:7px}
+.has-menu>button::after{content:"";width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-2px)}
 .menu a{padding:9px 12px!important}
 .menu a:hover{background:rgba(58,193,194,.16);text-decoration:none!important}
 .nav__meta{display:flex;align-items:center;gap:20px;padding-left:22px;border-left:1px solid var(--rule)}
@@ -390,8 +392,8 @@ dl{margin:0}
 </svg></span></a>
   <nav aria-label="Main"><ul class="nav__links">
     <li><a href="#top" data-goto="home" data-nav="home" aria-current="page">Home</a></li>
-    <li class="has-menu"><a href="#services" data-goto="home" data-hash="#services" aria-haspopup="true">Services</a>
-      <div class="menu"><a href="#" data-goto="service">Software Development</a><a href="#" data-goto="service">Network Infrastructure</a><a href="#" data-goto="service">IT Support &amp; Consultancy</a><a href="#" data-goto="service">Security &amp; Surveillance</a><a href="#" data-goto="service">Server &amp; Cloud Solutions</a></div></li>
+    <li class="has-menu"><button type="button" data-menu aria-expanded="false" aria-controls="svcmenu">Services</button>
+      <div class="menu" id="svcmenu"><a href="#services" data-goto="home" data-hash="#services">All Services</a><a href="#" data-goto="service">Software Development</a><a href="#" data-goto="service">Network Infrastructure</a><a href="#" data-goto="service">IT Support &amp; Consultancy</a><a href="#" data-goto="service">Security &amp; Surveillance</a><a href="#" data-goto="service">Server &amp; Cloud Solutions</a></div></li>
     <li><a href="#advisor" data-goto="home" data-hash="#advisor">Team</a></li>
     <li><a href="#expertise" data-goto="home" data-hash="#expertise">About</a></li>
     <li><a href="#contact" data-goto="home" data-hash="#contact">Contact</a></li>
@@ -410,7 +412,7 @@ dl{margin:0}
 <div id="top"><section class="hero hero--sheet cover" data-hero="sheet"><div class="wrap">
   <div class="sheet sheet--hero">
     <div class="tb">
-      <div class="tb__title"><h1>Limitless tech solutions for a digital world</h1><div class="hero__cta"><a class="btn" href="#contact">Get Started</a><a class="btn btn--ghost" href="#services">Explore Solutions</a></div></div>
+      <div class="tb__title"><h1>Infyta – Limitless Tech Solutions</h1><div class="hero__cta"><a class="btn" href="#contact">Get Started</a><a class="btn btn--ghost" href="#services">Explore Solutions</a></div></div>
       <div class="tb__lede"><p class="lede">Infyta is an IT solutions company in Dhaka offering software development, network setup, servers and cloud, CCTV and IT support for businesses in Bangladesh.</p></div>
     </div>
     <figure class="sheet__fig"><div class="sheet__dwg"><svg class="dwg dwg--wide" viewBox="0 0 1200 408" role="group" aria-label="Drawing of a typical office network. Each numbered part links to the Infyta service that builds it.">
@@ -508,7 +510,7 @@ dl{margin:0}
       <div><dt>Key</dt><dd>1 to 5 are our services. Select any part.</dd></div></dl>
   </div>
 </div></section><section class="hero cover" data-hero="stack"><div class="wrap">
-  <h1>Limitless tech solutions <br class="wide-only">for a digital world</h1>
+  <h1>Infyta – Limitless Tech Solutions</h1>
   <div class="hero__row">
     <p class="lede">Infyta is an IT solutions company in Dhaka offering software development, network setup, servers and cloud, CCTV and IT support for businesses in Bangladesh.</p>
     <div class="hero__cta"><a class="btn" href="#contact">Get Started</a><a class="btn btn--ghost" href="#services">Explore Solutions</a></div>
@@ -858,11 +860,14 @@ dl{margin:0}
     var t=e.target.closest('[data-toggle-theme]'); if(t){root.dataset.theme=theme()==='dark'?'light':'dark';pressed();return;}
     var h=e.target.closest('[data-set-hero]'); if(h){root.dataset.hero=h.dataset.setHero;pressed();syncNav();window.scrollTo(0,0);return;}
     var a=e.target.closest('[data-goto]'); if(a){e.preventDefault();closeMenu();show(a.dataset.goto,a.dataset.hash);return;}
+    var m=e.target.closest('[data-menu]'), li=document.querySelector('.has-menu'), mb=document.querySelector('[data-menu]');
+    if(m){var open=!li.classList.contains('is-open');li.classList.toggle('is-open',open);mb.setAttribute('aria-expanded',String(open));return;}
+    if(!e.target.closest('.has-menu')){li.classList.remove('is-open');mb.setAttribute('aria-expanded','false');}
     if(e.target.closest('.mm a')) closeMenu();
   });
   burger.addEventListener('click',function(){mm.classList.add('is-open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';document.getElementById('mmClose').focus();});
   document.getElementById('mmClose').addEventListener('click',function(){closeMenu();burger.focus();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeMenu();document.querySelector('.has-menu').classList.remove('is-open');document.querySelector('[data-menu]').setAttribute('aria-expanded','false');}});
   if(window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',pressed);
 
   // Opening hours, always in Dhaka time (Saturday to Thursday, 9 AM to 6 PM).

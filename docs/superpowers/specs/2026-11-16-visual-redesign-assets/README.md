@@ -11,7 +11,7 @@ design spec; nothing here ships with the site.
 | Clickable mockup (home page and one service page) | Done |
 | Owner decisions | Sheet hero approved. Blueprint (navy) is the site-wide dark theme, Paper is the light theme. |
 | Mockup converted to site-wide light and dark themes (Paper and Blueprint), republished | Done |
-| Design spec (`docs/superpowers/specs/2026-11-16-visual-redesign-design.md`) | Written; under review, then needs the owner's approval |
+| Design spec (`docs/superpowers/specs/2026-11-16-visual-redesign-design.md`) | Written and reviewed. Waiting for the owner's approval; section 12 lists the calls to check |
 | Implementation plan (`docs/superpowers/plans/`) | Not written yet; comes after the owner approves the spec |
 
 Published mockup (private artifact): https://claude.ai/artifact/CRwP51kC15zT6pDpGCDqMA

@@ -65,7 +65,9 @@ h3{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spa
 .nav__links [aria-current="page"]{font-weight:700}
 .has-menu{position:relative}
 .menu{position:absolute;left:-8px;top:100%;min-width:268px;padding:8px;background:var(--panel);border:1px solid var(--rule);border-radius:8px;box-shadow:0 18px 40px -18px rgba(15,22,56,.45);opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .14s,transform .14s,visibility .14s}
-.has-menu:hover .menu,.has-menu:focus-within .menu{opacity:1;visibility:visible;transform:none}
+.has-menu:hover .menu,.has-menu:focus-within .menu,.has-menu.is-open .menu{opacity:1;visibility:visible;transform:none}
+.has-menu>button{display:flex!important;align-items:center;gap:7px}
+.has-menu>button::after{content:"";width:6px;height:6px;border-right:1.6px solid currentColor;border-bottom:1.6px solid currentColor;transform:rotate(45deg) translateY(-2px)}
 .menu a{padding:9px 12px!important}
 .menu a:hover{background:rgba(58,193,194,.16);text-decoration:none!important}
 .nav__meta{display:flex;align-items:center;gap:20px;padding-left:22px;border-left:1px solid var(--rule)}

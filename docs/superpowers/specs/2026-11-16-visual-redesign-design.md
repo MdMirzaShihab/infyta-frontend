@@ -77,6 +77,9 @@ should check are listed in section 12.
   - The home page contains the `homeIntro` paragraph word for word.
   - The About page contains the text "Infyta at a glance", the address, phone, email and hours,
     and links to all five services inside `<main>`.
+  - The first `<nav>` in the home page's static HTML links to `/services` and to all five service
+    pages. The home page has at least one `tel:` link, one `mailto:` link, and a "Get Started"
+    link to `/contact`.
   - No source file calls `Math.random()` or `Date.now()`.
 - `src/content/email.js` stays server-only. Client components receive the email address as a prop.
 - Two existing build tests describe the photo hero and must be replaced (section 10).
@@ -167,7 +170,7 @@ An **inverse band** is a full-width section that is navy with white line in both
 navy on Paper, the deeper navy on Blueprint. Use it for the Chief Advisor block, "Our Approach",
 the About page's team call to action, the footer and the mobile menu. Nothing else is inverse.
 
-Measured contrast: ink on paper 12:1, secondary text on paper 5.5:1, signal-deep on paper 5.2:1,
+Measured contrast: ink on paper 12:1, secondary text on paper 6.0:1, signal-deep on paper 5.2:1,
 white on ink 13:1, signal on ink 6:1.
 
 ### 6.3 Theme behaviour
@@ -306,9 +309,16 @@ can check them:
   Store these in `src/content/services.js`.
 - Table headings: "Domain", "What we work with", "Certifications and specialists".
 - Open-hours status: "Open now, until 6 PM", "Closed, opens 9 AM", "Closed, opens tomorrow 9 AM",
-  "Closed, opens Saturday 9 AM", their long forms ("Open now. Closes at 6 PM."), and "Dhaka time".
-- "WhatsApp", "Open in Google Maps", "Show map", "Theme", "Paper", "Blueprint", "Skip to content",
-  and the breadcrumb word "Services".
+  "Closed, opens Saturday 9 AM", "Closed today", their long forms ("Open now. Closes at 6 PM."),
+  and "Dhaka time".
+- "WhatsApp", "Call", "Open in Google Maps", "Show map", "Theme", "Paper", "Blueprint", "Skip to
+  content", and the breadcrumb word "Services".
+- Contact form: the buttons "Send on WhatsApp" and "Send by email"; the message shown when the
+  Message field is empty, "Write a message first."; and the text the form hands to WhatsApp or
+  email (section 7.7).
+
+One existing sentence appears somewhere new: the home page's meta description is shown as the
+intro in the hero. It is not rewritten.
 
 Two existing lines are removed: the footer credit "Designed with ❤️ by Infyta Team", and the
 "Contact Sales" button on the home page, which pointed to the same page as "Get Started" and is
@@ -318,9 +328,11 @@ replaced by WhatsApp and phone buttons.
 
 ### 7.1 Every page
 
-**Header.** Sticky. Logo; Home, Services (opens a list of the five services), Team, About,
-Contact; then open-hours status, the phone number as text, the theme button, and "Get Started"
-(to `/contact`). Below 1040px: logo, a call button and a menu button. The menu is a full-screen
+**Header.** Sticky. Logo; Home, Services, Team, About, Contact; then open-hours status, the
+phone number as a `tel:` link, the theme button, and "Get Started" (to `/contact`). "Services" is
+a button that opens a list: "All Services" (to `/services`), then the five services. That list is
+always in the HTML, inside the header's `<nav>`, and only hidden visually while closed; the header
+`<nav>` is the first `<nav>` in the document. Below 1040px: logo, a call button and a menu button. The menu is a full-screen
 navy panel with the same links, the five services indented under Services, the status, the theme
 switch, and "Call" and "WhatsApp" buttons.
 
@@ -333,12 +345,18 @@ render only if `site.socials` has entries.
 Saturday to Thursday, 09:00 to 18:00. Until the script runs, and with JavaScript off, show
 `site.hours.display` instead of a status.
 
+A weekly schedule is wrong on public holidays, and the site must not say "Open now" when the
+office is shut. Add an optional list `site.closedDates` (dates such as `'2027-03-26'`, read in
+Dhaka time, empty to begin with). On a listed date the status is "Closed today" until the next
+open day, and that day's cell in the week strip reads "Closed". The owner adds dates in one file;
+nothing else changes.
+
 ### 7.2 Home (`/`): as in the mockup
 
-1. **Sheet hero.** The drawing on top. Under it, a title block: the headline "Limitless tech
-   solutions for a digital world" (`site.tagline`, this is the page's `<h1>`), the buttons "Get
-   Started" (to `/contact`) and "Explore Solutions" (to `/services`), and beside them the home
-   page's meta description as the intro. Then the four-cell strip. Below 1040px the headline block
+1. **Sheet hero.** The drawing on top. Under it, a title block: the headline "Infyta – Limitless
+   Tech Solutions" (today's `<h1>`, word for word and in its existing capitalisation, all in one
+   colour), the buttons "Get Started" (to `/contact`) and "Explore Solutions" (to `/services`),
+   and beside them the home page's meta description as the intro. Then the four-cell strip. Below 1040px the headline block
    comes first and the drawing follows. In the HTML the headline block always comes first.
 2. **Our Services.** The heading, the `homeIntro` paragraph, the five service rows, and "Explore
    All Services".
@@ -397,9 +415,12 @@ Same content, same order, new treatment:
    Hours.
 3. **The form must not pretend to send.** There is no backend. Submitting opens the visitor's own
    app with the message filled in: "Send on WhatsApp" (primary, `https://wa.me/8801318121558` with
-   the text) and "Send by email" (secondary, `mailto:` the primary address). Both validate that
-   the message is not empty. No "message sent" confirmation is ever shown, because the page cannot
-   know.
+   the text) and "Send by email" (secondary, `mailto:` the primary address, subject "Website
+   enquiry from {First Name} {Last Name}"). The text handed over is "Hello Infyta, this is {First
+   Name} {Last Name}.", a blank line, the message, a blank line, then "Email: {Email}"; a line is
+   left out when its field is empty. Only Message is required: if it is empty, show "Write a
+   message first." under the field and open nothing. No "message sent" confirmation is ever shown,
+   because the page cannot know.
 4. The map loads only on request: a sheet showing the address, "Open in Google Maps" and a "Show
    map" button that inserts the existing embed.
 
@@ -459,9 +480,10 @@ Add:
 
 - Unit: contrast. From the token values, `--fg`, `--fg2` and `--accent` each reach 4.5:1 on
   `--bg` in Paper, Blueprint and the inverse band.
-- Unit: open hours. A pure function taking a weekday and minutes returns the right status for:
-  Monday 10:00 (open), Monday 08:00 (opens 9 AM), Thursday 19:00 (opens Saturday), Friday noon
-  (opens tomorrow), Saturday 18:00 (closed, opens tomorrow).
+- Unit: open hours. A pure function taking a Dhaka date, weekday, minutes and the closed-date list
+  returns the right status for: Monday 10:00 (open), Monday 08:00 (opens 9 AM), Thursday 19:00
+  (opens Saturday), Friday noon (opens tomorrow), Saturday 18:00 (closed, opens tomorrow), and a
+  Monday 10:00 that is in the closed-date list (closed today).
 - Build: the static HTML has no `data-theme` on `<html>`, and `<head>` contains the theme script.
 - Build: `package.json` and `src/` contain no reference to `swiper`, `framer-motion` or
   `react-icons`, and `out/` has no `images/hero` directory.
@@ -493,9 +515,16 @@ All other existing tests pass unchanged.
 4. **Vendor names on the hero drawing.** The router is labelled MikroTik, the firewall Fortinet
    and the switch Cisco, as an example of a typical setup.
 5. **Home page additions.** Core Expertise and the Chief Advisor block are repeated from the Team
-   page.
+   page. This puts "Managed 15K+ nodes network infrastructure" on the home page; that figure is
+   still waiting for the owner's confirmation in `docs/review-list.md`.
 6. **Removals.** The footer credit line and the "Contact Sales" button (section 6.9).
 7. **Bengali accent** beside the address (section 7.8).
+8. **Home headline.** It keeps today's words, "Infyta – Limitless Tech Solutions", so the page's
+   main heading does not change for search. The first mockup showed the tagline "Limitless tech
+   solutions for a digital world" instead; the owner can choose that.
+9. **"Open now" and public holidays.** The live status follows the weekly hours. It is only right
+   on holidays if the owner adds those dates to `site.closedDates`. The alternative is to drop the
+   live status and show the hours as plain text.
 
 ## 13. Left to the builder
 
@@ -511,6 +540,13 @@ All other existing tests pass unchanged.
 
 ## 14. Rollout
 
-One branch, `visual-redesign`. When `npm run check` passes and the Lighthouse targets hold, add a
-"Visible changes" section to `docs/review-list.md` for the owner, then deploy with the existing
-runbook (`docs/deploy-cloudflare.md`).
+One branch, `visual-redesign`. The work is finished when `npm run check` passes and the Lighthouse
+targets hold on a local build of the branch. Then:
+
+- Add a "Visible changes" section to `docs/review-list.md` for the owner.
+- Update the preview checks in `docs/deploy-cloudflare.md`: it still names the old
+  `nextjs-seo-migration` branch and says the layout and animation should match the old site,
+  which is no longer true.
+
+Merging to `master` and deploying are the owner's steps. The plan does not depend on whether the
+Cloudflare Pages project is live yet.

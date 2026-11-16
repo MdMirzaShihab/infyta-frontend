@@ -54,8 +54,8 @@ const nav = `<header class="nav cover" id="nav"><div class="wrap nav__in">
   <a class="logo" href="#top" data-goto="home" aria-label="Infyta, home">${logo('n')}</a>
   <nav aria-label="Main"><ul class="nav__links">
     <li><a href="#top" data-goto="home" data-nav="home" aria-current="page">Home</a></li>
-    <li class="has-menu"><a href="#services" data-goto="home" data-hash="#services" aria-haspopup="true">Services</a>
-      <div class="menu">${services.map((s) => `<a href="#" data-goto="service">${esc(s.name)}</a>`).join('')}</div></li>
+    <li class="has-menu"><button type="button" data-menu aria-expanded="false" aria-controls="svcmenu">Services</button>
+      <div class="menu" id="svcmenu"><a href="#services" data-goto="home" data-hash="#services">All Services</a>${services.map((s) => `<a href="#" data-goto="service">${esc(s.name)}</a>`).join('')}</div></li>
     <li><a href="#advisor" data-goto="home" data-hash="#advisor">Team</a></li>
     <li><a href="#expertise" data-goto="home" data-hash="#expertise">About</a></li>
     <li><a href="#contact" data-goto="home" data-hash="#contact">Contact</a></li>
@@ -80,7 +80,7 @@ const heroCta = `<div class="hero__cta"><a class="btn" href="#contact">Get Start
 const heroSheet = `<section class="hero hero--sheet cover" data-hero="sheet"><div class="wrap">
   <div class="sheet sheet--hero">
     <div class="tb">
-      <div class="tb__title"><h1>Limitless tech solutions for a digital world</h1>${heroCta}</div>
+      <div class="tb__title"><h1>Infyta – Limitless Tech Solutions</h1>${heroCta}</div>
       <div class="tb__lede"><p class="lede">${esc(pages.home.description)}</p></div>
     </div>
     <figure class="sheet__fig"><div class="sheet__dwg">${wideDrawing()}${tallDrawing()}</div></figure>
@@ -90,7 +90,7 @@ const heroSheet = `<section class="hero hero--sheet cover" data-hero="sheet"><di
 
 // B: headline first, drawing below (the first mockup).
 const heroStack = `<section class="hero cover" data-hero="stack"><div class="wrap">
-  <h1>Limitless tech solutions <br class="wide-only">for a digital world</h1>
+  <h1>Infyta – Limitless Tech Solutions</h1>
   <div class="hero__row">
     <p class="lede">${esc(pages.home.description)}</p>
     ${heroCta}
@@ -253,11 +253,14 @@ const js = `(function(){
     var t=e.target.closest('[data-toggle-theme]'); if(t){root.dataset.theme=theme()==='dark'?'light':'dark';pressed();return;}
     var h=e.target.closest('[data-set-hero]'); if(h){root.dataset.hero=h.dataset.setHero;pressed();syncNav();window.scrollTo(0,0);return;}
     var a=e.target.closest('[data-goto]'); if(a){e.preventDefault();closeMenu();show(a.dataset.goto,a.dataset.hash);return;}
+    var m=e.target.closest('[data-menu]'), li=document.querySelector('.has-menu'), mb=document.querySelector('[data-menu]');
+    if(m){var open=!li.classList.contains('is-open');li.classList.toggle('is-open',open);mb.setAttribute('aria-expanded',String(open));return;}
+    if(!e.target.closest('.has-menu')){li.classList.remove('is-open');mb.setAttribute('aria-expanded','false');}
     if(e.target.closest('.mm a')) closeMenu();
   });
   burger.addEventListener('click',function(){mm.classList.add('is-open');burger.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';document.getElementById('mmClose').focus();});
   document.getElementById('mmClose').addEventListener('click',function(){closeMenu();burger.focus();});
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMenu();});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeMenu();document.querySelector('.has-menu').classList.remove('is-open');document.querySelector('[data-menu]').setAttribute('aria-expanded','false');}});
   if(window.matchMedia) window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',pressed);
 
   // Opening hours, always in Dhaka time (Saturday to Thursday, 9 AM to 6 PM).
