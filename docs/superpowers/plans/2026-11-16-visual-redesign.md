@@ -10,6 +10,122 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-16-visual-redesign-design.md`. Read it first. The mockup it names is the visual source of truth: `docs/superpowers/specs/2026-11-16-visual-redesign-assets/` (`mockup.html`, `mock/css.mjs`, `mock/build.mjs`, `mock/diagram.mjs`, `logo/build-logo.mjs`). Below, "the mock" means those files.
 
+## Start Here
+
+Read this section first, whether you are starting at Task 1 or resuming after an interruption.
+
+### 1. Check the starting state
+
+Run from the repository root (`infyta-frontend`):
+
+```bash
+git branch --show-current     # must print: visual-redesign
+git status --short            # before Task 1: only "?? .superpowers/"
+git log --oneline -15         # shows which task commits already exist
+node -v                       # v22 or newer
+[ -d node_modules ] || npm ci
+npm run check                 # must pass before you change anything
+```
+
+- Work in this checkout, on this branch. Do not create a worktree and do not switch branches: the owner resumes from this folder.
+- **Where to resume:** the first unticked `- [ ]` box below is the next step. If the working tree is dirty, a task was interrupted: do not discard anything. Read `git diff --stat`, finish that task from where it stopped, and run its tests.
+- **Expected baseline** (measured 2026-11-16 on this branch): 43 unit tests pass, the build succeeds, 86 build tests pass, lint has 0 errors and 3 `<img>` warnings in files this plan rewrites or deletes.
+
+### 2. How to run the plan
+
+1. The session that runs this plan is the **controller**. It uses the skill `superpowers:subagent-driven-development` and does not write product code itself.
+2. Tasks run strictly in order, 1 to 9, one at a time. They share one working tree, so never run two implementers at once.
+3. For each task: dispatch one implementer with the brief described below; then a spec-compliance reviewer; then a quality reviewer; send findings back to an implementer until both reviewers pass.
+4. Then the controller itself runs `npm run check`, reads the output, and only if it passes: commits the task, ticks its boxes in this file, updates the status table in `docs/superpowers/specs/2026-11-16-visual-redesign-assets/README.md`, and commits that.
+5. After Task 9, dispatch one whole-branch reviewer (`git diff master...visual-redesign`), fix what it finds, then use `superpowers:finishing-a-development-branch`. Do not merge or push unless the owner asks.
+
+Stop and ask the owner only when: a task would need a change to approved wording or to a decision in spec section 12; `npm run check` cannot be made to pass without weakening an existing test; or a tool this plan needs is missing.
+
+### 3. Models
+
+The owner's instruction, to be followed for every dispatch:
+
+> Optimize the token usage without compromising the quality. Where you can use the less expensive models like Sonnet or lower without compromising any quality, use them. Where using them may affect the quality, use Opus to keep the best possible quality outcome.
+
+Always pass `model` explicitly when dispatching; never let a subagent inherit the session's model.
+
+| Task | Implementer | Spec-compliance reviewer | Quality reviewer | Why |
+| --- | --- | --- | --- | --- |
+| 1. Foundation | sonnet | sonnet | sonnet | Exact values and full tests are given. |
+| 2. Logic and content | sonnet | sonnet | sonnet | Pure functions pinned by tests. |
+| 3. Logo and brand images | opus | sonnet | opus | A brand asset: geometry and letter shapes must match by eye. |
+| 4. Site shell | opus | sonnet | opus | Focus handling, state that must survive hydration, theme sync. |
+| 5. Home and hero drawing | sonnet | sonnet | opus | A faithful port with given coordinates; the review compares it with the mockup by eye. |
+| 6. Services and detail drawings | opus | sonnet | opus | Four new drawings need design judgement. |
+| 7. About and Team | sonnet | sonnet | opus | Layout rules are spelled out, but no mockup exists, so the review needs a designer's eye. |
+| 8. Contact and 404 | sonnet | sonnet | opus | The logic is already tested in Task 2; the review checks behaviour and accessibility. |
+| 9. Cleanup, docs, verification | sonnet | sonnet | sonnet | Mechanical. |
+| Whole-branch review at the end | | | opus | The last gate before the owner sees it. |
+
+- Use `haiku` only for pure look-ups (finding a string, listing files).
+- **Escalate:** if a Sonnet implementer fails the same review twice, or says it is unsure, give that fix to Opus. If Lighthouse misses its target in Task 9, give the diagnosis to Opus.
+- **Do not downgrade** an Opus row to save tokens.
+
+Ways to save tokens that do not cost quality:
+
+- The controller never reads `mock/css.mjs`, `mock/diagram.mjs`, `mock/build.mjs` or the views itself. It hands each subagent paths and the "Read first" list for its task.
+- An implementer's brief is: the Global Constraints and Port Rules sections of this plan, word for word; the full text of its task; and its "Read first" list. Tell it not to explore beyond those unless a test forces it to.
+- A reviewer's brief is: the task text, the named spec sections, and the commit range to review (`git diff <before>..HEAD`). Not the whole repository.
+- While working, an implementer runs only its own test files. The full `npm run check` runs once, at the end of the task.
+- A visual check is at most six screenshots per task (light, dark and narrow, for at most two pages).
+
+| Task | Read first |
+| --- | --- |
+| 1 | Spec 6.2, 6.3, 6.4. `mock/css.mjs` from the top through the `/* Buttons */` block. `src/app/layout.jsx`. |
+| 2 | Spec 6.9, 7.1 ("Open hours"), 7.7. `src/content/site.js`, `services.js`, `expertise.js`, `pages.js`. |
+| 3 | Spec 6.6 (Logo row), 11. `…-assets/logo/build-logo.mjs`. `scripts/make-brand-images.mjs`. |
+| 4 | Spec 6.3, 7.1, 8. In `mock/build.mjs`: `icon`, `nav`, `mobileMenu`, `footer` and the menu parts of `js`. In `mock/css.mjs`: Nav, Footer, Mobile menu blocks. `tests/build/routes.test.mjs`. |
+| 5 | Spec 6.7, 6.8, 7.2. `mock/diagram.mjs` except `networkDetail`. In `mock/build.mjs`: `heroSheet`, `servicesBand`, `expertiseBand`, `advisorBand`, `contactPanel`, `contactBand`. The matching blocks in `mock/css.mjs`. |
+| 6 | Spec 6.7 (detail drawings), 7.3, 7.4. `networkDetail` in `mock/diagram.mjs`; `serviceView` in `mock/build.mjs`; the Service page block in `mock/css.mjs`. Current `ServicePageView.jsx` and `ServicesIndexView.jsx` for their strings. |
+| 7 | Spec 6.1, 6.6, 7.5, 7.6. Current `AboutView.jsx` and `TeamView.jsx` for their strings. |
+| 8 | Spec 7.7, 7.8, 8. Current `ContactView.jsx` and `not-found.jsx` for their strings. `src/lib/enquiry.js`. |
+| 9 | Spec 9, 10, 14. `docs/review-list.md`, `docs/deploy-cloudflare.md`. |
+
+### 4. Tools, plugins and skills
+
+Plugins that must be enabled in the session: **superpowers** and **frontend-design**.
+
+| Skill | Who uses it, and when |
+| --- | --- |
+| `superpowers:subagent-driven-development` | The controller, for the whole plan. Required. |
+| `superpowers:test-driven-development` | Every implementer: write the task's tests first and watch them fail. |
+| `superpowers:verification-before-completion` | Every implementer and the controller, before calling a task done. |
+| `superpowers:systematic-debugging` | Anyone, as soon as a test, build or lint failure is not obvious. |
+| `superpowers:requesting-code-review` and `superpowers:receiving-code-review` | The controller, for the per-task and whole-branch reviews. |
+| `frontend-design:frontend-design` | The implementers and quality reviewers of Tasks 6 and 7, where no mockup exists and design judgement is needed. It must not be used to restyle anything the mockup already defines. |
+| `superpowers:finishing-a-development-branch` | The controller, after the whole-branch review. |
+| `code-review` (`/code-review high`) | Optional extra pass on the finished branch. |
+| A browser skill (`claude-in-chrome`, or the built-in browser) | For the by-hand checks in Tasks 4, 8 and 9 (theme switch, mobile menu, contact form). If none is available, list those checks for the owner to do instead of skipping them silently. |
+
+Tools on this machine:
+
+| Tool | Use |
+| --- | --- |
+| Node 22 and npm | Everything. `npm run check` is the gate. |
+| Google Chrome at `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome` | Headless screenshots for the Visual check. |
+| `npx wrangler pages dev out --port 8788` (`npm run preview`) | Serves the static export with clean URLs. |
+| `npx lighthouse` | Task 9 scores. Needs network the first time. |
+| `sharp` (already a dev dependency) | Brand images, image-size tests. |
+| `opentype.js@2.0.0` and three `@fontsource` packages | Installed in Task 3 to outline the logo text. |
+| Network access | `npm install`, and the build's one-time Archivo download. |
+
+No connector (Supabase, Atlassian, Hugging Face, Google Drive) is needed. Do not use one.
+
+### 5. Facts already checked, so nobody has to check them again
+
+- `next/font/google` in the installed Next.js 16.4.6 knows Archivo with a width axis 62 to 125 and a weight axis 100 to 900.
+- `@fontsource/montserrat/files/montserrat-latin-800-normal.woff`, `@fontsource/barlow-semi-condensed/files/barlow-semi-condensed-latin-500-normal.woff` and `@fontsource/archivo/files/archivo-latin-600-normal.woff` exist, and opentype.js 2.0.0 reads them.
+- In opentype.js 2.0.0, `font.getPath(text, …)` **throws** on Archivo ("lookupType: 6 - substFormat: 2 is not yet supported"). Laying text out one glyph at a time works for all three fonts (Task 3).
+- Montserrat 800 at size 42.5 on baseline 98, with each glyph's left edge on its target, gives these boxes: `ı` 63.0 to 71.1 (top 75.0); `n` 79.0 to 103.5; `f` 108.0 to 126.3; `y` 127.0 to 154.3; `t` 156.0 to 174.3; `a` 178.0 to 200.9. The tagline at 9.8px is 136.6 wide before fitting.
+- This Mac is in dark appearance, so headless Chrome renders Blueprint by default. `--blink-settings=preferredColorScheme=1` forces Paper and `--blink-settings=preferredColorScheme=0` forces Blueprint.
+- Before the redesign the home page references 745,092 bytes of script and 36,264 bytes of CSS.
+- ESLint ignores `docs/**`, so the mockup sources do not affect lint.
+
 ## Global Constraints
 
 - Branch `visual-redesign`. Commit at the end of every task. Never push. End commit messages with `Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>`.
@@ -51,12 +167,15 @@ If `<Link>` inside `<svg>` causes a hydration warning or a missing `href` in the
 ```bash
 npm run build && (npx wrangler pages dev out --port 8788 >/dev/null 2>&1 &) && sleep 6
 CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-"$CH" --headless=new --hide-scrollbars --window-size=1440,4400 --virtual-time-budget=9000 --screenshot=/tmp/page-light.png http://localhost:8788/
-"$CH" --headless=new --hide-scrollbars --force-dark-mode --window-size=1440,4400 --virtual-time-budget=9000 --screenshot=/tmp/page-dark.png http://localhost:8788/
-"$CH" --headless=new --hide-scrollbars --window-size=500,5000 --virtual-time-budget=9000 --screenshot=/tmp/page-narrow.png http://localhost:8788/
+LIGHT="--blink-settings=preferredColorScheme=1"; DARK="--blink-settings=preferredColorScheme=0"
+"$CH" --headless=new --hide-scrollbars $LIGHT --window-size=1440,4400 --virtual-time-budget=9000 --screenshot=/tmp/page-light.png http://localhost:8788/
+"$CH" --headless=new --hide-scrollbars $DARK --window-size=1440,4400 --virtual-time-budget=9000 --screenshot=/tmp/page-dark.png http://localhost:8788/
+"$CH" --headless=new --hide-scrollbars $LIGHT --window-size=500,5000 --virtual-time-budget=9000 --screenshot=/tmp/page-narrow.png http://localhost:8788/
+# The same shots of the mockup, to compare against (add #view=service for its service page):
+"$CH" --headless=new --hide-scrollbars $LIGHT --window-size=1440,4400 --virtual-time-budget=9000 --screenshot=/tmp/mock-light.png "file://$PWD/docs/superpowers/specs/2026-11-16-visual-redesign-assets/mockup.html"
 ```
 
-Headless Chrome cannot go narrower than 500px. If `--force-dark-mode` does not switch the page to Blueprint, run `npm run preview`, switch with the footer control and take the dark screenshots by hand. Stop the server with `pkill -f "wrangler pages dev"` afterwards. A page passes when layout, spacing, type and colours match the mock in both themes and nothing overflows sideways.
+Headless Chrome cannot go narrower than 500px. The two colour-scheme flags were checked on this machine; always pass one of them, because the Mac itself is in dark appearance. The mockup takes `#theme=dark` or `#theme=light` and `#view=service` in its URL as well. Stop the server with `pkill -f "wrangler pages dev"` afterwards. A page passes when layout, spacing, type and colours match the mock in both themes and nothing overflows sideways.
 
 ## Review Focus
 
@@ -491,7 +610,7 @@ git add -A && git commit -m "feat: add open-hours, enquiry and small content hel
 
 - [ ] **Step 1: Install dev dependencies**
 
-Run: `npm i -D opentype.js @fontsource/montserrat @fontsource/barlow-semi-condensed @fontsource/archivo`
+Run: `npm i -D --save-exact opentype.js@2.0.0 && npm i -D @fontsource/montserrat @fontsource/barlow-semi-condensed @fontsource/archivo`
 
 - [ ] **Step 2: Write `tests/unit/logo.test.mjs`**
 
@@ -537,7 +656,9 @@ Expected: FAIL.
 
 - `loadFont(file) -> opentype.Font` (`file` is a path under `node_modules/@fontsource/…/files/`, the `.woff` static file).
 - `glyphAt(font, char, leftEdge, baseline, size) -> { d, box }`: the glyph outline positioned so the left edge of its bounding box is exactly `leftEdge`.
-- `lineAt(font, text, x, baseline, size, fitWidth) -> { d }`: the text as one path starting at `x`; when `fitWidth` is given, scale horizontally about `x` so the line is exactly that wide.
+- `lineAt(font, text, x, baseline, size, fitWidth) -> { d, width }`: the text as one path starting at `x`; when `fitWidth` is given, scale horizontally about `x` so the line is exactly that wide.
+
+Never call `font.getPath(text, …)`, `font.stringToGlyphs` or `font.forEachGlyph`: in opentype.js 2.0.0 they throw on Archivo. Lay a line out one character at a time: `font.charToGlyph(ch)`, add `font.getKerningValue(previous, glyph)`, draw with `glyph.getPath(x, baseline, size)`, then advance by `glyph.advanceWidth * size / font.unitsPerEm`. Read a `.woff` with `opentype.parse(buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength))`.
 
 - [ ] **Step 5: Create `scripts/make-logo.mjs`**
 
@@ -548,7 +669,7 @@ Copy the geometry (`rounded`, `tile`, `shapes`, gradients, the floor mask, dot c
 | Wordmark glyphs `ı n f y t a` (dotless i, U+0131) | `@fontsource/montserrat/files/montserrat-latin-800-normal.woff` | 42.5 | 98 | Left edges at x = 63, 79, 108, 127, 156, 178 |
 | Tagline "Engineering Tomorrow’s Tech Today" (U+2019) | `@fontsource/barlow-semi-condensed/files/barlow-semi-condensed-latin-500-normal.woff` | 9.8 | 117.2 | Starts at x = 63, fitted to width 136, opacity 0.88 |
 
-The `y` is `#14B9DA`; the other glyphs take the wordmark colour. The script must fail with a clear message unless the top of the `n` is within 1 unit of y = 76 and the right edge of the `a` is within 1.5 units of x = 200. It writes `src/components/logo-paths.js` and the two SVG files (ink wordmark `#1F2C62`, reversed `#FFFFFF`), each with the tagline, and prints `logo ok`.
+The `y` is `#14B9DA`; the other glyphs take the wordmark colour. The script must fail with a clear message unless the top of the `ı` is between y = 74 and y = 77 and the right edge of the `a` is between x = 199.5 and x = 202 (the checked values are 75.0 and 200.9; see Start Here, section 5). It writes `src/components/logo-paths.js` and the two SVG files (ink wordmark `#1F2C62`, reversed `#FFFFFF`), each with the tagline, and prints `logo ok`.
 
 - [ ] **Step 6: Create `src/components/Logo.jsx`**
 

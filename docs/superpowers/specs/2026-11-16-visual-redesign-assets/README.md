@@ -12,7 +12,8 @@ design spec; nothing here ships with the site.
 | Owner decisions | Sheet hero approved. Blueprint (navy) is the site-wide dark theme, Paper is the light theme. |
 | Mockup converted to site-wide light and dark themes (Paper and Blueprint), republished | Done |
 | Design spec (`docs/superpowers/specs/2026-11-16-visual-redesign-design.md`) | Approved by the owner on 2026-11-16, including all nine calls in section 12 |
-| Implementation plan (`docs/superpowers/plans/2026-11-16-visual-redesign.md`) | Written (nine tasks). Waiting for the owner to review it and choose how to run it |
+| Implementation plan (`docs/superpowers/plans/2026-11-16-visual-redesign.md`) | Approved by the owner on 2026-11-16. Nine tasks, to be run with subagent-driven development in a new session |
+| Prompt to start or resume | `docs/superpowers/plans/2026-11-16-visual-redesign-START-PROMPT.md` |
 | Implementation | Not started. Nothing in `src/` has changed |
 
 Published mockup (private artifact): https://claude.ai/artifact/CRwP51kC15zT6pDpGCDqMA
