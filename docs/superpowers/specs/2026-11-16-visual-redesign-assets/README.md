@@ -14,7 +14,7 @@ design spec; nothing here ships with the site.
 | Design spec (`docs/superpowers/specs/2026-11-16-visual-redesign-design.md`) | Approved by the owner on 2026-11-16, including all nine calls in section 12 |
 | Implementation plan (`docs/superpowers/plans/2026-11-16-visual-redesign.md`) | Approved by the owner on 2026-11-16. Nine tasks, to be run with subagent-driven development in a new session |
 | Prompt to start or resume | `docs/superpowers/plans/2026-11-16-visual-redesign-START-PROMPT.md` |
-| Implementation | In progress, see below |
+| Implementation | Done on `visual-redesign`, not merged or pushed. Owner checks are in `docs/review-list.md` section 4 |
 
 ## Implementation progress
 
@@ -34,7 +34,7 @@ on disk). If that file is lost, this table and `git log` are the record.
 | 7. About and Team | Done, reviews and re-review passed, `npm run check` passed | 2eb7877, 8cb8695 |
 | 8. Contact and 404 | Done, reviews and re-review passed, `npm run check` passed | ac0ee5d, 9897755 |
 | 9. Cleanup, docs, verification | Done, review passed, `npm run check` passed; Lighthouse met | f3beb46 |
-| Whole-branch review | Done ("with fixes"); fix wave committed, in re-review | 69a1d4f..90eb6fd |
+| Whole-branch review | Done; fix wave reviewed and passed; `npm run check` passed; Lighthouse: home 0.99 / 1.00, network page 1.00 / 1.00 | 69a1d4f..90eb6fd |
 
 Execution rulings (made by the controller where the plan was silent or disagreed with the spec):
 
