@@ -2,7 +2,8 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
-import { OUT, allHtmlFiles, loadPage } from './helpers.mjs';
+import { OUT, allFiles, allHtmlFiles, loadPage } from './helpers.mjs';
+import { services } from '../../src/content/services.js';
 
 const GONE = ['swiper', 'framer-motion', 'react-icons', 'tailwindcss', 'autoprefixer'];
 
@@ -29,6 +30,16 @@ test('no page hides content with an inline style or uses a Tailwind palette clas
     const html = readFileSync(file, 'utf8');
     assert.doesNotMatch(html, /style="[^"]*opacity:\s*0(?![.\d])/, file);
     assert.doesNotMatch(html, /class="[^"]*\b(?:bg|text|from|to|via|border)-(?:blue|purple|red|pink|green|yellow|orange|indigo|gray|teal)-\d{2,3}\b/, file);
+  }
+});
+
+test('no client JavaScript carries the service page copy', () => {
+  const chunks = allFiles().filter((f) => f.endsWith('.js'));
+  assert.ok(chunks.length > 0);
+  const copy = services.flatMap((s) => [s.metaDescription, s.faqs[0].question]);
+  for (const file of chunks) {
+    const js = readFileSync(file, 'utf8');
+    for (const needle of copy) assert.ok(!js.includes(needle), `${file} contains "${needle}"`);
   }
 });
 

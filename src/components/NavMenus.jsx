@@ -3,14 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { services } from "@/content/services";
 import { site } from "@/content/site";
 import { useHydrated } from "@/lib/use-hydrated";
 import { OpenStatus } from "@/components/OpenStatus";
 import { ThemeSwitch } from "@/components/ThemeControls";
 import { CloseIcon, MenuIcon, PhoneIcon, WhatsAppIcon } from "@/components/Icons";
 
-const SERVICE_LINKS = services.map((s) => ({ href: `/services/${s.slug}`, label: s.name }));
 const TEL = `tel:${site.phone.e164}`;
 
 function useCurrent() {
@@ -22,7 +20,8 @@ const closeOnLink = (close) => (e) => {
   if (e.target.closest("a")) close();
 };
 
-export function MainLinks() {
+// `serviceLinks` ({ href, label } for each service) comes from the server Nav, so the service copy stays out of client JS.
+export function MainLinks({ serviceLinks }) {
   const current = useCurrent();
   const live = useHydrated();
   const [open, setOpen] = useState(false);
@@ -63,7 +62,7 @@ export function MainLinks() {
         </button>
         <div className="menu" id="services-menu" onClick={closeOnLink(() => setOpen(false))}>
           <Link href="/services" aria-current={current("/services")}>All Services</Link>
-          {SERVICE_LINKS.map(({ href, label }) => (
+          {serviceLinks.map(({ href, label }) => (
             <Link key={href} href={href} aria-current={current(href)}>{label}</Link>
           ))}
         </div>
@@ -81,8 +80,8 @@ export function MainLinks() {
   );
 }
 
-// `logo` is the rendered <Logo />, passed in by the server Nav so the outlines stay out of client JS.
-export function MobileMenu({ logo }) {
+// `logo` is the rendered <Logo />, passed in by the server Nav so the outlines stay out of client JS; `serviceLinks` as for MainLinks.
+export function MobileMenu({ logo, serviceLinks }) {
   const pathname = usePathname();
   const current = useCurrent();
   const [open, setOpen] = useState(false);
@@ -169,7 +168,7 @@ export function MobileMenu({ logo }) {
           <Link href="/" aria-current={current("/")}>Home</Link>
           <Link href="/services" aria-current={current("/services")}>Services</Link>
           <div className="sub">
-            {SERVICE_LINKS.map(({ href, label }) => (
+            {serviceLinks.map(({ href, label }) => (
               <Link key={href} href={href} aria-current={current(href)}>{label}</Link>
             ))}
           </div>
