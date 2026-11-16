@@ -818,7 +818,7 @@ git add -A && git commit -m "feat: add new header, footer, theme controls and op
 - Consumes: `certsFor`, `OpenStatus`, `WeekStrip`, icons, `pages.home.heading`, `service.worksWith`.
 - Produces: `CALLOUT` (`{ [slug]: 1..5 }`, in `services` order); `DrawingSymbols()`; `OfficeNetwork()`; `ServiceMini({ slug })`; `ServiceRow({ service })`; `Tags({ items })`; `Schedule({ rows, caption, headings = true })` where a row is an entry of `expertise`; `TitleBlock({ items: [{ label, value }] })`; `AdvisorBand({ headings = false, cta = true })`; `ContactPanel({ email })`.
 
-- [ ] **Step 1: Replace the two hero tests in `tests/build/performance.test.mjs`**
+- [x] **Step 1: Replace the two hero tests in `tests/build/performance.test.mjs`**
 
 Delete `home: exactly one high-priority, responsive hero image` and `home: no image other than the hero is loading="eager"`. Add:
 
@@ -830,7 +830,7 @@ test('home: no hero photo, no eager image', () => {
 });
 ```
 
-- [ ] **Step 2: Write `tests/build/home.test.mjs`**
+- [x] **Step 2: Write `tests/build/home.test.mjs`**
 
 ```js
 const { html, doc } = loadPage('/');
@@ -888,7 +888,7 @@ test('nothing in the page is hidden by an inline style', () => {
 });
 ```
 
-- [ ] **Step 3: Write `tests/unit/drawing-css.test.mjs`**
+- [x] **Step 3: Write `tests/unit/drawing-css.test.mjs`**
 
 ```js
 const css = readFileSync('src/styles/drawing.css', 'utf8');
@@ -912,25 +912,25 @@ for (const query of ['@media (prefers-reduced-motion: reduce)', '@media print'])
 }
 ```
 
-- [ ] **Step 4: Build and see the tests fail**
+- [x] **Step 4: Build and see the tests fail**
 
 Run: `npm run build; node --test tests/build/home.test.mjs tests/unit/drawing-css.test.mjs`
 Expected: FAIL.
 
-- [ ] **Step 5: Create `drawing.css` and `sections.css`**
+- [x] **Step 5: Create `drawing.css` and `sections.css`**
 
 - `drawing.css`: port the `/* Drawings */` and `/* One load sequence */` blocks. Add an `@media print` block with the same resets as the reduced-motion block. Add the list-to-drawing highlight: for each of the five slugs, a rule that gives `.dwg .svc[data-svc="<slug>"]` the hover colour and filled callout when `main:has(.key__row[data-svc="<slug>"]:is(:hover, :focus-visible))`, and one rule that dims the other parts while any row is hovered or focused.
 - `sections.css`: port `/* Hero */` (only the sheet variant: `.hero`, `.sheet`, `.sheet--hero`, `.sheet__fig`, `.sheet__dwg`, `.tb`, `.titleblock`), `/* Section heads */`, `/* Services: the key to the drawing */`, `/* Expertise schedule */`, `/* Advisor */`, `/* Contact */`, and their rules from the three responsive blocks. Keep the two-class selectors `.hero.hero--sheet` and `.sheet.sheet--hero`.
 
-- [ ] **Step 6: Create the drawing components**
+- [x] **Step 6: Create the drawing components**
 
 Port `mock/diagram.mjs` to JSX without changing a coordinate, label or timing: `symbols` becomes `DrawingSymbols`, `wideDrawing()` and `tallDrawing()` become the two `<svg>` elements of `OfficeNetwork`, `minis` becomes `ServiceMini`. Callout numbers come from `CALLOUT`. Each service group is `<Link class="svc" data-svc={slug} href={'/services/' + slug} aria-label={…}>` with the mock's labels.
 
-- [ ] **Step 7: Create the section components and rewrite `HomeView.jsx` as a server component**
+- [x] **Step 7: Create the section components and rewrite `HomeView.jsx` as a server component**
 
 Port the mock's `heroSheet`, `servicesBand`, `expertiseBand`, `advisorBand`, `contactPanel` and `contactBand` templates. Section ids: `services`, `expertise`, `advisor`, `contact`. The headline is `pages.home.heading`. "Get Started" goes to `/contact`; "Explore Solutions" and "Explore All Services" go to `/services`; "View Our Team" goes to `/team`. The advisor image keeps its `srcSet`, `sizes`, `width={1200}`, `height={1200}`, `loading="lazy"` and `alt` from the current `TeamView.jsx`.
 
-- [ ] **Step 8: Run everything, do the Visual check on `/`, commit**
+- [x] **Step 8: Run everything, do the Visual check on `/`, commit**
 
 Run: `npm run check`
 Expected: PASS. Compare the whole home page with the mock in both themes and at 500px. Check that hovering a service row lights its part of the drawing.
