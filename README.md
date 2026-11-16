@@ -12,6 +12,7 @@ Marketing site for Infyta, an IT company in Dhaka, Bangladesh. Built with Next.j
 | `npm run test:build` | Tests that inspect the built `out/` (run `npm run build` first) |
 | `npm run check` | Unit tests, build, build tests and lint in one go |
 | `npm run preview` | Serve `out/` locally with Cloudflare's runtime (`wrangler pages dev`) |
+| `node scripts/make-logo.mjs` | Rebuild the vector logo (outlined wordmark and tagline) into `src/components/logo-paths.js` and `public/images/infyta-logo*.svg`; then run `node scripts/make-brand-images.mjs` to regenerate the logo PNG, icons and social image |
 
 ## Content
 

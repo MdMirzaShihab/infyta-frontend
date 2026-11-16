@@ -1,41 +1,52 @@
-// Generates src/app brand images from public/images/infyta-logo.png. Run: node scripts/make-brand-images.mjs
+// Generates the brand PNGs from the vector logo in public/images/ (run node scripts/make-logo.mjs first).
+// Run: node scripts/make-brand-images.mjs
 import sharp from 'sharp';
-import { writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { loadFont, lineAt } from './lib/text-path.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const logo = resolve(root, 'public/images/infyta-logo.png');
+const logo = (f) => readFileSync(resolve(root, 'public/images', f), 'utf8');
 const out = (f) => resolve(root, 'src/app', f);
 const TRANSPARENT = { r: 0, g: 0, b: 0, alpha: 0 };
+const NAVY = '#1f2c62';
+const FULL = '-2 -4 205 125';
+// The mark alone: x from -2 to 78 at the full logo height, drawn from the no-tagline file so no
+// tagline shows. (The 112-high no-tagline viewBox would cut off the bottom of the wall, at y 116.)
+const MARK = '-2 -4 80 125';
 
-async function resized(size, bg) {
-  return sharp(logo).resize(size.w, size.h, { fit: 'contain', background: bg ?? TRANSPARENT }).png().toBuffer();
+// Renders `svg` through `viewBox`, scaled to fit inside maxW x maxH.
+function render(svg, viewBox, maxW, maxH = Infinity) {
+  const [, , vw, vh] = viewBox.split(' ').map(Number);
+  const scale = Math.min(maxW / vw, maxH / vh);
+  const sized = svg.replace(/viewBox="[^"]*"/, `viewBox="${viewBox}" width="${vw * scale}" height="${vh * scale}"`);
+  return sharp(Buffer.from(sized)).png().toBuffer();
 }
 
-async function square(size, pad, bg, file) {
-  const inner = await resized({ w: size - pad * 2, h: size - pad * 2 });
-  await sharp({ create: { width: size, height: size, channels: 4, background: bg } })
-    .composite([{ input: inner, gravity: 'center' }])
+async function square(svg, size, pad, background, file) {
+  const mark = await render(svg, MARK, size - pad * 2, size - pad * 2);
+  await sharp({ create: { width: size, height: size, channels: 4, background } })
+    .composite([{ input: mark, gravity: 'center' }])
     .png()
     .toFile(out(file));
 }
 
-await square(512, 40, TRANSPARENT, 'icon.png');
-await square(180, 24, '#1f2c62', 'apple-icon.png');
+await sharp(await render(logo('infyta-logo.svg'), FULL, 1200)).png().toFile(resolve(root, 'public/images/infyta-logo.png'));
+await square(logo('infyta-logo-notagline.svg'), 512, 40, TRANSPARENT, 'icon.png');
+await square(logo('infyta-logo-reversed-notagline.svg'), 180, 24, NAVY, 'apple-icon.png');
 
-const W = 1200, H = 630;
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
-  <defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#1f2c62"/><stop offset="1" stop-color="#3ac1c2"/>
-  </linearGradient></defs>
-  <rect width="${W}" height="${H}" fill="url(#g)"/>
-  <text x="600" y="430" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="96" font-weight="700" fill="#ffffff">Infyta</text>
-  <text x="600" y="500" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="40" fill="#ffffff">IT Solutions in Dhaka, Bangladesh</text>
+const W = 1200, H = 630, LOGO_W = 480, LOGO_TOP = 100, BASELINE = 525;
+const archivo = loadFont('@fontsource/archivo/files/archivo-latin-600-normal.woff');
+const line = lineAt(archivo, 'IT Solutions in Dhaka, Bangladesh', 0, BASELINE, 40);
+const ground = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}">
+  <rect width="${W}" height="${H}" fill="${NAVY}"/>
+  <path d="${line.d}" fill="#ffffff" transform="translate(${((W - line.width) / 2).toFixed(2)} 0)"/>
 </svg>`;
-const logoBuf = await sharp(logo).resize(300, 179, { fit: 'inside' }).png().toBuffer();
-await sharp(Buffer.from(svg))
-  .composite([{ input: logoBuf, left: 450, top: 90 }])
+const ogLogo = await render(logo('infyta-logo-reversed.svg'), FULL, LOGO_W);
+const ogLogoW = (await sharp(ogLogo).metadata()).width;
+await sharp(Buffer.from(ground))
+  .composite([{ input: ogLogo, left: Math.round((W - ogLogoW) / 2), top: LOGO_TOP }])
   .png()
   .toFile(out('opengraph-image.png'));
 writeFileSync(out('opengraph-image.alt.txt'), 'Infyta – IT Solutions in Dhaka, Bangladesh');
