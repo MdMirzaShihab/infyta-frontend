@@ -1047,7 +1047,7 @@ git add -A && git commit -m "feat: rebuild services index and service pages with
 - Consumes: `PageHeader`, `TitleBlock`, `AdvisorBand`, `Schedule`, `site`, `services`.
 - Produces: `about = { vision, mission, values: [{ title, desc }], teamCta: { title, text, button } }`, every string copied character for character from the current `AboutView.jsx` (the vision and mission keep their surrounding quotation marks).
 
-- [ ] **Step 1: Write `tests/build/about-team.test.mjs`**
+- [x] **Step 1: Write `tests/build/about-team.test.mjs`**
 
 ```js
 test('about', () => {
@@ -1073,12 +1073,12 @@ test('team', () => {
 });
 ```
 
-- [ ] **Step 2: Build and see it fail**
+- [x] **Step 2: Build and see it fail**
 
 Run: `npm run build; node --test tests/build/about-team.test.mjs`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement**
+- [x] **Step 3: Implement**
 
 Follow spec sections 7.5 and 7.6. About, in order: `PageHeader` ("About Infyta", `site.slogan`); "Our Vision" and "Our Mission" as two large statements side by side (class `statements`, each an `<h2>` and a paragraph set at the h3 size, one column below 1040px); "Infyta at a glance" as an `<h2>` and a `TitleBlock` rendered as `<dl class="titleblock">` with three columns on desktop; "Our Core Values" as an `<h2>` and a three-by-two list (class `values`) of title and one line, divided by rules; an `inverse` band with the team call to action. Team: `PageHeader`; `AdvisorBand` with `headings` on and `cta` off; "Our Core Expertise" with its line and the `Schedule`. No icons, no drawings, no floating badges on either page. Add to `sections.css`:
 
@@ -1086,7 +1086,7 @@ Follow spec sections 7.5 and 7.6. About, in order: `PageHeader` ("About Infyta",
 - `.titleblock--facts`: the title block as a sheet (1.5px border in `--fg`, 6px radius, `--sheet` fill), three columns; two below 1040px, one below 720px; cells divided by 1px `--rule` lines; cell padding 18px 20px.
 - `.values`: grid, three columns, a 1px `--rule` line on top; two columns below 1040px, one below 720px. Each item has padding `24px 24px 24px 0` and a 1px `--rule` line below; the title is an `<h3>`, the line under it is `--fg2`.
 
-- [ ] **Step 4: Run everything, do the Visual check on both pages, commit**
+- [x] **Step 4: Run everything, do the Visual check on both pages, commit**
 
 Run: `npm run check`
 Expected: PASS, including the existing "Infyta at a glance" test. These pages are not in the mock: check them against spec sections 6 and 7 in both themes and at 500px.
