@@ -710,7 +710,7 @@ git add -A && git commit -m "feat: add outlined vector logo and regenerate brand
   - `OpenStatus.jsx` (client): `OpenStatus({ variant = 'short', className })` renders `<span class="status" data-open-status>` with a dot and text; `WeekStrip()` renders `<div class="week" aria-hidden="true">` with seven cells.
   - `Nav()` (server) and `Footer({ email })` (server). `NavMenus.jsx` (client): `MainLinks()` and `MobileMenu()`.
 
-- [ ] **Step 1: Write `tests/build/shell.test.mjs`**
+- [x] **Step 1: Write `tests/build/shell.test.mjs`**
 
 For every file from `allHtmlFiles()`, with `doc` parsed as in `routes.test.mjs`:
 
@@ -771,22 +771,22 @@ test(`${name}: footer`, () => {
 
 Also one test outside the loop: `src/styles/shell.css` contains the selector `.has-menu:focus-within .menu` (the Services list opens on keyboard focus with JavaScript off).
 
-- [ ] **Step 2: Build and see it fail**
+- [x] **Step 2: Build and see it fail**
 
 Run: `npm run build && node --test tests/build/shell.test.mjs`
 Expected: FAIL.
 
-- [ ] **Step 3: Create `src/styles/shell.css` and import it in `layout.jsx` after `base.css`**
+- [x] **Step 3: Create `src/styles/shell.css` and import it in `layout.jsx` after `base.css`**
 
 Port from `mock/css.mjs`: the `/* Nav */` block (including `.menu`, `.has-menu`, `.nav__meta`, `.status`, `.dot`, `.tel`, `.themebtn`, `.themeseg`), the `/* Footer */` block, the `/* Mobile menu */` block, and the nav, logo and footer rules from the three responsive blocks. Add: `.status.is-unknown .dot { display: none }`.
 
-- [ ] **Step 4: Create `Icons.jsx`, `ThemeControls.jsx`, `OpenStatus.jsx`**
+- [x] **Step 4: Create `Icons.jsx`, `ThemeControls.jsx`, `OpenStatus.jsx`**
 
 - Theme controls share one hook. Server render and first client render have no theme state (`aria-pressed="false"` on both). After mount the effective theme is `document.documentElement.dataset.theme`, else the device setting. Choosing a theme sets the attribute, calls `saveTheme` (the switch still works for this page view when it returns `false`), sets both `theme-color` metas, and tells the other instances through a `window` event named `infyta-theme`. While no explicit choice exists, follow `prefers-color-scheme` changes.
 - `OpenStatus`: server render shows `site.hours.display[0]` for `short` and both display lines joined by a space for `long`, with class `is-unknown`. After mount it shows `openStatus(dhakaNow())`, toggles `is-closed`, and refreshes every 60 seconds.
 - `WeekStrip`: server render is `weekCells(null)`; after mount `weekCells(dhakaNow())`. Classes `is-off` and `is-today` as in the mock.
 
-- [ ] **Step 5: Create `Nav.jsx`, `NavMenus.jsx`; rewrite `Footer.jsx`; update `layout.jsx`**
+- [x] **Step 5: Create `Nav.jsx`, `NavMenus.jsx`; rewrite `Footer.jsx`; update `layout.jsx`**
 
 Port the mock's `nav`, `mobileMenu` and `footer` templates from `mock/build.mjs`.
 
@@ -795,7 +795,7 @@ Port the mock's `nav`, `mobileMenu` and `footer` templates from `mock/build.mjs`
 - `MobileMenu`: the menu button (`aria-controls="mobile-menu"`) and the dialog `<div class="mm inverse" id="mobile-menu" role="dialog" aria-modal="true" aria-label="Menu">`. On open: focus the close button, keep Tab inside the dialog, lock body scroll. Escape, the close button, a link click, a route change and the viewport reaching 1040px all close it; focus returns to the menu button.
 - Footer: an `inverse` band. Four cells: `<Logo tagline />` with `site.tagline`; "Quick Links" (Home, Services, Team, About Us, Contact); "Services"; "Contact" (phone, email, address linked to `site.mapsUrl`, hours lines). Then the copyright line with the build year, `<OpenStatus />` and `<ThemeSwitch />`. Render `site.socials` as text links only when the array is not empty.
 
-- [ ] **Step 6: Run everything, do the Visual check on `/`, commit**
+- [x] **Step 6: Run everything, do the Visual check on `/`, commit**
 
 Run: `npm run check`
 Expected: PASS, including the existing `routes.test.mjs`. Compare header, mobile header and footer with the mock in both themes.
