@@ -41,6 +41,8 @@ export default function DrawingSymbols() {
         <g id="d-cloud"><path className="body" d="M22 50h46a15 15 0 0 0 1.5-29.9a21 21 0 0 0-40.6-5.6a18.5 18.5 0 0 0-6.9 35.5z" /></g>
         <g id="d-app"><rect className="body" width="84" height="56" rx="4" /><path d="M0 12h84" /><g className="dots"><circle cx="8" cy="6" r="1.5" /><circle cx="14.5" cy="6" r="1.5" /><circle cx="21" cy="6" r="1.5" /></g><path className="thin" d="M10 23h34M10 32h52M10 41h26M56 44v-9h8v9M68 44V26h8v18" /></g>
         <g id="d-db"><path className="body" d="M0 6v22a18 6 0 0 0 36 0V6" /><ellipse className="body" cx="18" cy="6" rx="18" ry="6" /><path className="thin" d="M0 17a18 6 0 0 0 36 0" /></g>
+        {/* Not in the mock: the phone for the Software Development detail drawing (spec 6.7). */}
+        <g id="d-phone"><rect className="body" width="26" height="46" rx="4" /><path className="thin" d="M9.5 40h7" /></g>
       </defs>
     </svg>
   );

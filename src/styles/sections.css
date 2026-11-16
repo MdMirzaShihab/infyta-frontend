@@ -1,4 +1,4 @@
-/* Home page sections, ported from the mock: the hero sheet, then left-aligned bands that read as its key, schedule and title block. */
+/* Page sections, ported from the mock: the hero sheet, then left-aligned bands that read as its key, schedule and title block; the service page. */
 
 /* Hero: one drawing sheet whose title block carries the headline. */
 /* Two-class selectors so the later .hero and .sheet rules cannot undo this spacing. */
@@ -34,7 +34,9 @@ dl{margin:0}
 .key__row:hover,.key__row:focus-visible{background:var(--panel);border-top-color:transparent}
 .key__row:hover + .key__row,.key__row:focus-visible + .key__row{border-top-color:transparent}
 .key__row:hover .num,.key__row:focus-visible .num{background:var(--fg);color:var(--bg);border-color:var(--fg)}
-.key__row:hover h3,.key__row:focus-visible h3{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.18em}
+.key__row:hover :is(h2,h3),.key__row:focus-visible :is(h2,h3){text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.18em}
+/* On the services index the names are <h2> (they follow the <h1> directly); they keep the item-heading size. */
+.key__row h2{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spacing:-.01em}
 .key__row:hover .dwg--mini,.key__row:focus-visible .dwg--mini{color:var(--accent)}
 .key__row .num{align-self:start;margin-top:3px}
 .key__row p{color:var(--fg2);margin-top:6px;max-width:44ch}
@@ -87,6 +89,47 @@ dl{margin:0}
 .facts .wide{grid-column:1/-1}
 .facts address{font-style:normal}
 
+/* Inner page header (not in the mock): the page headline and its lede, spaced like the service page's. */
+.pagehead{padding-block:clamp(40px,5vw,72px) clamp(36px,4.5vw,64px)}
+.pagehead h1{font-size:clamp(2.2rem,4.6vw,3.9rem)}
+.pagehead .lede{margin-top:18px}
+
+/* Service page */
+.crumb{display:flex;gap:8px;font-size:.95rem;color:var(--fg2)}
+.crumb a{font-weight:560;text-decoration:underline}
+.svc-hero{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:clamp(24px,4vw,64px);align-items:center;padding-block:clamp(28px,4vw,52px) clamp(40px,5vw,72px)}
+.svc-hero h1{margin-top:18px;font-size:clamp(2.2rem,4.6vw,3.9rem)}
+.svc-hero .lede{margin-top:18px}
+.svc-hero .hero__cta{margin-top:28px}
+.svc-hero figure{margin:0;border:1.5px solid var(--fg);border-radius:6px;background:var(--sheet);padding:clamp(14px,2vw,26px)}
+.band--snug{padding-top:clamp(24px,3vw,40px)}
+.split{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(28px,5vw,80px);align-items:start}
+.split--faq{grid-template-columns:minmax(0,4fr) minmax(0,8fr)}
+.prose p{max-width:66ch;color:var(--fg2)}
+.prose p+p{margin-top:1.1em}
+.prose h2{margin-bottom:22px}
+.spec h3{margin-bottom:8px}
+.spec ul{margin-top:16px}
+.spec li{padding:16px 0;border-top:1px solid var(--rule)}
+.spec li:last-child{border-bottom:1px solid var(--rule)}
+.spec b{display:block;font-weight:640}
+.spec span{display:block;color:var(--fg2);font-size:.975rem;line-height:1.5;margin-top:2px}
+/* The step numbers come from a counter, so each <li> holds only the step's own words. */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:step;margin-top:clamp(24px,3vw,40px)}
+.steps li{counter-increment:step;position:relative;padding:34px 24px 0 0;color:var(--fg2);line-height:1.5}
+.steps li::before{content:counter(step);position:absolute;left:0;top:-13px;width:26px;height:26px;border-radius:50%;border:1.5px solid var(--fg);background:var(--bg);color:var(--fg);display:grid;place-items:center;font-size:.8rem;font-weight:700}
+.steps li::after{content:"";position:absolute;left:26px;right:0;top:0;border-top:1.5px solid var(--fg)}
+.steps li:last-child::after{border-top-style:dashed}
+.steps strong{color:var(--fg);font-weight:640}
+.faq details{border-top:1px solid var(--rule)}
+.faq details:last-child{border-bottom:1px solid var(--rule)}
+.faq summary{display:flex;justify-content:space-between;gap:24px;align-items:center;padding:20px 0;font-stretch:104%;font-weight:620;font-size:1.125rem;cursor:pointer;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";width:12px;height:12px;flex:none;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg) translate(-3px,-3px);transition:transform .18s}
+.faq details[open] summary::after{transform:rotate(225deg) translate(-2px,-2px)}
+.faq p{padding:0 0 22px;max-width:70ch;color:var(--fg2)}
+.endcta{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+
 @media (max-width:1039px){
   .sheet--hero .sheet__fig{order:0;border-top:1.5px solid var(--fg);border-bottom:0}
   .sheet--hero .titleblock{border-top:1.5px solid var(--fg)}
@@ -100,7 +143,8 @@ dl{margin:0}
   .key__row{grid-template-columns:28px minmax(0,1fr) 168px}
   .key__with{grid-column:2/3}
   .key__row .dwg--mini{grid-column:3;grid-row:1/3}
-  .advisor,.contact{grid-template-columns:1fr}
+  .advisor,.contact,.svc-hero,.split,.split--faq{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr;row-gap:36px}
 }
 @media (max-width:719px){
   .key__row{grid-template-columns:28px minmax(0,1fr);padding-block:22px}
@@ -118,6 +162,11 @@ dl{margin:0}
   .titleblock{grid-template-columns:1fr}
   .titleblock div{border-left:0}
   .titleblock div+div{border-top:1px solid var(--rule)}
+  .steps{grid-template-columns:1fr}
+  .steps li{padding:0 0 0 44px}
+  .steps li::before{top:-2px}
+  .steps li::after{left:12.5px;right:auto;top:28px;bottom:-32px;border-top:0;border-left:1.5px solid var(--fg)}
+  .steps li:last-child::after{display:none}
   .hero__cta,.contact__cta{width:100%}
   .hero__cta .btn,.contact__cta .btn{flex:1 1 auto;justify-content:center}
 }
