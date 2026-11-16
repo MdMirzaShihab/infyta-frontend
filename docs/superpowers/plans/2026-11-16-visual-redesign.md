@@ -1108,7 +1108,7 @@ git add -A && git commit -m "feat: rebuild About and Team pages"
 - Consumes: `buildEnquiry`, `whatsappUrl`, `mailtoUrl`, `OpenStatus`, `WeekStrip`, `PageHeader`, icons.
 - Produces: `ContactForm({ phoneE164, email })` (client); `MapLoader({ src, title, mapsUrl, address })` (client).
 
-- [ ] **Step 1: Write `tests/build/contact.test.mjs`**
+- [x] **Step 1: Write `tests/build/contact.test.mjs`**
 
 ```js
 test('contact page', () => {
@@ -1145,27 +1145,27 @@ test('404 page', () => {
 });
 ```
 
-- [ ] **Step 2: Build and see it fail**
+- [x] **Step 2: Build and see it fail**
 
 Run: `npm run build; node --test tests/build/contact.test.mjs`
 Expected: FAIL.
 
-- [ ] **Step 3: Implement `ContactForm`**
+- [x] **Step 3: Implement `ContactForm`**
 
 Four fields with visible labels: `cf-first`, `cf-last`, `cf-email` (type `email`, placeholder `your@email.com`), `cf-message` (textarea, 5 rows, placeholder `Tell us about your project...`). Layout: a grid with an 18px gap; First Name and Last Name share a row from 720px up. Labels use weight 560 and sit 6px above their field. Fields are full width with padding 12px 14px, a 1.5px border in `--rule`, `--panel` fill, 5px radius, the text colour `--fg` and the standard focus outline. The two buttons sit in one row and wrap on narrow screens. On submit, prevent the default, read which button was used from the submitter's `value`, and call `buildEnquiry`. If it is not ok: show `<p id="cf-error" role="alert">Write a message first.</p>` under the message field, set `aria-invalid="true"` and `aria-describedby="cf-error"` on it, focus it, and open nothing. Otherwise open `whatsappUrl(phoneE164, text)` in a new tab, or set `window.location.href` to `mailtoUrl(email, subject, text)`. Never show a "sent" message.
 
-- [ ] **Step 4: Implement `MapLoader`, `ContactView`, `not-found.jsx`**
+- [x] **Step 4: Implement `MapLoader`, `ContactView`, `not-found.jsx`**
 
 - `MapLoader`: a `.sheet` showing the address, the link "Open in Google Maps" and the button "Show map". Clicking the button replaces it with the existing `<iframe>` (same `src`, `title="Infyta Office Location"`, `loading="lazy"`) at the current height (256px, 320px from 720px up).
 - `ContactView` (server): `PageHeader`; two columns that become one below 1040px. Left: the `<h2>` "Send Us A Message" and `ContactForm`. Right: the `<h2>` "Contact Information"; a `.panel` with `<OpenStatus variant="long" />`, the label "Dhaka time", `<WeekStrip />` and a facts list: Our Office (address, the `lang="bn"` place name, "Open in Google Maps"), Phone, WhatsApp (link text is the phone number), Email (every address from the `emails` prop), Working Hours (`site.hours.display`). Then `MapLoader`.
 - `not-found.jsx`: one `.band` with the existing heading, sentence and two links, styled as `.btn` and `.btn.btn--ghost`. Keep its `metadata`. No drawing on this page.
 
-- [ ] **Step 5: Run everything, do the Visual check, try the form by hand**
+- [x] **Step 5: Run everything, do the Visual check, try the form by hand**
 
 Run: `npm run check`
 Expected: PASS. Then `npm run preview`, open `/contact`, and confirm: an empty message shows "Write a message first." and opens nothing; a filled form opens WhatsApp with the text; "Send by email" opens the mail app with subject and body; "Show map" loads the map.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add -A && git commit -m "feat: rebuild Contact page with a hand-off form, and 404"

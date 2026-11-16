@@ -32,8 +32,8 @@ on disk). If that file is lost, this table and `git log` are the record.
 | 5. Home and hero drawing | Done, reviews and re-review passed, `npm run check` passed | f66bddd, c384617 |
 | 6. Services and detail drawings | Done, reviews and re-review passed, `npm run check` passed | 527a890, 183b21d |
 | 7. About and Team | Done, reviews and re-review passed, `npm run check` passed | 2eb7877, 8cb8695 |
-| 8. Contact and 404 | Fix round 1 committed, in re-review | ac0ee5d, 9897755 |
-| 9. Cleanup, docs, verification | Not started | |
+| 8. Contact and 404 | Done, reviews and re-review passed, `npm run check` passed | ac0ee5d, 9897755 |
+| 9. Cleanup, docs, verification | Implementing | |
 | Whole-branch review | Not started | |
 
 Execution rulings (made by the controller where the plan was silent or disagreed with the spec):
