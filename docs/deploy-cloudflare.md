@@ -21,7 +21,6 @@ Replace `<PREVIEW>` with the preview URL (for example `https://<hash>.<project>.
 for p in /about /about.html /about/ /services/training-certification /services/mobile-applications /services/cloud-services /does-not-exist /robots.txt /sitemap.xml /llms.txt; do
   echo -n "$p  => "; curl -s -o /dev/null -w "%{http_code} %{redirect_url}\n" <PREVIEW>$p
 done
-curl -sI <PREVIEW>/ | grep -i x-robots-tag
 ```
 
 Expected:
@@ -37,7 +36,16 @@ Expected:
 | `/does-not-exist` | 404 with "Page not found" in the body |
 | `/robots.txt`, `/sitemap.xml`, `/llms.txt` | 200 |
 
-The `curl -sI` line must show `x-robots-tag: noindex` (keeps `*.pages.dev` out of Google).
+The `X-Robots-Tag: noindex` check:
+
+- Our `public/_headers` rule applies to the `<project>.pages.dev` hostname. Find it in the Pages project (Deployments or Custom domains lists the `<project>.pages.dev` subdomain) and run `curl -sI https://<project>.pages.dev/ | grep -i x-robots-tag`. It must show `x-robots-tag: noindex`.
+- Preview URLs (`<hash>.<project>.pages.dev` and `<branch>.<project>.pages.dev`) are not matched by that rule, but Cloudflare Pages adds `X-Robots-Tag: noindex` to preview deployments by default. Verify with `curl -sI <PREVIEW>/ | grep -i x-robots-tag`.
+- If the header is absent on previews, add this block to `public/_headers` and redeploy:
+
+```
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
+```
 
 Also on the preview:
 
@@ -56,7 +64,12 @@ In the Pages project > Custom domains, add `infyta.com` and `www.infyta.com`. Th
 
 ## 5. Domain rules
 
-1. Rules > Redirect Rules: create a rule sending `www.infyta.com/*` to `https://infyta.com/${1}` with status 301 and "Preserve query string" on. (`_redirects` cannot do host-level redirects.)
+1. Rules > Redirect Rules > Create rule (Single Redirect), and choose "Wildcard pattern":
+   - Request URL: `https://www.infyta.com/*`
+   - Target URL: `https://infyta.com/${1}`
+   - Status code: 301
+   - Enable "Preserve query string".
+   - The `www` DNS record must exist and be proxied (orange cloud) for the rule to fire. It will be once `www.infyta.com` is added as a Pages custom domain in step 4. (`_redirects` cannot do host-level redirects.)
 2. SSL/TLS > Edge Certificates: turn on "Always Use HTTPS".
 
 ## 6. Bot and AI settings
