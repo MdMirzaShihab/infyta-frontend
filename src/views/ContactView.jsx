@@ -8,7 +8,7 @@ export default function ContactView({ emails, email }) {
   return (
     <>
       <PageHeader title="Get In Touch" lede="Let's discuss how we can transform your business with our tech solutions" />
-      <section className="band cpage">
+      <section className="band band--alt cpage">
         <div className="wrap cpage__grid">
           <div>
             <h2 className="cpage__h">Send Us A Message</h2>
@@ -16,7 +16,7 @@ export default function ContactView({ emails, email }) {
           </div>
           <div>
             <h2 className="cpage__h">Contact Information</h2>
-            <div className="panel">
+            <div className="panel on-slab">
               <div className="hours__state"><OpenStatus variant="long" /></div>
               <p className="label cpage__tz">Dhaka time</p>
               <WeekStrip />

@@ -10,14 +10,14 @@ export default function ServicesIndexView() {
   return (
     <>
       <PageHeader title="Our Services" lede="Cutting-edge IT solutions designed to drive your business forward in the digital age." />
-      <section className="band band--flush">
+      <section className="band band--alt">
         <div className="wrap">
           <div className="key">
             {services.map((service) => <ServiceRow key={service.slug} service={service} level={2} />)}
           </div>
         </div>
       </section>
-      <EndCta title="Ready to transform your business with our expertise?">
+      <EndCta flush={false} title="Ready to transform your business with our expertise?">
         <Link className="btn" href="/contact">Get a Free Consultation</Link>
       </EndCta>
     </>

@@ -9,7 +9,7 @@ export default function TeamView() {
     <>
       <PageHeader title="Our Dream Team" lede="The brilliant minds powering Infyta's innovative solutions" />
       <AdvisorBand headings cta={false} />
-      <section className="band" id="expertise">
+      <section className="band band--tint" id="expertise">
         <div className="wrap">
           <div className="head">
             <h2>Our Core Expertise</h2>

@@ -97,7 +97,6 @@ dl{margin:0}
 
 /* Contact page and 404 */
 .facts .line{display:block}
-.cpage{padding-top:0}
 .cpage__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(32px,5vw,72px);align-items:start}
 .cpage__h{font-size:clamp(1.5rem,2.4vw,2rem);margin-bottom:22px}
 .cpage__tz{margin-top:4px}
@@ -250,3 +249,8 @@ dl{margin:0}
   .hero__cta,.contact__cta{width:100%}
   .hero__cta .btn,.contact__cta .btn{flex:1 1 auto;justify-content:center}
 }
+
+/* Service colour on a service page's slabs, step numbers and call to action. */
+section[data-svc] .on-slab{--slab:var(--svc)}
+.endcta.on-slab{border:1.5px solid var(--fg)}
+.steps li::before{background:var(--svc-chip);border-color:var(--svc-chip);color:var(--svc-chip-fg)}

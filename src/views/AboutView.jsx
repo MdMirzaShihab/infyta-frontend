@@ -34,7 +34,7 @@ export default function AboutView({ email }) {
     <>
       <PageHeader title="About Infyta" lede={site.slogan} />
 
-      <section className="band band--snug">
+      <section className="band band--alt">
         <div className="wrap statements">
           <div>
             <h2>Our Vision</h2>
@@ -47,14 +47,14 @@ export default function AboutView({ email }) {
         </div>
       </section>
 
-      <section className="band band--flush">
+      <section className="band">
         <div className="wrap">
           <div className="head"><h2>Infyta at a glance</h2></div>
           <TitleBlock items={facts} className="titleblock--facts" />
         </div>
       </section>
 
-      <section className="band band--snug">
+      <section className="band band--tint">
         <div className="wrap">
           <div className="head"><h2>Our Core Values</h2></div>
           <ul className="values">

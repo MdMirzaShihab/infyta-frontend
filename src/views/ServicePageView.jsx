@@ -17,7 +17,7 @@ export default function ServicePageView({ service }) {
 
   return (
     <>
-      <section>
+      <section data-svc={service.slug}>
         <div className="wrap svc-hero">
           <div>
             <nav className="crumb" aria-label="Breadcrumb">
@@ -32,11 +32,11 @@ export default function ServicePageView({ service }) {
               <a className="btn btn--ghost btn--icon" href={`tel:${site.phone.e164}`}><PhoneIcon />{site.phone.display}</a>
             </div>
           </div>
-          <figure><ServiceDetail slug={service.slug} /></figure>
+          <figure className="on-slab"><ServiceDetail slug={service.slug} /></figure>
         </div>
       </section>
 
-      <section className="band band--snug">
+      <section className="band band--alt" data-svc={service.slug}>
         <div className="wrap split">
           <div className="prose">
             <h2>Overview</h2>
@@ -53,7 +53,7 @@ export default function ServicePageView({ service }) {
         </div>
       </section>
 
-      <section className="band inverse">
+      <section className="band inverse" data-svc={service.slug}>
         <div className="wrap">
           <h2>Our Approach</h2>
           <ol className="steps">
@@ -65,14 +65,14 @@ export default function ServicePageView({ service }) {
         </div>
       </section>
 
-      <section className="band">
+      <section className="band" data-svc={service.slug}>
         <div className="wrap">
           <div className="head"><h2>Technologies &amp; Certifications</h2></div>
           <Schedule rows={technologies} caption="Technologies and certifications" headings={false} />
         </div>
       </section>
 
-      <section className="band band--flush">
+      <section className="band band--flush" data-svc={service.slug}>
         <div className="wrap split split--faq">
           <h2>Frequently Asked Questions</h2>
           <div className="faq">
@@ -86,7 +86,7 @@ export default function ServicePageView({ service }) {
         </div>
       </section>
 
-      <section className="band band--flush">
+      <section className="band band--flush" data-svc={service.slug}>
         <div className="wrap">
           <div className="head"><h2>Related Services</h2></div>
           <div className="key">
@@ -95,7 +95,7 @@ export default function ServicePageView({ service }) {
         </div>
       </section>
 
-      <EndCta title="Ready to discuss your project?">
+      <EndCta svc={service.slug} title="Ready to discuss your project?">
         <Link className="btn" href="/contact">Get Started Today</Link>
         <a className="btn btn--ghost btn--icon" href={site.whatsappUrl} target="_blank" rel="noopener noreferrer"><WhatsAppIcon />WhatsApp</a>
       </EndCta>
