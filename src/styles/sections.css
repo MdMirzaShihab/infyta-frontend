@@ -13,6 +13,7 @@
 .tb .hero__cta{margin-top:clamp(16px,1.7vw,24px)}
 .tb .lede{font-size:1.0625rem}
 h1 .hl{color:var(--signal)}
+@media print{h1 .hl{color:var(--fg)}}
 .sheet--hero .dwg--hero{max-width:944px;margin-inline:auto}
 /* Two columns need room for the drawing's labels: below 1180px the headline block comes first and the drawing follows at full width. */
 @media (min-width:1040px) and (max-width:1179px){
@@ -50,9 +51,9 @@ dl{margin:0}
 .band--alt{background:var(--band-alt)}
 .band--tint{background:var(--band-tint)}
 .band--cta{background:var(--signal);color:var(--ink);--fg:var(--ink);--fg2:var(--cta-fg2);--rule:var(--cta-rule);--accent:var(--ink);--btn-bg:var(--ink);--btn-fg:var(--white);--btn-hover:var(--ink-lift);--slab:var(--ink)}
-.band--cta .btn:not(.btn--ghost):hover::before{background:var(--signal)}
+.band--cta .btn:not(.btn--ghost):is(:hover,:focus-visible)::before{background:var(--signal)}
 .band--cta .panel{border:1.5px solid var(--ink)}
-.head h2::before,.contact h2::before,.prose h2::before,.split--faq>h2::before,.band.inverse>.wrap>h2::before{content:"";display:block;width:52px;height:7px;margin-bottom:20px;background:var(--svc,var(--signal))}
+.head h2::before,.contact h2::before,.prose h2::before,.split--faq>h2::before,.band.inverse>.wrap>h2::before,.cpage__h::before{content:"";display:block;width:52px;height:7px;margin-bottom:20px;background:var(--svc,var(--signal))}
 .band--cta h2::before{background:var(--ink)}
 
 /* Services: the key to the drawing */

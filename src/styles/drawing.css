@@ -64,42 +64,46 @@
 .dwg--hero .svc:focus-visible .ring{stroke:var(--accent);stroke-width:2}
 /* Dots (spec 7.7): hidden at rest, two passes after the fade, and travelling while their service is held. */
 @keyframes travel{0%{offset-distance:0%;opacity:1}100%{offset-distance:100%;opacity:1}}
-.dwg--hero .flow{opacity:0;animation:travel 1.5s linear 1.8s 2}
+.dwg--hero .flow{opacity:0}
 .dwg--hero:has(.svc[data-svc="software-development"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="software-development"]),
 main:has(.key__row[data-svc="software-development"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="software-development"]){opacity:.24}
-.dwg--hero:has(.svc[data-svc="software-development"]:is(:hover,:focus-visible)) .piece[data-svc="software-development"] .flow,
-main:has(.key__row[data-svc="software-development"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="software-development"] .flow{opacity:1;animation:travel 1.5s linear infinite}
 main:has(.dwg--hero .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg--hero .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] .dwg--mini{background:var(--svc-floor)}
 main:has(.dwg--hero .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
 .dwg--hero:has(.svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="network-infrastructure"]),
 main:has(.key__row[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="network-infrastructure"]){opacity:.24}
-.dwg--hero:has(.svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .piece[data-svc="network-infrastructure"] .flow,
-main:has(.key__row[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="network-infrastructure"] .flow{opacity:1;animation:travel 1.5s linear infinite}
 main:has(.dwg--hero .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg--hero .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] .dwg--mini{background:var(--svc-floor)}
 main:has(.dwg--hero .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
 .dwg--hero:has(.svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="it-support-consultancy"]),
 main:has(.key__row[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="it-support-consultancy"]){opacity:.24}
-.dwg--hero:has(.svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .piece[data-svc="it-support-consultancy"] .flow,
-main:has(.key__row[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="it-support-consultancy"] .flow{opacity:1;animation:travel 1.5s linear infinite}
 main:has(.dwg--hero .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg--hero .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] .dwg--mini{background:var(--svc-floor)}
 main:has(.dwg--hero .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
 .dwg--hero:has(.svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="security-surveillance"]),
 main:has(.key__row[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="security-surveillance"]){opacity:.24}
-.dwg--hero:has(.svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .piece[data-svc="security-surveillance"] .flow,
-main:has(.key__row[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="security-surveillance"] .flow{opacity:1;animation:travel 1.5s linear infinite}
 main:has(.dwg--hero .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg--hero .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] .dwg--mini{background:var(--svc-floor)}
 main:has(.dwg--hero .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
 .dwg--hero:has(.svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="server-cloud-solutions"]),
 main:has(.key__row[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="server-cloud-solutions"]){opacity:.24}
-.dwg--hero:has(.svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .piece[data-svc="server-cloud-solutions"] .flow,
-main:has(.key__row[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="server-cloud-solutions"] .flow{opacity:1;animation:travel 1.5s linear infinite}
 main:has(.dwg--hero .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg--hero .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] .dwg--mini{background:var(--svc-floor)}
 main:has(.dwg--hero .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+/* Only where offset-path works: elsewhere the dots would pile up at the corner, so they stay hidden. */
+@supports (offset-path: path("M0 0")){
+  .dwg--hero .flow{animation:travel 1.5s linear 1.8s 2}
+  .dwg--hero:has(.svc[data-svc="software-development"]:is(:hover,:focus-visible)) .piece[data-svc="software-development"] .flow,
+  main:has(.key__row[data-svc="software-development"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="software-development"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+  .dwg--hero:has(.svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .piece[data-svc="network-infrastructure"] .flow,
+  main:has(.key__row[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="network-infrastructure"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+  .dwg--hero:has(.svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .piece[data-svc="it-support-consultancy"] .flow,
+  main:has(.key__row[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="it-support-consultancy"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+  .dwg--hero:has(.svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .piece[data-svc="security-surveillance"] .flow,
+  main:has(.key__row[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="security-surveillance"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+  .dwg--hero:has(.svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .piece[data-svc="server-cloud-solutions"] .flow,
+  main:has(.key__row[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="server-cloud-solutions"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+}
 /* Reduced motion and print: the drawing is complete at once. No dots. Opacity is not !important under reduced motion,
    so the :has() dimming still works there. */
 @media (prefers-reduced-motion: reduce){

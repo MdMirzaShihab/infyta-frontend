@@ -56,3 +56,18 @@ test('no style is left for the flat hero', () => {
   const css = readFileSync('src/styles/drawing.css', 'utf8');
   for (const dead of ['.dwg--wide', '.dwg--tall', '.wire', '.knock', '.flag', '.svc-line']) assert.ok(!css.includes(dead), dead);
 });
+
+test('the contact page headings carry the heading bar', () => {
+  const sections = readFileSync('src/styles/sections.css', 'utf8');
+  const bar = sections.split('}').find((r) => r.includes('.head h2::before'));
+  assert.ok(bar && bar.split('{')[0].split(',').map((s) => s.trim()).includes('.cpage__h::before'));
+});
+test('"Limitless" prints in the text colour, after its screen rule', () => {
+  const sections = readFileSync('src/styles/sections.css', 'utf8');
+  const p = sections.search(/@media print\{h1 \.hl\{color:var\(--fg\)\}\}/);
+  assert.ok(p > sections.indexOf('h1 .hl{color:var(--signal)}'));
+});
+test('the CTA band button keeps its dot visible on keyboard focus as on hover', () => {
+  const sections = readFileSync('src/styles/sections.css', 'utf8');
+  assert.ok(sections.includes('.band--cta .btn:not(.btn--ghost):is(:hover,:focus-visible)::before{background:var(--signal)}'));
+});
