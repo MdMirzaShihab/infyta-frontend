@@ -1,0 +1,175 @@
+/* Colour-level mockup: styles layered over the real home page.
+   html.l1 = colour pass, html.l2 = l1 + coloured drawings, html.l3 = l2 + illustrated hero. Classes are cumulative. */
+
+:root{
+  --c-teal:#3AC1C2; --c-azure:#4D8EF7; --c-violet:#8A70F2; --c-amber:#F5A623;
+  /* Line-safe shades: deep on Paper, bright on navy. */
+  --dd-teal:#0E8F93; --dd-azure:#2563DB; --dd-violet:#5E45CC; --dd-amber:#C27500;
+  --fillpct:34%; --zonepct:13%; --chippct:52%;
+  --i-top:24%; --i-left:46%; --i-right:70%;
+  --n-top:#FFFFFF; --n-left:#E4E9F4; --n-right:#CCD4E7; --n-wall-a:#EEF1F8; --n-wall-b:#E0E6F2; --n-floor:#FFFFFF;
+  --band-alt:#FFFFFF;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --c-violet:#A996FF; --dd-teal:var(--c-teal); --dd-azure:#6EA4FF; --dd-violet:var(--c-violet); --dd-amber:var(--c-amber);
+    --fillpct:52%; --zonepct:20%; --chippct:100%;
+    --i-top:92%; --i-left:64%; --i-right:42%;
+    --n-top:#3A4A96; --n-left:#2B3A80; --n-right:#1B2759; --n-wall-a:#243270; --n-wall-b:#1C2860; --n-floor:#27367B;
+    --band-alt:#1A2556;
+  }
+}
+:root[data-theme="dark"]{
+  --c-violet:#A996FF; --dd-teal:var(--c-teal); --dd-azure:#6EA4FF; --dd-violet:var(--c-violet); --dd-amber:var(--c-amber);
+  --fillpct:52%; --zonepct:20%; --chippct:100%;
+  --i-top:92%; --i-left:64%; --i-right:42%;
+  --n-top:#3A4A96; --n-left:#2B3A80; --n-right:#1B2759; --n-wall-a:#243270; --n-wall-b:#1C2860; --n-floor:#27367B;
+  --band-alt:#1A2556;
+}
+
+.x2,.x3{display:none}
+h1 .hl{color:inherit}
+
+/* ───────── Level 1: colour pass (styles only, drawings untouched) ───────── */
+
+/* The warm colour is for the main action. */
+html.l1 .btn:not(.btn--ghost){--btn-bg:var(--c-amber);--btn-fg:var(--ink)}
+html.l1 .btn:not(.btn--ghost):hover{--btn-bg:#FFB83D}
+html.l1 .btn:not(.btn--ghost)::before{opacity:.6}
+html.l1 .btn:not(.btn--ghost):hover::before,html.l1 .btn:not(.btn--ghost):focus-visible::before{background:var(--ink);opacity:1;box-shadow:0 0 0 4px rgba(31,44,98,.2)}
+html.l1 .nav{box-shadow:inset 0 4px 0 var(--signal)}
+
+/* Hero: the sheet's title block is filled navy; one word of the headline takes the teal. */
+html.l1 .sheet--hero .tb,html.l1 .sheet--hero .titleblock{
+  --bg:var(--inv-bg);--fg:var(--white);--fg2:rgba(255,255,255,.8);--rule:rgba(255,255,255,.22);--accent:var(--signal);
+  background:var(--bg);color:var(--fg)}
+html.l1 .sheet--hero .titleblock{border-top-color:var(--rule)}
+html.l1 h1 .hl{color:var(--signal)}
+html.l1 .sheet.sheet--hero{box-shadow:12px 12px 0 var(--signal)}
+
+/* Section headings get a short teal bar. */
+html.l1 .head h2::before,html.l1 .contact h2::before{content:"";display:block;width:52px;height:7px;background:var(--signal);margin-bottom:20px}
+
+/* Bands stop sharing one ground. */
+html.l1 #services{background:var(--band-alt)}
+html.l1 #expertise{background:color-mix(in srgb,var(--signal) 11%,var(--bg));padding-top:clamp(64px,7.5vw,112px)}
+html.l1 #expertise .sched tbody th{color:var(--fg)}
+
+/* Numbers and certification tags are filled. */
+html.l1 .num{width:28px;height:28px;background:var(--signal);border-color:var(--signal);color:var(--ink);font-size:.85rem}
+html.l1 .key__row{grid-template-columns:32px minmax(0,1.15fr) minmax(0,1fr) 168px}
+html.l1 .key__row:hover,html.l1 .key__row:focus-visible{background:color-mix(in srgb,var(--signal) 13%,var(--band-alt))}
+html.l1 .tag{background:color-mix(in srgb,var(--signal) 17%,var(--bg));border-color:color-mix(in srgb,var(--signal) 62%,var(--bg))}
+html.l1 #services .tag{background:color-mix(in srgb,var(--signal) 17%,var(--band-alt))}
+html.l1 .textlink{color:var(--accent)}
+
+/* Advisor: a flat teal slab behind the portrait. */
+html.l1 .portrait{overflow:visible;box-shadow:16px 16px 0 var(--signal)}
+html.l1 .portrait img{border-radius:8px}
+html.l1 .portrait::after{border-radius:8px}
+html.l1 .advisor__role{color:var(--signal)}
+
+/* Call to action: a solid teal band with a white card. */
+html.l1 #contact{background:var(--signal);color:var(--ink);--fg:var(--ink);--fg2:rgba(31,44,98,.86);--rule:rgba(31,44,98,.28);--accent:var(--ink)}
+html.l1 #contact h2::before{background:var(--ink)}
+html.l1 #contact .btn:not(.btn--ghost){--btn-bg:var(--ink);--btn-fg:var(--white)}
+html.l1 #contact .btn:not(.btn--ghost):hover{--btn-bg:var(--ink-lift)}
+html.l1 #contact .btn:not(.btn--ghost):hover::before{background:var(--signal)}
+html.l1 #contact .btn--ghost{color:var(--ink);border-color:var(--ink)}
+html.l1 #contact .panel{background:var(--white);color:var(--ink);border:1.5px solid var(--ink);box-shadow:12px 12px 0 var(--ink);
+  --fg:var(--ink);--fg2:rgba(31,44,98,.76);--rule:rgba(31,44,98,.17);--accent:var(--signal-deep);--hatch:rgba(31,44,98,.07)}
+html.l1 .foot{border-top:0}
+
+/* ───────── Level 2: coloured drawings ───────── */
+
+/* One colour per service, used everywhere that service appears. IT Support is the ink itself: it wraps the rest. */
+html.l2 [data-svc="software-development"]{--svc:var(--c-amber);--svc-d:var(--dd-amber)}
+html.l2 [data-svc="network-infrastructure"]{--svc:var(--c-teal);--svc-d:var(--dd-teal)}
+html.l2 [data-svc="security-surveillance"]{--svc:var(--c-violet);--svc-d:var(--dd-violet)}
+html.l2 [data-svc="server-cloud-solutions"]{--svc:var(--c-azure);--svc-d:var(--dd-azure)}
+html.l2 [data-svc="it-support-consultancy"]{--svc:var(--fg);--svc-d:var(--fg)}
+html.l2 [data-svc]{--svc-chip:color-mix(in srgb,var(--svc) var(--chippct),var(--white))}
+html.l2 [data-svc="it-support-consultancy"]{--svc-chip:var(--fg)}
+
+html.l2 .x2{display:inline}
+html.l2 .dwg--wide a.svc.x1[data-svc="software-development"]{display:none}
+
+/* Devices are filled; cables take their segment's colour. */
+html.l2 .dwg .svc:not([data-svc="it-support-consultancy"]){--body:color-mix(in srgb,var(--svc) var(--fillpct),var(--sheet))}
+html.l2 .dwg .svc .wire{stroke:var(--svc-d);stroke-width:2.4}
+html.l2 .dwg .svc:hover .wire,html.l2 .dwg .svc:focus-visible .wire{stroke:currentColor}
+html.l2 .dwg use[href="#d-pc"]{--body:color-mix(in srgb,var(--c-amber) 58%,var(--sheet))}
+html.l2 .dwg .zone{stroke:none;fill:color-mix(in srgb,var(--svc) var(--zonepct),var(--sheet))}
+html.l2 .dwg .flag rect{fill:var(--svc-chip);stroke-width:1.2}
+html.l2 .dwg .flag text,html.l2 .dwg .bub text{fill:var(--ink)}
+html.l2 .dwg .bub circle{fill:var(--svc-chip)}
+html.l2 .dwg .svc[data-svc="it-support-consultancy"] .bub text{fill:var(--sheet)}
+html.l2 .dwg .svc:hover .bub text,html.l2 .dwg .svc:focus-visible .bub text{fill:var(--sheet)}
+html.l2 .dwg .flow{stroke:var(--sheet);stroke-width:1.5;fill:var(--svc-d)}
+html.l2 .dwg .screen{fill:var(--sheet)}
+html.l2 .dwg .solid{fill:var(--svc);stroke:none}
+html.l2 .dwg .soft{fill:color-mix(in srgb,var(--svc) 38%,var(--sheet));stroke:none}
+html.l2 .dwg .ondark{fill:var(--ink);stroke:none}
+@keyframes blink{0%,60%{opacity:1}61%,100%{opacity:.25}}
+html.l2 .port .lit{animation:blink 1.4s linear infinite}
+
+/* The service list: each row carries its colour. */
+html.l2 .key__row{grid-template-columns:32px minmax(0,1.15fr) minmax(0,1fr) 196px}
+html.l2 .key__row .num{background:var(--svc-chip);border-color:var(--svc-chip);color:var(--ink)}
+html.l2 .key__row[data-svc="it-support-consultancy"] .num{color:var(--bg)}
+html.l2 .key__row:hover .num,html.l2 .key__row:focus-visible .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+html.l2 .key__row:hover,html.l2 .key__row:focus-visible{background:color-mix(in srgb,var(--svc) 11%,var(--band-alt))}
+html.l2 .key__row .dwg--mini{width:196px;padding:12px 14px;border-radius:10px;background:color-mix(in srgb,var(--svc) 13%,var(--band-alt));color:var(--fg)}
+html.l2 .key__row:not([data-svc="it-support-consultancy"]) .dwg--mini{--body:color-mix(in srgb,var(--svc) 46%,var(--sheet))}
+html.l2 .key__row:hover .dwg--mini,html.l2 .key__row:focus-visible .dwg--mini{color:var(--fg);background:color-mix(in srgb,var(--svc) 26%,var(--band-alt))}
+html.l2 .key__row .dwg--mini .wan{stroke:var(--svc-d)}
+
+/* ───────── Level 3: illustrated hero ───────── */
+
+html.l3 .sheet--hero .dwg--wide,html.l3 .sheet--hero .dwg--tall{display:none}
+html.l3 .x3{display:block}
+.iso{overflow:visible}
+.iso .t1{font-size:17.5px}.iso .t2{font-size:15.5px}
+.iso .bub text{font-size:13.5px}
+.iso .ft{fill:color-mix(in srgb,var(--svc) var(--i-top),var(--sheet))}
+.iso .fl{fill:color-mix(in srgb,var(--svc) var(--i-left),var(--sheet))}
+.iso .fr{fill:color-mix(in srgb,var(--svc) var(--i-right),var(--sheet))}
+.iso .nt{fill:var(--n-top)}.iso .nl{fill:var(--n-left)}.iso .nr{fill:var(--n-right)}
+.iso .wa{fill:var(--n-wall-a)}.iso .wb{fill:var(--n-wall-b)}.iso .floor{fill:var(--n-floor)}
+.iso .grid{stroke:var(--rule);stroke-width:1}
+.iso .unit{fill:var(--sheet);stroke-width:1.1}
+.iso .carpet{stroke:none;fill:color-mix(in srgb,var(--svc) calc(var(--zonepct) + 5%),var(--n-floor))}
+.iso .cone{stroke:none;fill:color-mix(in srgb,var(--svc) 30%,transparent)}
+.iso .cab{stroke:var(--svc-d);stroke-width:2.6;fill:none}
+.iso .lead{stroke-width:1.1}
+.iso .floortext{font-size:17px;font-stretch:90%;font-weight:640;letter-spacing:.01em}
+.iso .card{fill:var(--sheet)}
+.iso .slab{fill:var(--svc);stroke:none}
+.iso .white{fill:var(--white);stroke:none}
+@media (min-width:1040px){
+  html.l3 .sheet.sheet--hero{display:grid;grid-template-columns:minmax(0,4.8fr) minmax(0,7.2fr);grid-template-rows:1fr auto}
+  html.l3 .sheet--hero .tb{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,2vw,26px);padding:clamp(24px,3vw,44px)}
+  html.l3 .sheet--hero .tb>div{padding:0}
+  html.l3 .sheet--hero .tb__title{display:contents}
+  html.l3 .sheet--hero .tb h1{order:1;font-size:clamp(2.1rem,3.3vw,2.95rem)}
+  html.l3 h1 .hl{display:block}
+  html.l3 .sheet--hero .tb__lede{order:2;border:0}
+  html.l3 .sheet--hero .tb .hero__cta{order:3;margin-top:4px}
+  html.l3 .sheet--hero .tb .lede{font-size:1.125rem}
+  html.l3 .sheet--hero .sheet__fig{grid-column:2;grid-row:1;order:0;border-bottom:0;border-left:1.5px solid var(--fg);display:flex;align-items:center}
+  html.l3 .sheet--hero .sheet__dwg{width:100%;padding:clamp(10px,1.4vw,20px)}
+  html.l3 .sheet--hero .titleblock{grid-column:1/-1;grid-row:2;border-top:1.5px solid var(--fg)}
+}
+
+/* ───────── Mockup controls (not part of the design) ───────── */
+body{padding-bottom:104px}
+.lvbar{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);z-index:200;width:max-content;max-width:calc(100vw - 20px);
+  background:#101114;color:#F4F4F6;border-radius:14px;padding:10px 12px 9px;font:500 13.5px/1.3 system-ui,-apple-system,"Segoe UI",sans-serif;font-stretch:100%;
+  box-shadow:0 14px 40px rgba(0,0,0,.42),0 0 0 1px rgba(255,255,255,.14)}
+.lvbar__row{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.lvbar__t{opacity:.62;margin:0 4px 0 6px;font-size:12.5px}
+.lvbar button{font:inherit;color:#F4F4F6;padding:8px 13px;border-radius:9px;background:#22242B;border:1px solid transparent;white-space:nowrap}
+.lvbar button:hover{background:#30333D}
+.lvbar button[aria-pressed="true"]{background:#F4F4F6;color:#101114;font-weight:650}
+.lvbar__sep{width:1px;height:22px;background:rgba(255,255,255,.2);margin:0 6px}
+.lvbar__note{margin:8px 6px 1px;max-width:860px;font-size:13px;line-height:1.4;color:#C9CBD3}
