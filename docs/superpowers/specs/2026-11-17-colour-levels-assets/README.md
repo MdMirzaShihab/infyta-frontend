@@ -28,8 +28,8 @@ is lost, this table and `git log` are the record.
 | 3. Colour pass: inner pages | Done, review clean after 1 fix round | c7dee85, 860d8b6 |
 | 4. Geometry and parts | Done, review clean | 31a1a68 |
 | 5. Hero scene and layout | Done, review clean after 1 fix round | 52cbe6d, 7754eae |
-| 6. Highlight, motion, small screens | Implemented, in review | 50df74b |
-| 7. Service page drawings | Not started | |
+| 6. Highlight, motion, small screens | Done, review clean after 1 fix round | 50df74b, 495a594 |
+| 7. Service page drawings | Implementer dispatched | |
 | 8. Cleanup, docs, verification | Not started | |
 | Whole-branch review | Not started | |
 

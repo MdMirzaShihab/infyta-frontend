@@ -786,7 +786,7 @@ git commit -m "feat: 3D-style hero drawing with one island per service"
 **Interfaces:**
 - Consumes: Task 5's class names.
 
-- [ ] **Step 1: Extend `tests/unit/drawing-css.test.mjs`.** Keep its `mediaBlock` helper and replace the two tests Task 5 left with:
+- [x] **Step 1: Extend `tests/unit/drawing-css.test.mjs`.** Keep its `mediaBlock` helper and replace the two tests Task 5 left with:
 
 ```js
 const rules = css.replace(/\/\*[\s\S]*?\*\//g, '').split('}').map((r) => r.split('{')).filter((r) => r.length === 2).map(([s, b]) => [s.trim(), b.trim()]);
@@ -829,12 +829,12 @@ test('below 720px the labels go and the pins grow', () => {
 });
 ```
 
-- [ ] **Step 2: Run it and watch it fail**
+- [x] **Step 2: Run it and watch it fail**
 
 Run: `node --test tests/unit/drawing-css.test.mjs`
 Expected: FAIL on every test except the two "complete and still" ones' `.rise` half.
 
-- [ ] **Step 3: Write the rules** in `drawing.css`
+- [x] **Step 3: Write the rules** in `drawing.css`
 
 ```css
 .dwg--hero :is(.piece,.svc){transition:opacity .16s}
@@ -876,12 +876,12 @@ And the two media blocks and the small-screen block:
 
 The dimming rules must win over nothing else: check that no other rule sets `opacity` on `.piece` or `.svc`.
 
-- [ ] **Step 4: Run the tests**
+- [x] **Step 4: Run the tests**
 
 Run: `node --test tests/unit/drawing-css.test.mjs && npm run build && node --test tests/build/home.test.mjs`
 Expected: PASS.
 
-- [ ] **Step 5: By-hand checks in a browser** on the served `out/` (a browser skill, or list them for the owner):
+- [x] **Step 5: By-hand checks in a browser** on the served `out/` (a browser skill, or list them for the owner):
 
 1. Hover the app window, a desk, a cable, pin 4 and the base in turn: each time the whole service stays bright, the other four dim, and that service's dots travel. Walls and floor never dim.
 2. Hover each row of "Our Services": the same service lights in the drawing. Hover a zone: its row takes its wash, a darker tile and a filled number.
@@ -889,9 +889,9 @@ Expected: PASS.
 4. Reload: zones fade in within two seconds, each dot travels twice, then everything is still.
 5. Turn on "reduce motion" in the system settings and reload: the drawing is complete at once, no dots.
 
-- [ ] **Step 6: Visual check, four screenshots:** phone widths 390px and 320px in Paper using the iframe wrapper (labels gone, pins large and inside the sheet, no part of the page wider than the screen); 768px (all labels showing); 1440px in Blueprint.
+- [x] **Step 6: Visual check, four screenshots:** phone widths 390px and 320px in Paper using the iframe wrapper (labels gone, pins large and inside the sheet, no part of the page wider than the screen); 768px (all labels showing); 1440px in Blueprint.
 
-- [ ] **Step 7: Commit**
+- [x] **Step 7: Commit**
 
 ```bash
 git add src/styles/drawing.css tests/unit/drawing-css.test.mjs
