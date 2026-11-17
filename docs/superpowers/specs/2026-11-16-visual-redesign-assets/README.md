@@ -14,7 +14,7 @@ design spec; nothing here ships with the site.
 | Design spec (`docs/superpowers/specs/2026-11-16-visual-redesign-design.md`) | Approved by the owner on 2026-11-16, including all nine calls in section 12 |
 | Implementation plan (`docs/superpowers/plans/2026-11-16-visual-redesign.md`) | Approved by the owner on 2026-11-16. Nine tasks, to be run with subagent-driven development in a new session |
 | Prompt to start or resume | `docs/superpowers/plans/2026-11-16-visual-redesign-START-PROMPT.md` |
-| Implementation | Done on `visual-redesign`, not merged or pushed. Owner checks are in `docs/review-list.md` section 4 |
+| Implementation | Done. Merged into `master` on 2026-11-17 (fast-forward) and pushed; Cloudflare builds production from `master`. Owner checks are in `docs/review-list.md` section 4 |
 
 ## Implementation progress
 

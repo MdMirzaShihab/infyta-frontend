@@ -11,12 +11,12 @@ Canonical origin: `https://infyta.com` (apex, no `www`, no trailing slash).
 4. Build command: `npm run build`
 5. Build output directory: `out`
 6. Environment variable: `NODE_VERSION=22`
-7. Save and deploy. The first build runs on `master`, which is already the Next.js app, so it succeeds and serves the site as it was before the redesign at `<project>.pages.dev`. That hostname is not indexed by search engines (`public/_headers` sends `X-Robots-Tag: noindex` for it), and nothing reaches infyta.com until the custom domains are added in section 4.
-8. Get a preview of the new site. Preview builds start on a push after the project exists, so push a commit to `visual-redesign` (for example an empty one: `git commit --allow-empty -m "trigger preview" && git push`). Alternatively, in the project open Deployments > Create deployment (or "Retry deployment") and pick the `visual-redesign` branch. Cloudflare gives that build a `<hash>.<project>.pages.dev` URL and a `<branch>.<project>.pages.dev` alias.
+7. Save and deploy. The first build runs on `master`, which has the redesigned site since 2026-11-17 (`visual-redesign` was merged into it), and serves it at `<project>.pages.dev`. That hostname is not indexed by search engines (`public/_headers` sends `X-Robots-Tag: noindex` for it), and nothing reaches infyta.com until the custom domains are added in section 4.
+8. That `<project>.pages.dev` build is the new site, so no separate preview branch is needed. Each build also gets a `<hash>.<project>.pages.dev` URL (Deployments).
 
 ## 2. Preview checks
 
-Replace `<PREVIEW>` with the branch or hash preview URL from step 1.8 (for example `https://<hash>.<project>.pages.dev`). Do not use the plain `<project>.pages.dev` hostname yet: it serves the production branch, which is not the new site until you merge.
+Replace `<PREVIEW>` with `https://<project>.pages.dev` (the production build from step 1.7) or a `<hash>.<project>.pages.dev` URL from step 1.8. Run these checks before adding the custom domains in section 4.
 
 ```bash
 for p in /about /about.html /about/ /services /services/network-infrastructure /services/training-certification /services/mobile-applications /services/cloud-services /does-not-exist /robots.txt /sitemap.xml /llms.txt; do
@@ -50,7 +50,7 @@ https://:version.:project.pages.dev/*
   X-Robots-Tag: noindex
 ```
 
-- The `<project>.pages.dev` hostname itself is checked after the merge (step 3.3).
+- The `<project>.pages.dev` hostname itself is checked in step 3.3.
 
 Also on the preview:
 
@@ -61,7 +61,7 @@ Also on the preview:
 ## 3. Content review and merge
 
 1. Read `docs/review-list.md` and approve or correct each item of new copy.
-2. When happy, merge `visual-redesign` into `master`. Cloudflare builds production from `master`.
+2. `visual-redesign` is already merged into `master` (2026-11-17). Make any copy corrections on `master`, run `npm run check`, commit and push; Cloudflare builds production from `master`.
 3. Once that production build succeeds, find the `<project>.pages.dev` subdomain (Deployments or Custom domains) and run `curl -sI https://<project>.pages.dev/ | grep -i x-robots-tag`. Our `public/_headers` rule must make it show `x-robots-tag: noindex`.
 
 ## 4. Custom domains
