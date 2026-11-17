@@ -5,26 +5,29 @@
   --c-teal:#3AC1C2; --c-azure:#4D8EF7; --c-violet:#8A70F2; --c-amber:#F5A623;
   /* Line-safe shades: deep on Paper, bright on navy. */
   --dd-teal:#0E8F93; --dd-azure:#2563DB; --dd-violet:#5E45CC; --dd-amber:#C27500;
-  --fillpct:34%; --zonepct:13%; --chippct:52%;
-  --i-top:24%; --i-left:46%; --i-right:70%;
+  --fillpct:34%; --zonepct:13%; --chippct:50%;
+  --i-top:27%; --i-left:50%; --i-right:74%;
   --n-top:#FFFFFF; --n-left:#E4E9F4; --n-right:#CCD4E7; --n-wall-a:#EEF1F8; --n-wall-b:#E0E6F2; --n-floor:#FFFFFF;
   --band-alt:#FFFFFF;
+  --p-top:20%; --p-left:50%; --p-right:74%;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --c-violet:#A996FF; --dd-teal:var(--c-teal); --dd-azure:#6EA4FF; --dd-violet:var(--c-violet); --dd-amber:var(--c-amber);
-    --fillpct:52%; --zonepct:20%; --chippct:100%;
-    --i-top:92%; --i-left:64%; --i-right:42%;
+    --c-violet:#A996FF; --c-azure:#6EA4FF; --dd-teal:var(--c-teal); --dd-azure:var(--c-azure); --dd-violet:var(--c-violet); --dd-amber:var(--c-amber);
+    --fillpct:52%; --zonepct:18%; --chippct:100%;
+    --i-top:90%; --i-left:66%; --i-right:44%;
     --n-top:#3A4A96; --n-left:#2B3A80; --n-right:#1B2759; --n-wall-a:#243270; --n-wall-b:#1C2860; --n-floor:#27367B;
     --band-alt:#1A2556;
+    --p-top:34%; --p-left:66%; --p-right:44%;
   }
 }
 :root[data-theme="dark"]{
-  --c-violet:#A996FF; --dd-teal:var(--c-teal); --dd-azure:#6EA4FF; --dd-violet:var(--c-violet); --dd-amber:var(--c-amber);
-  --fillpct:52%; --zonepct:20%; --chippct:100%;
-  --i-top:92%; --i-left:64%; --i-right:42%;
+  --c-violet:#A996FF; --c-azure:#6EA4FF; --dd-teal:var(--c-teal); --dd-azure:var(--c-azure); --dd-violet:var(--c-violet); --dd-amber:var(--c-amber);
+  --fillpct:52%; --zonepct:18%; --chippct:100%;
+  --i-top:90%; --i-left:66%; --i-right:44%;
   --n-top:#3A4A96; --n-left:#2B3A80; --n-right:#1B2759; --n-wall-a:#243270; --n-wall-b:#1C2860; --n-floor:#27367B;
   --band-alt:#1A2556;
+    --p-top:34%; --p-left:66%; --p-right:44%;
 }
 
 .x2,.x3{display:none}
@@ -118,10 +121,10 @@ html.l2 .key__row{grid-template-columns:32px minmax(0,1.15fr) minmax(0,1fr) 196p
 html.l2 .key__row .num{background:var(--svc-chip);border-color:var(--svc-chip);color:var(--ink)}
 html.l2 .key__row[data-svc="it-support-consultancy"] .num{color:var(--bg)}
 html.l2 .key__row:hover .num,html.l2 .key__row:focus-visible .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
-html.l2 .key__row:hover,html.l2 .key__row:focus-visible{background:color-mix(in srgb,var(--svc) 11%,var(--band-alt))}
-html.l2 .key__row .dwg--mini{width:196px;padding:12px 14px;border-radius:10px;background:color-mix(in srgb,var(--svc) 13%,var(--band-alt));color:var(--fg)}
-html.l2 .key__row:not([data-svc="it-support-consultancy"]) .dwg--mini{--body:color-mix(in srgb,var(--svc) 46%,var(--sheet))}
-html.l2 .key__row:hover .dwg--mini,html.l2 .key__row:focus-visible .dwg--mini{color:var(--fg);background:color-mix(in srgb,var(--svc) 26%,var(--band-alt))}
+html.l2 .key__row:hover,html.l2 .key__row:focus-visible{background:color-mix(in srgb,var(--svc) var(--zonepct),var(--sheet))}
+html.l2 .key__row .dwg--mini{width:196px;padding:12px 14px;border-radius:10px;background:color-mix(in srgb,var(--svc) var(--zonepct),var(--sheet));color:var(--fg)}
+html.l2 .key__row:not([data-svc="it-support-consultancy"]) .dwg--mini{--body:color-mix(in srgb,var(--svc) var(--i-left),var(--sheet))}
+html.l2 .key__row:hover .dwg--mini,html.l2 .key__row:focus-visible .dwg--mini{color:var(--fg);background:color-mix(in srgb,var(--svc) var(--p-top),var(--n-floor))}
 html.l2 .key__row .dwg--mini .wan{stroke:var(--svc-d)}
 
 /* ───────── Level 3: illustrated hero ───────── */
@@ -138,9 +141,30 @@ html.l3 .x3{display:block}
 .iso .wa{fill:var(--n-wall-a)}.iso .wb{fill:var(--n-wall-b)}.iso .floor{fill:var(--n-floor)}
 .iso .grid{stroke:var(--rule);stroke-width:1}
 .iso .unit{fill:var(--sheet);stroke-width:1.1}
-.iso .carpet{stroke:none;fill:color-mix(in srgb,var(--svc) calc(var(--zonepct) + 5%),var(--n-floor))}
 .iso .cone{stroke:none;fill:color-mix(in srgb,var(--svc) 30%,transparent)}
 .iso .cab{stroke:var(--svc-d);stroke-width:2.6;fill:none}
+.iso .cab.dash{stroke-dasharray:6 5}
+.iso .lay.t1{font-size:18.5px}.iso .lay.t2{font-size:16px;opacity:.86}
+.iso .monly{display:none}
+/* Islands: a platform per zone, in the zone's colour. */
+.iso .pt{fill:color-mix(in srgb,var(--svc) var(--p-top),var(--n-floor))}
+.iso .pl{fill:color-mix(in srgb,var(--svc) var(--p-left),var(--sheet))}
+.iso .pr{fill:color-mix(in srgb,var(--svc) var(--p-right),var(--sheet))}
+/* IT Support is the base: the ink itself (navy on Paper, white on Blueprint). */
+.iso .b1{fill:var(--fg)}
+.iso .b2{fill:color-mix(in srgb,var(--fg) 80%,var(--sheet))}
+.iso .basetext{fill:var(--sheet);stroke:none;font-size:16.5px;font-weight:660;font-stretch:98%;letter-spacing:.012em}
+.iso .bub.inv circle{fill:var(--sheet)}
+.iso .bub.inv text{fill:var(--fg)}
+/* A service lights as a group: hovering one piece must not recolour or dim its siblings (group rules are generated in build.mjs). */
+.iso.dwg .svc:hover,.iso.dwg .svc:focus-visible{color:var(--fg)}
+.iso.dwg:has(.svc:is(:hover,:focus-visible)) .svc:not(:hover,:focus-visible){opacity:1}
+.iso .svc:focus-visible{outline:none}
+@media (max-width:719px){
+  .iso .lbl,.iso .basetext{display:none}
+  .iso .bub{transform:scale(2.3)}
+  .iso .monly{display:inline}
+}
 .iso .lead{stroke-width:1.1}
 .iso .floortext{font-size:17px;font-stretch:90%;font-weight:640;letter-spacing:.01em}
 .iso .card{fill:var(--sheet)}
@@ -173,3 +197,21 @@ body{padding-bottom:104px}
 .lvbar button[aria-pressed="true"]{background:#F4F4F6;color:#101114;font-weight:650}
 .lvbar__sep{width:1px;height:22px;background:rgba(255,255,255,.2);margin:0 6px}
 .lvbar__note{margin:8px 6px 1px;max-width:860px;font-size:13px;line-height:1.4;color:#C9CBD3}
+
+/* ───────── Service page ───────── */
+html.l1 .svc-hero figure{box-shadow:12px 12px 0 var(--signal)}
+html.l1 .prose h2::before,html.l1 .split--faq h2::before,html.l1 .inverse>.wrap>h2::before,html.l1 .band>.wrap>h2::before{content:"";display:block;width:52px;height:7px;background:var(--signal);margin-bottom:20px}
+html.l1 .steps li::before{background:var(--signal);border-color:var(--signal);color:var(--ink)}
+html.l1 main>.band:last-child .panel{border:1.5px solid var(--fg);box-shadow:12px 12px 0 var(--signal)}
+html.l1 main>.band--snug{background:var(--band-alt);padding-block:clamp(64px,7.5vw,112px)}
+/* From level 2 the page takes its service's colour for its accents. */
+html.l2 main[data-svc] .svc-hero figure{box-shadow:12px 12px 0 var(--svc)}
+html.l2 main[data-svc] :is(.prose,.split--faq,.head,.inverse>.wrap,.band>.wrap)>h2::before,html.l2 main[data-svc] .head h2::before{background:var(--svc)}
+html.l2 main[data-svc] .steps li::before{background:var(--svc);border-color:var(--svc)}
+html.l2 main[data-svc] .svc-hero .btn:not(.btn--ghost){--btn-bg:var(--c-amber)}
+html.l2 main[data-svc]>.band:last-child .panel{box-shadow:12px 12px 0 var(--svc)}
+html.l2 .svc-hero .dwg--detail{--body:color-mix(in srgb,var(--svc) var(--fillpct),var(--sheet))}
+html.l3 .svc-hero .dwg--detail{display:none}
+.iso--detail .t1{font-size:15px}.iso--detail .t2{font-size:13.5px}
+.iso--detail .lay.t1{font-size:16px}.iso--detail .lay.t2{font-size:14px}
+.lvbar button[data-go]:not([data-go=""]){cursor:pointer}
