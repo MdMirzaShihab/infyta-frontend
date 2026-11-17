@@ -30,8 +30,8 @@ is lost, this table and `git log` are the record.
 | 5. Hero scene and layout | Done, review clean after 1 fix round | 52cbe6d, 7754eae |
 | 6. Highlight, motion, small screens | Done, review clean after 1 fix round | 50df74b, 495a594 |
 | 7. Service page drawings | Done, review clean | 6ea3c38 |
-| 8. Cleanup, docs, verification | Implemented, in review | b059d60 |
-| Whole-branch review | Not started | |
+| 8. Cleanup, docs, verification | Done, review clean. Lighthouse mobile: home 0.99 / 1.00, software page 1.00 / 1.00 | b059d60 |
+| Whole-branch review | Reviewer dispatched | |
 
 ## Owner's decisions
 

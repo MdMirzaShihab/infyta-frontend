@@ -971,7 +971,7 @@ git commit -m "feat: 3D-style drawings on the five service pages"
 **Files:**
 - Modify: `src/components/drawing/Symbols.jsx`, `src/styles/drawing.css`, `tests/unit/colour-rules.test.mjs`, `docs/review-list.md`, `docs/superpowers/specs/2026-11-17-colour-and-3d-drawings-design.md` (status line), `docs/superpowers/specs/2026-11-17-colour-levels-assets/README.md`
 
-- [ ] **Step 1: Write the failing test** in `tests/unit/colour-rules.test.mjs`
+- [x] **Step 1: Write the failing test** in `tests/unit/colour-rules.test.mjs`
 
 ```js
 test('every flat symbol is used by a small drawing, and nothing uses a missing one', () => {
@@ -986,19 +986,19 @@ test('no style is left for the flat hero', () => {
 });
 ```
 
-- [ ] **Step 2: Run it and watch it fail**
+- [x] **Step 2: Run it and watch it fail**
 
 Run: `node --test tests/unit/colour-rules.test.mjs`
 Expected: FAIL (five unused symbols; leftover selectors, if any remain).
 
-- [ ] **Step 3: Delete** the symbols `d-switch`, `d-switch-s`, `d-ap`, `d-door` and `d-phone` from `Symbols.jsx`, and any rule in `drawing.css` that the test names or that no element uses any more. Keep `.boundary` and `.wan`: the small drawings use them.
+- [x] **Step 3: Delete** the symbols `d-switch`, `d-switch-s`, `d-ap`, `d-door` and `d-phone` from `Symbols.jsx`, and any rule in `drawing.css` that the test names or that no element uses any more. Keep `.boundary` and `.wan`: the small drawings use them.
 
-- [ ] **Step 4: Run the full check**
+- [x] **Step 4: Run the full check**
 
 Run: `npm run check`
 Expected: every unit test passes, the build exports 18 pages, every build test passes, lint prints no errors.
 
-- [ ] **Step 5: Lighthouse**, mobile, on the served `out/`, for `/` and `/services/software-development`:
+- [x] **Step 5: Lighthouse**, mobile, on the served `out/`, for `/` and `/services/software-development`:
 
 ```bash
 npx lighthouse http://localhost:8788/ --only-categories=performance,accessibility --form-factor=mobile --quiet --chrome-flags="--headless=new" --output=json --output-path=./.superpowers/lh-home.json
@@ -1006,11 +1006,11 @@ npx lighthouse http://localhost:8788/ --only-categories=performance,accessibilit
 
 Expected: Performance 0.95 or better and Accessibility 0.98 or better on both. If either misses, stop and give the report to Opus to diagnose; do not lower the target.
 
-- [ ] **Step 6: Final screenshots** for the record, saved under the ledger folder: every route at 1440 wide in Paper, `/` in Blueprint, `/` at 390px.
+- [x] **Step 6: Final screenshots** for the record, saved under the ledger folder: every route at 1440 wide in Paper, `/` in Blueprint, `/` at 390px.
 
-- [ ] **Step 7: Docs.** In `docs/review-list.md` section 4 add a part "Colour and 3D drawings" with: what a visitor will notice, in plain words; the fourteen calls from spec section 13; the word changes from spec section 12; and a line asking the owner to look at the four service drawings made in Task 7. In the spec, add "; implemented" to the Status line. Update the status table in the assets README.
+- [x] **Step 7: Docs.** In `docs/review-list.md` section 4 add a part "Colour and 3D drawings" with: what a visitor will notice, in plain words; the fourteen calls from spec section 13; the word changes from spec section 12; and a line asking the owner to look at the four service drawings made in Task 7. In the spec, add "; implemented" to the Status line. Update the status table in the assets README.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add -A src tests docs
