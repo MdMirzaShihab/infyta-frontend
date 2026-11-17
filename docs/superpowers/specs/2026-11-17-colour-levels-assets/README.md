@@ -25,7 +25,7 @@ is lost, this table and `git log` are the record.
 | --- | --- | --- |
 | 1. Colour tokens | Done, review clean | a13880a |
 | 2. Colour pass: components and home | Done, review clean after 1 fix round | 776f903, eafc722 |
-| 3. Colour pass: inner pages | Implementer dispatched | |
+| 3. Colour pass: inner pages | Implemented, in review | c7dee85 |
 | 4. Geometry and parts | Not started | |
 | 5. Hero scene and layout | Not started | |
 | 6. Highlight, motion, small screens | Not started | |
