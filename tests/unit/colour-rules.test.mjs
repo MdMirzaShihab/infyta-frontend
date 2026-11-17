@@ -22,3 +22,11 @@ test('every service has a block that maps its colour', () => {
     for (const t of ['--svc:', '--svc-line:', '--svc-wash:', '--svc-floor:', '--svc-top:', '--svc-left:', '--svc-right:', '--svc-chip:', '--svc-chip-fg:']) assert.ok(m[1].includes(t), `${slug} lacks ${t}`);
   }
 });
+
+test('slabs do not print, and the teal band keeps navy text', () => {
+  const base = readFileSync('src/styles/base.css', 'utf8');
+  assert.match(base.slice(base.indexOf('@media print')), /\.on-slab[^{]*\{[^}]*box-shadow:\s*none/);
+  const sections = readFileSync('src/styles/sections.css', 'utf8');
+  const cta = sections.match(/\.band--cta\s*\{([^}]*)\}/);
+  assert.ok(cta && /color:\s*var\(--ink\)/.test(cta[1]) && /--fg:\s*var\(--ink\)/.test(cta[1]));
+});

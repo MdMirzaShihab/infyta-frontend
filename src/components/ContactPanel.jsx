@@ -2,9 +2,9 @@ import { OpenStatus, WeekStrip } from "@/components/OpenStatus";
 import { site } from "@/content/site";
 
 // Hours, address, phone and email. The email arrives as a prop: it is read on the server only.
-export default function ContactPanel({ email }) {
+export default function ContactPanel({ email, className }) {
   return (
-    <div className="panel">
+    <div className={className ? `panel ${className}` : "panel"}>
       <div className="hours__state"><OpenStatus variant="long" /></div>
       <p className="label" style={{ marginTop: 4 }}>Dhaka time</p>
       <WeekStrip />

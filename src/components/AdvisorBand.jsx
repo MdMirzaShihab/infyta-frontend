@@ -10,7 +10,7 @@ export default function AdvisorBand({ headings = false, cta = true }) {
   return (
     <section className="band inverse" id="advisor">
       <div className="wrap advisor">
-        <figure className="portrait">
+        <figure className="portrait on-slab on-slab--lg">
           {/* A plain <img>: the site is a static export without the image optimiser. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img

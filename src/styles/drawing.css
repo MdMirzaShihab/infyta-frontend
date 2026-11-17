@@ -29,8 +29,10 @@
 .dwg:has(.svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .svc-line{color:var(--accent)}
 .dwg:has(.svc:not([data-svc="network-infrastructure"]):is(:hover,:focus-visible)) .svc-line{opacity:.42}
 .dwg--tall{display:none;max-width:460px}
-.dwg--mini{width:168px;flex:none}
+.dwg--mini{width:196px;flex:none;padding:12px 14px;border-radius:10px;background:var(--svc-wash);--body:var(--svc-left)}
 .dwg--mini,.dwg--detail{color:inherit}
+.key__row:hover .dwg--mini,.key__row:focus-visible .dwg--mini{background:var(--svc-floor);color:var(--fg)}
+.dwg--mini .wan{stroke:var(--svc-line)}
 
 /* The services list lights the matching part of the drawing, and dims the rest (the mock did this with script). */
 main:has(.key__row:is(:hover,:focus-visible)) .dwg .svc{opacity:.42}
@@ -54,31 +56,31 @@ main:has(.key__row[data-svc="network-infrastructure"]:is(:hover,:focus-visible))
 main:has(.key__row:not([data-svc="network-infrastructure"]):is(:hover,:focus-visible)) .dwg .svc-line{opacity:.42}
 
 /* The reverse: hovering or focusing a part of the drawing lights its service row (same look as hovering the row). Other rows stay as they are. */
-main:has(.dwg .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"]{background:var(--panel);border-top-color:transparent}
+main:has(.dwg .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] + .key__row{border-top-color:transparent}
 main:has(.dwg .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] .num{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 main:has(.dwg .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] h3{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.18em}
-main:has(.dwg .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] .dwg--mini{color:var(--accent)}
-main:has(.dwg .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"]{background:var(--panel);border-top-color:transparent}
+main:has(.dwg .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] + .key__row{border-top-color:transparent}
 main:has(.dwg .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] .num{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 main:has(.dwg .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] h3{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.18em}
-main:has(.dwg .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] .dwg--mini{color:var(--accent)}
-main:has(.dwg .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"]{background:var(--panel);border-top-color:transparent}
+main:has(.dwg .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] + .key__row{border-top-color:transparent}
 main:has(.dwg .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] .num{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 main:has(.dwg .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] h3{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.18em}
-main:has(.dwg .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] .dwg--mini{color:var(--accent)}
-main:has(.dwg .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"]{background:var(--panel);border-top-color:transparent}
+main:has(.dwg .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] + .key__row{border-top-color:transparent}
 main:has(.dwg .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] .num{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 main:has(.dwg .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] h3{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.18em}
-main:has(.dwg .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] .dwg--mini{color:var(--accent)}
-main:has(.dwg .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"]{background:var(--panel);border-top-color:transparent}
+main:has(.dwg .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"]{background:var(--svc-wash);border-top-color:transparent}
 main:has(.dwg .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] + .key__row{border-top-color:transparent}
 main:has(.dwg .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] .num{background:var(--fg);color:var(--bg);border-color:var(--fg)}
 main:has(.dwg .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] h3{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:.18em}
-main:has(.dwg .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] .dwg--mini{color:var(--accent)}
+main:has(.dwg .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] .dwg--mini{background:var(--svc-floor)}
 
 /* One load sequence: the network comes up. */
 @keyframes draw{to{stroke-dashoffset:1}}

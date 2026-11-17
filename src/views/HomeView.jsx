@@ -23,7 +23,7 @@ export default function HomeView({ email }) {
     <>
       <section className="hero hero--sheet">
         <div className="wrap">
-          <div className="sheet sheet--hero">
+          <div className="sheet sheet--hero on-slab">
             <div className="tb">
               <div className="tb__title">
                 <h1>{pages.home.heading}</h1>
@@ -42,7 +42,7 @@ export default function HomeView({ email }) {
         </div>
       </section>
 
-      <section className="band" id="services">
+      <section className="band band--alt" id="services">
         <div className="wrap">
           <div className="head"><h2>Our Services</h2><p>{homeIntro}</p></div>
           <div className="key">
@@ -52,7 +52,7 @@ export default function HomeView({ email }) {
         </div>
       </section>
 
-      <section className="band band--flush" id="expertise">
+      <section className="band band--tint" id="expertise">
         <div className="wrap">
           <div className="head">
             <h2>Our Core Expertise</h2>
@@ -64,7 +64,7 @@ export default function HomeView({ email }) {
 
       <AdvisorBand />
 
-      <section className="band" id="contact">
+      <section className="band band--cta" id="contact">
         <div className="wrap contact">
           <div>
             <h2>Ready to Transform Your Business?</h2>
@@ -75,7 +75,7 @@ export default function HomeView({ email }) {
               <a className="btn btn--ghost btn--icon" href={`tel:${site.phone.e164}`}><PhoneIcon />{site.phone.display}</a>
             </div>
           </div>
-          <ContactPanel email={email} />
+          <ContactPanel email={email} className="paper-card on-slab" />
         </div>
       </section>
     </>

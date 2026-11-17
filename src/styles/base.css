@@ -22,26 +22,30 @@ h3{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spa
 .lede{font-size:clamp(1.0625rem,1.3vw,1.1875rem);line-height:1.55;color:var(--fg2);max-width:62ch}
 .small{font-size:.9375rem;color:var(--fg2)}
 .label{font-stretch:var(--w-label);font-weight:540;font-size:.9rem;letter-spacing:.012em;color:var(--fg2)}
-.tag{display:inline-block;font-stretch:78%;font-weight:620;font-size:.8125rem;line-height:1;letter-spacing:.02em;padding:5px 7px 4px;border:1px solid currentColor;border-radius:3px;background:var(--body);white-space:nowrap}
+.tag{display:inline-block;font-stretch:78%;font-weight:620;font-size:.8125rem;line-height:1;letter-spacing:.02em;padding:5px 7px 4px;border:1px solid currentColor;border-radius:3px;background:var(--tag-bg);border-color:var(--tag-line);white-space:nowrap}
 .tags{display:flex;flex-wrap:wrap;gap:6px}
 
 /* Buttons: a port with a link light */
 .btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 20px 0 16px;border-radius:5px;background:var(--btn-bg);color:var(--btn-fg);font-stretch:104%;font-weight:620;font-size:1rem;text-decoration:none;border:1.5px solid var(--btn-bg);white-space:nowrap;transition:background-color .15s,color .15s}
-.btn::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.38;transition:all .15s}
-.btn:hover::before,.btn:focus-visible::before{background:var(--signal);opacity:1;box-shadow:0 0 0 4px rgba(58,193,194,.28)}
+.btn::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.6;transition:all .15s}
+.btn:hover::before,.btn:focus-visible::before{background:var(--ink);opacity:1;box-shadow:0 0 0 4px var(--btn-halo)}
+.btn:not(.btn--ghost):hover{background:var(--btn-hover);border-color:var(--btn-hover)}
 .btn--ghost{background:transparent;color:var(--fg);border-color:var(--fg);padding-left:20px}
 .btn--ghost::before{display:none}
 .btn--sm{min-height:40px;padding:0 15px 0 12px;font-size:.9375rem}
 .btn svg{width:18px;height:18px;margin-left:-2px}
 .btn--icon::before{display:none}
-.textlink{font-weight:600;text-decoration:underline}
+.textlink{font-weight:600;text-decoration:underline;color:var(--accent)}
 /* Print drops the fill, so a filled button prints as its outline with dark text. */
 @media print{
   .btn{background:transparent;color:var(--fg)}
+  .on-slab,.on-slab--lg{box-shadow:none}
 }
 
-.num{display:inline-grid;place-items:center;width:24px;height:24px;border:1.5px solid currentColor;border-radius:50%;font-size:.78rem;font-weight:700;line-height:1;flex:none;font-variant-numeric:tabular-nums}
+.num{display:inline-grid;place-items:center;width:28px;height:28px;border:1.5px solid currentColor;border-radius:50%;font-size:.85rem;background:var(--svc-chip,var(--signal));border-color:var(--svc-chip,var(--signal));color:var(--svc-chip-fg,var(--ink));font-weight:700;line-height:1;flex:none;font-variant-numeric:tabular-nums}
 .panel{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:clamp(20px,3vw,40px)}
+.on-slab{box-shadow:12px 12px 0 var(--slab,var(--signal))}
+.on-slab--lg{box-shadow:16px 16px 0 var(--slab,var(--signal))}
 .bn{font-family:'Noto Sans Bengali','Kohinoor Bangla','Nirmala UI',var(--font-archivo),sans-serif;font-weight:560;font-size:1.06em}
 
 @media (prefers-reduced-motion:reduce){
