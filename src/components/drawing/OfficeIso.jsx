@@ -36,9 +36,11 @@ const base = {
 };
 const baseA = P(0.55, D, -0.56), baseB = P(W, D - 0.55, -0.56), pin3 = P(W, 4.15, -0.4);
 
+// `hit` (when given) is where a cable's hit line runs: the Servers and Security cables start under the Network island,
+// so their hit lines start where they come out from under it, and the Network link keeps its island.
 const { taps } = staff.anchors, { ap } = guest.anchors, { rec } = sec.anchors;
 const CABLES = {
-  [SRV]: [{ points: [[1.75, 1.35], [1.75, 4.2], [1.4, 4.2]], flow: true }],
+  [SRV]: [{ points: [[1.75, 1.35], [1.75, 4.2], [1.4, 4.2]], hit: [[1.75, 2.75], [1.75, 4.2], [1.4, 4.2]], flow: true }],
   [SW]: [{ points: [[2.55, 0.9], [4.66, 0.9]], flow: true }],
   [NET]: [
     { points: [[2.55, 1.15], [3.7, 1.15], [3.7, 3.0], [taps[2], 3.0], [taps[2], 3.95]], flow: true },
@@ -46,7 +48,7 @@ const CABLES = {
     { points: [[taps[1], 3.0], [taps[1], 3.95]] },
     { points: [[3.9, 3.0], [3.9, 6.7], [ap[0], 6.7], [ap[0], ap[1]]], flow: true },
   ],
-  [SEC]: [{ points: [[2.1, 1.35], [2.1, 2.9], [3.4, 2.9], [3.4, 6.7], [1.6, 6.7], [1.6, rec[1]], [rec[0], rec[1]]], flow: true }],
+  [SEC]: [{ points: [[2.1, 1.35], [2.1, 2.9], [3.4, 2.9], [3.4, 6.7], [1.6, 6.7], [1.6, rec[1]], [rec[0], rec[1]]], hit: [[2.1, 2.75], [2.1, 2.9], [3.4, 2.9], [3.4, 6.7], [1.6, 6.7], [1.6, rec[1]], [rec[0], rec[1]]], flow: true }],
 };
 
 // Links that float outside the office: the cloud to the tall rack, the internet into the router, and the app window's two.
@@ -152,7 +154,7 @@ export default function OfficeIso() {
         <Link key={s.slug} className="svc rise" style={{ "--d": "1.5s" }} data-svc={s.slug} href={`/services/${s.slug}`} aria-label={NAME[s.slug]}>
           {ZONE_HITS[s.slug].flatMap((z) => z.hits).concat(EXTRA_HITS[s.slug] || []).map((h, i) => <polygon key={i} className="hit" points={pts(h)} />)}
           {s.slug === SRV ? <g transform={CLOUD_AT}><path className="hit" d={CLOUD} /></g> : null}
-          {(CABLES[s.slug] || []).map((c, i) => <polyline key={`c${i}`} className="hit hit--line" points={pts(c.points.map((p) => P(...p)))} />)}
+          {(CABLES[s.slug] || []).map((c, i) => <polyline key={`c${i}`} className="hit hit--line" points={pts((c.hit || c.points).map((p) => P(...p)))} />)}
           {(LINKS[s.slug] || []).map((l, i) => <polyline key={`l${i}`} className="hit hit--line" points={pts(l.line)} />)}
           {LABELS[s.slug] ? <g className="lbl">{LABELS[s.slug]}</g> : null}
           {PINS[s.slug]}

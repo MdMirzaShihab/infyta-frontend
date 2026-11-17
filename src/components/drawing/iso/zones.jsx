@@ -187,6 +187,9 @@ export function zoneSecurity(P, x0, y0, w = 5.2) {
   // The door and terminal are flat on the wall, so they are drawn with the floor layer, before any object.
   const door = [FL(dy, 2.1), FL(dy + 1.1, 2.1), FL(dy + 1.1, PH), FL(dy, PH)];
   hits.push(door);
+  // The camera's cable down the wall: a thin strip, so a click on it reaches the Security link.
+  const [c0, c1] = [P(0, cyy + 0.18, 2.2), P(0, cyy + 0.18, 0.94)];
+  hits.push([[c0[0] - 4, c0[1]], [c0[0] + 4, c0[1]], [c1[0] + 4, c1[1]], [c1[0] - 4, c1[1]]]);
   const floor = (
     <>
       {island}

@@ -59,7 +59,8 @@
 .dwg--hero .rise{animation:rise .3s ease-out var(--d,0s) backwards}
 /* Reduced motion and print: the drawing is complete at once. */
 @media (prefers-reduced-motion: reduce){
-  .dwg .rise{animation:none!important;opacity:1!important}
+  .dwg .rise{animation:none!important;opacity:1}
+  .dwg--hero :is(.piece,.svc){transition:none}
 }
 @media print{
   .dwg .rise{animation:none!important;opacity:1!important}
