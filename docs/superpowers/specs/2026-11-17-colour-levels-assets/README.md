@@ -29,7 +29,7 @@ is lost, this table and `git log` are the record.
 | 4. Geometry and parts | Done, review clean | 31a1a68 |
 | 5. Hero scene and layout | Done, review clean after 1 fix round | 52cbe6d, 7754eae |
 | 6. Highlight, motion, small screens | Done, review clean after 1 fix round | 50df74b, 495a594 |
-| 7. Service page drawings | Implementer dispatched | |
+| 7. Service page drawings | Implemented, in review | 6ea3c38 |
 | 8. Cleanup, docs, verification | Not started | |
 | Whole-branch review | Not started | |
 
