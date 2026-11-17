@@ -582,7 +582,7 @@ git commit -m "feat: colour pass on the services, about, team and contact pages"
   - `<Lay P x y className="t1">text</Lay>`: text lying on an island top, `transform="matrix(.866 .5 -.866 .5 sx sy)"` at `P(x, y, PH)`, classes `lay` plus `className`
   - `<Cable P points flow />`: `<polyline class="cab">` through the projected 3D points; with `flow`, also `<circle class="flow" r="3.8" style={{ offsetPath: 'path("…")' }} />` on the same path
 
-- [ ] **Step 1: Write the failing test** `tests/unit/iso.test.mjs`
+- [x] **Step 1: Write the failing test** `tests/unit/iso.test.mjs`
 
 ```js
 import test from 'node:test';
@@ -613,21 +613,21 @@ test('faces, strings and cylinder', () => {
 });
 ```
 
-- [ ] **Step 2: Run it and watch it fail**
+- [x] **Step 2: Run it and watch it fail**
 
 Run: `node --test tests/unit/iso.test.mjs`
 Expected: FAIL (module not found).
 
-- [ ] **Step 3: Write `src/lib/iso.js`** to the Interfaces. Port `box` and `cylinder` from `iso.mjs`, returning points and path strings instead of markup.
+- [x] **Step 3: Write `src/lib/iso.js`** to the Interfaces. Port `box` and `cylinder` from `iso.mjs`, returning points and path strings instead of markup.
 
-- [ ] **Step 4: Run the test**
+- [x] **Step 4: Run the test**
 
 Run: `node --test tests/unit/iso.test.mjs`
 Expected: PASS.
 
-- [ ] **Step 5: Write `src/components/drawing/iso/parts.jsx`** to the Interfaces, porting the mock's `box`, `frect`, `dot`, `cylinder`, `pin`, `lay` and `cable` markup. Nothing renders them yet; `npm run lint` and `npm run build` must pass.
+- [x] **Step 5: Write `src/components/drawing/iso/parts.jsx`** to the Interfaces, porting the mock's `box`, `frect`, `dot`, `cylinder`, `pin`, `lay` and `cable` markup. Nothing renders them yet; `npm run lint` and `npm run build` must pass.
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add src/lib/iso.js src/components/drawing/iso/parts.jsx tests/unit/iso.test.mjs
