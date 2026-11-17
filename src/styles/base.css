@@ -36,6 +36,8 @@ h3{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spa
 .btn svg{width:18px;height:18px;margin-left:-2px}
 .btn--icon::before{display:none}
 .textlink{font-weight:600;text-decoration:underline;color:var(--accent)}
+.on-slab{box-shadow:12px 12px 0 var(--slab,var(--signal))}
+.on-slab--lg{box-shadow:16px 16px 0 var(--slab,var(--signal))}
 /* Print drops the fill, so a filled button prints as its outline with dark text. */
 @media print{
   .btn{background:transparent;color:var(--fg)}
@@ -44,8 +46,6 @@ h3{font-stretch:106%;font-weight:640;font-size:1.3rem;line-height:1.2;letter-spa
 
 .num{display:inline-grid;place-items:center;width:28px;height:28px;border:1.5px solid currentColor;border-radius:50%;font-size:.85rem;background:var(--svc-chip,var(--signal));border-color:var(--svc-chip,var(--signal));color:var(--svc-chip-fg,var(--ink));font-weight:700;line-height:1;flex:none;font-variant-numeric:tabular-nums}
 .panel{background:var(--panel);border:1px solid var(--rule);border-radius:10px;padding:clamp(20px,3vw,40px)}
-.on-slab{box-shadow:12px 12px 0 var(--slab,var(--signal))}
-.on-slab--lg{box-shadow:16px 16px 0 var(--slab,var(--signal))}
 .bn{font-family:'Noto Sans Bengali','Kohinoor Bangla','Nirmala UI',var(--font-archivo),sans-serif;font-weight:560;font-size:1.06em}
 
 @media (prefers-reduced-motion:reduce){

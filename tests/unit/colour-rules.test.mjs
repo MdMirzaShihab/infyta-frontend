@@ -26,6 +26,8 @@ test('every service has a block that maps its colour', () => {
 test('slabs do not print, and the teal band keeps navy text', () => {
   const base = readFileSync('src/styles/base.css', 'utf8');
   assert.match(base.slice(base.indexOf('@media print')), /\.on-slab[^{]*\{[^}]*box-shadow:\s*none/);
+  const reset = base.search(/@media print\{[^@]*\.on-slab,\.on-slab--lg\{box-shadow:none\}/);
+  assert.ok(reset > base.indexOf('.on-slab{box-shadow:12px') && reset > base.indexOf('.on-slab--lg{box-shadow:16px'), 'print reset must follow the screen slab rules');
   const sections = readFileSync('src/styles/sections.css', 'utf8');
   const cta = sections.match(/\.band--cta\s*\{([^}]*)\}/);
   assert.ok(cta && /color:\s*var\(--ink\)/.test(cta[1]) && /--fg:\s*var\(--ink\)/.test(cta[1]));
