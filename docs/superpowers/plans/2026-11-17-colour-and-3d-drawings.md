@@ -911,7 +911,7 @@ git commit -m "feat: group highlight, load motion and small-screen pins for the 
 - Consumes: Task 4's lib and parts, Task 5's zones and `AppCard`.
 - Produces: `ServiceDetail({ slug })`, unchanged for its caller: an `<svg className="dwg dwg--detail dwg--iso" role="img">` with today's `aria-label` for that slug.
 
-- [ ] **Step 1: Add the failing tests** inside the `for (const s of services)` loop in `tests/build/services.test.mjs`
+- [x] **Step 1: Add the failing tests** inside the `for (const s of services)` loop in `tests/build/services.test.mjs`
 
 ```js
   test(`${s.slug}: the drawing is the 3D kit, a picture with no links`, () => {
@@ -930,14 +930,14 @@ git commit -m "feat: group highlight, load motion and small-screen pins for the 
 
 The existing tests in that loop (same class, role, label, and only approved words) stay as they are and must keep passing.
 
-- [ ] **Step 2: Run and watch them fail**
+- [x] **Step 2: Run and watch them fail**
 
 Run: `npm run build && node --test tests/build/services.test.mjs`
 Expected: FAIL (`dwg--iso` missing; `<use>` present).
 
-- [ ] **Step 3: Software Development.** Port `isoSoftwareDetail` from `iso.mjs` (`projector(150, 124)`, `viewBox="0 0 590 450"`): a floor 10.2 × 4.25 on a base 0.4 high, `zoneSoftware(P, 2.6, 0.45, 7.2, 2.8)`, the neutral "Existing systems" rack with its dashed amber link, the app window and phone above, and the five labels. Pieces are `<g data-svc="software-development">`; the rack is neutral and has no `data-svc`. No links, no pins, no `rise`, and no travelling dots (`<Cable>` without `flow`).
+- [x] **Step 3: Software Development.** Port `isoSoftwareDetail` from `iso.mjs` (`projector(150, 124)`, `viewBox="0 0 590 450"`): a floor 10.2 × 4.25 on a base 0.4 high, `zoneSoftware(P, 2.6, 0.45, 7.2, 2.8)`, the neutral "Existing systems" rack with its dashed amber link, the app window and phone above, and the five labels. Pieces are `<g data-svc="software-development">`; the rack is neutral and has no `data-svc`. No links, no pins, no `rise`, and no travelling dots (`<Cable>` without `flow`).
 
-- [ ] **Step 4: The other four drawings**, each to spec 8.1's table and to the software drawing's pattern: a small floor on a 0.4 base, islands from the zone builders or built from parts, upright labels above and painted labels on islands, a `viewBox` about 590 wide.
+- [x] **Step 4: The other four drawings**, each to spec 8.1's table and to the software drawing's pattern: a small floor on a 0.4 base, islands from the zone builders or built from parts, upright labels above and painted labels on islands, a `viewBox` about 590 wide.
 
 | Slug | Build from | Labels, exactly |
 | --- | --- | --- |
@@ -948,16 +948,16 @@ Expected: FAIL (`dwg--iso` missing; `<use>` present).
 
 Rules for all four: a colour always means its service; nothing overlaps a label; tall things stand at the back; every label is one of that page's approved words, written exactly as listed, and all of them are used. Use the `frontend-design` skill for composition only, inside this kit.
 
-- [ ] **Step 5: Styles.** In `drawing.css`: `.dwg--detail.dwg--iso .t1{font-size:15px}`, `.t2{font-size:13.5px}`, `.lay.t1{font-size:16px}`, `.lay.t2{font-size:14px}`. The figure keeps its frame, padding and slab from Task 3.
+- [x] **Step 5: Styles.** In `drawing.css`: `.dwg--detail.dwg--iso .t1{font-size:15px}`, `.t2{font-size:13.5px}`, `.lay.t1{font-size:16px}`, `.lay.t2{font-size:14px}`. The figure keeps its frame, padding and slab from Task 3.
 
-- [ ] **Step 6: Run the tests**
+- [x] **Step 6: Run the tests**
 
 Run: `npm run build && node --test tests/build/services.test.mjs tests/build/colour.test.mjs`
 Expected: PASS.
 
-- [ ] **Step 7: Visual check, six screenshots:** the software page's hero in Paper against `mockup-service-page.html#l=3&t=light`; the other four pages' heroes in Paper; one of them in Blueprint. The quality reviewer checks each new drawing against spec 8.1 and against the software drawing for weight, spacing and colour discipline, and checks that each fits its column at 1440px and at 390px without clipping.
+- [x] **Step 7: Visual check, six screenshots:** the software page's hero in Paper against `mockup-service-page.html#l=3&t=light`; the other four pages' heroes in Paper; one of them in Blueprint. The quality reviewer checks each new drawing against spec 8.1 and against the software drawing for weight, spacing and colour discipline, and checks that each fits its column at 1440px and at 390px without clipping.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src tests
