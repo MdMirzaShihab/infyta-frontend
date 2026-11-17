@@ -220,7 +220,7 @@ Conditions the spec implies but no feature test would otherwise exercise. Each h
 - Produces: class `.paper-card` (Paper tokens on one element, in any theme).
 - Produces, on any element with `data-svc`: `--svc`, `--svc-line`, `--svc-wash`, `--svc-floor`, `--svc-top`, `--svc-left`, `--svc-right`, `--svc-chip`, `--svc-chip-fg`.
 
-- [ ] **Step 1: Write the failing token tests** in `tests/unit/tokens.test.mjs`
+- [x] **Step 1: Write the failing token tests** in `tests/unit/tokens.test.mjs`
 
 Change the `brand constants` test: `'--amber': '#F5A623'`, and add `'--amber-hover': '#FFB83D'`. Then add:
 
@@ -279,7 +279,7 @@ test('contrast: every service line on the sheet is at least 3:1', () => {
 });
 ```
 
-- [ ] **Step 2: Write the failing rule tests** in `tests/unit/colour-rules.test.mjs`
+- [x] **Step 2: Write the failing rule tests** in `tests/unit/colour-rules.test.mjs`
 
 ```js
 import test from 'node:test';
@@ -308,12 +308,12 @@ test('every service has a block that maps its colour', () => {
 });
 ```
 
-- [ ] **Step 3: Run both files and watch them fail**
+- [x] **Step 3: Run both files and watch them fail**
 
 Run: `node --test tests/unit/tokens.test.mjs tests/unit/colour-rules.test.mjs`
 Expected: FAIL (`--amber` is `#E9A23B`; `--sw is not defined`; no `services.css`).
 
-- [ ] **Step 4: Add the tokens to `src/styles/tokens.css`**
+- [x] **Step 4: Add the tokens to `src/styles/tokens.css`**
 
 - `:root`: change `--amber`; add every token in the Interfaces list with its Paper value from the tests. `--btn-hover: var(--amber-hover)`. Each `--P-chip` is written as its own hex (the test reads values, not aliases, so either form passes; hex keeps the dark and inverse blocks simple).
 - Both dark blocks (the media query and `:root[data-theme="dark"]`, identical): the Blueprint values of the 32 service tokens, `--it-wash`, `--band-alt` and the seven `--dw-*` tokens.
@@ -330,7 +330,7 @@ Expected: FAIL (`--amber` is `#E9A23B`; `--sw is not defined`; no `services.css`
 }
 ```
 
-- [ ] **Step 5: Create `src/styles/services.css`** and import it in `src/app/layout.jsx` right after `tokens.css`
+- [x] **Step 5: Create `src/styles/services.css`** and import it in `src/app/layout.jsx` right after `tokens.css`
 
 Five blocks, one per slug. The four coloured services map straight through, for example:
 
@@ -352,14 +352,14 @@ Five blocks, one per slug. The four coloured services map straight through, for 
 }
 ```
 
-- [ ] **Step 6: Point the closed dot's halo at the token** in `src/styles/shell.css:25`: `box-shadow: 0 0 0 3px var(--amber-halo)`.
+- [x] **Step 6: Point the closed dot's halo at the token** in `src/styles/shell.css:25`: `box-shadow: 0 0 0 3px var(--amber-halo)`.
 
-- [ ] **Step 7: Run the tests**
+- [x] **Step 7: Run the tests**
 
 Run: `node --test tests/unit/tokens.test.mjs tests/unit/colour-rules.test.mjs`
 Expected: PASS, including the existing dark-equality and print tests.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src/styles/tokens.css src/styles/services.css src/styles/shell.css src/app/layout.jsx tests/unit/tokens.test.mjs tests/unit/colour-rules.test.mjs

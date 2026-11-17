@@ -23,8 +23,8 @@ is lost, this table and `git log` are the record.
 
 | Task | Status | Commits |
 | --- | --- | --- |
-| 1. Colour tokens | Implemented, in review | a13880a |
-| 2. Colour pass: components and home | Not started | |
+| 1. Colour tokens | Done, review clean | a13880a |
+| 2. Colour pass: components and home | Implementer dispatched | |
 | 3. Colour pass: inner pages | Not started | |
 | 4. Geometry and parts | Not started | |
 | 5. Hero scene and layout | Not started | |
