@@ -6,16 +6,16 @@ import { zoneSecurity } from "../iso/zones";
 import { Ground, T, byDepth } from "./kit";
 
 const NET = "network-infrastructure", SEC = "security-surveillance";
-const P = projector(206, 118);
-const W = 8.9, D = 3.5, H = 2.6, TH = 0.25;
+const P = projector(226, 118);
+const W = 7.8, D = 3.5, H = 2.6, TH = 0.25;
 const sec = zoneSecurity(P, 0.15, 0.3, 5.6);
 const { rec } = sec.anchors;
 
 // The switch: a low teal box on the floor, ports on its +y face.
-const SW = { x: 7.5, y: 1.0, w: 0.8, d: 0.6, h: 0.32 }, SF = faceY(P, SW.y + SW.d);
+const SW = { x: 6.6, y: 1.0, w: 0.8, d: 0.6, h: 0.32 }, SF = faceY(P, SW.y + SW.d);
 const sw = P(SW.x + SW.w / 2, SW.y + SW.d / 2, SW.h);
 
-export const viewBox = "0 0 590 390";
+export const viewBox = "0 0 590 376";
 export const body = (
   <>
     <Ground P={P} W={W} D={D} x0={-TH} />
@@ -32,8 +32,8 @@ export const body = (
       {[0, 1, 2, 3, 4].map((i) => (
         <FaceRect key={i} F={SF} a0={SW.x + 0.1 + i * 0.13} b0={0.1} a1={SW.x + 0.19 + i * 0.13} b1={0.22} className={i === 0 ? "thin lit" : "thin"} />
       ))}
-      <T x={sw[0]} y={sw[1] - 22} anchor="middle">Switch</T>
+      <T x={sw[0] + 22} y={sw[1] - 34}>Switch</T>
     </g>
-    <g data-svc={SEC}><T x={214} y={72}>Cameras</T></g>
+    <g data-svc={SEC}><T x={234} y={72}>Cameras</T></g>
   </>
 );
