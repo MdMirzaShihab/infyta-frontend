@@ -109,6 +109,8 @@ buttons are navy with white text. Accessibility now scores 1.00 on the pages tes
 
 Note: the slider, the floating circles and the hero animations described above no longer exist.
 The redesign (section 4) replaced them, and the speed figures there are the current ones.
+The "Home hero" notes above are superseded by "Colour and 3D drawings" in section 4, which describes
+the current home hero.
 
 ## 4. Visible changes in the redesign
 
@@ -127,6 +129,8 @@ What a visitor will notice, in plain words. Please read it and tell us what to c
   and the phone menu move.
 
 ### The home page
+Superseded for the drawing: the home hero is now the 3D-style drawing described in "Colour and 3D
+drawings" below. The flat line drawing in this part and in "The new look" no longer exists.
 - The drawing, with a strip under it that reads: Drawing "Typical office network"; Drawn by
   "Infyta, Azimpur, Dhaka"; Scale "Not to scale"; Key "1 to 5 are our services. Select any part."
 - A list of the five services, each with a short "works with" line and a small drawing.
@@ -281,6 +285,11 @@ Word changes (spec section 12). No visible wording changes, except:
   typical office. Each coloured zone links to the Infyta service that builds it."
 
 ### Lighthouse (mobile, local build)
+Current figures, after the colour and 3D drawings (mobile, local build, 2026-11-17):
+- Home (`/`): Performance 0.99, Accessibility 1.00.
+- Software Development (`/services/software-development`): Performance 1.00, Accessibility 1.00.
+
+Earlier figures, kept as history (before the colour and 3D drawings):
 Measured on a local build with `npx lighthouse` (Performance, Accessibility), in pairs of runs.
 Performance moves between runs of the same build, mostly with how busy the computer is, so the
 range is listed as well as each pair.
