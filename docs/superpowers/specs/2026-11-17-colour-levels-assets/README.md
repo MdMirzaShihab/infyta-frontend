@@ -10,9 +10,9 @@ truth for the design spec; nothing here ships with the site.
 | Three colour levels shown in a mockup (colour pass; coloured drawings; illustrated) | Done. The owner picked level 3 on 2026-11-17 |
 | Mockup version 2 (one island per service, group highlight, a service page) | Done |
 | Design spec (`docs/superpowers/specs/2026-11-17-colour-and-3d-drawings-design.md`) | Approved by the owner on 2026-11-17 |
-| Implementation plan (`docs/superpowers/plans/2026-11-17-colour-and-3d-drawings.md`) | Written on 2026-11-17, waiting for the owner's review. Eight tasks, to be run with subagent-driven development in a new session |
+| Implementation plan (`docs/superpowers/plans/2026-11-17-colour-and-3d-drawings.md`) | Approved by the owner on 2026-11-17. Eight tasks, to be run with subagent-driven development in a new session |
 | Prompt to start or resume | `docs/superpowers/plans/2026-11-17-colour-and-3d-drawings-START-PROMPT.md` |
-| Implementation | Not started. Nothing under `src/` has changed |
+| Implementation | In progress since 2026-11-17 (see the table below) |
 
 ## Implementation progress
 
@@ -23,7 +23,7 @@ is lost, this table and `git log` are the record.
 
 | Task | Status | Commits |
 | --- | --- | --- |
-| 1. Colour tokens | Not started | |
+| 1. Colour tokens | Implementer dispatched | |
 | 2. Colour pass: components and home | Not started | |
 | 3. Colour pass: inner pages | Not started | |
 | 4. Geometry and parts | Not started | |
