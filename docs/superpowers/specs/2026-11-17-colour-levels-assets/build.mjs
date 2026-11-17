@@ -112,7 +112,10 @@ const NOTES = {
 const groupCss = SLUGS.map((s) =>
   `html.l3 .iso:has(.svc[data-svc="${s}"]:is(:hover,:focus-visible)) .svc:not([data-svc="${s}"]){opacity:.24}`
   + `html.l3 main:has(.key__row[data-svc="${s}"]:is(:hover,:focus-visible)) .iso .svc[data-svc="${s}"]{opacity:1;color:var(--fg)}`
-  + `html.l3[data-hl="${s}"] .iso .svc:not([data-svc="${s}"]){opacity:.24}`).join("")
+  + `html.l3[data-hl="${s}"] .iso .svc:not([data-svc="${s}"]){opacity:.24}`
+  // Hovering a service in the drawing marks its row with the row's own hover look.
+  + `html.l2 main:has(.dwg .svc[data-svc="${s}"]:is(:hover,:focus-visible)) .key__row[data-svc="${s}"]{background:color-mix(in srgb,var(--svc) var(--zonepct),var(--sheet))}`
+  + `html.l2 main:has(.dwg .svc[data-svc="${s}"]:is(:hover,:focus-visible)) .key__row[data-svc="${s}"] .dwg--mini{color:var(--fg);background:color-mix(in srgb,var(--svc) var(--p-top),var(--n-floor))}`).join("")
   + `html.l3 main:has(.key__row:is(:hover,:focus-visible)) .iso .svc{opacity:.24}`;
 
 function finish(html, page) {

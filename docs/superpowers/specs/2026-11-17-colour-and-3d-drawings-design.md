@@ -66,8 +66,8 @@ the owner should check are in section 13.
 - Everything in the first design's anti-goals that is not replaced in section 14: no stock or generated
   photos, no invented numbers, no fake technical decoration, no gradient text, no glass, no glows, no
   reveal-on-scroll, no hover that scales or bounces.
-- A service colour used for anything that is not that service. Amber is the one exception, and its two
-  uses are listed in section 6.1.
+- A service colour used for another service. Teal and amber also have the site-wide uses listed in
+  section 6.1, and no others.
 - Soft shadows, blur or gradients. Depth comes from flat faces and from solid offset slabs only.
 - Motion that runs for more than five seconds without the visitor asking for it.
 - A drawing that is unreadable, or links that stop working, when CSS animation or `:has()` is missing.
@@ -87,11 +87,16 @@ Rules the existing tests encode and this work must keep or deliberately replace 
 - Each service page has `figure svg.dwg--detail[role="img"]` with today's `aria-label`, and every `<text>`
   in it is one of today's approved labels (the `DETAIL` table in `tests/build/services.test.mjs`).
 - No element carries an inline `opacity:0`. No Tailwind palette class.
-- `src/styles/tokens.css` holds every colour. The test that reads it understands only `#RRGGBB`,
-  `rgba(r,g,b,a)` and `var(--x)`; every token redefined for dark or inverse must exist on `:root` and be
-  reset in the print block. Components and other stylesheets use tokens only, never a colour value.
+- The test that reads `src/styles/tokens.css` understands only `#RRGGBB`, `rgba(r,g,b,a)` and
+  `var(--x)`; every token redefined for dark or inverse must exist on `:root` and be reset in the print
+  block.
 - `color-mix()` is not used in shipped CSS. The mockup uses it for speed; the site uses the fixed values
   in section 6.3, so the page looks the same in older phone browsers.
+- A rule from the first build that no test enforces yet: new colours go in `tokens.css`, and components
+  and other stylesheets use tokens. Today's exceptions stay as they are: the logo's own colours in
+  `src/components/Logo.jsx`, and four translucent halos in `shell.css` and `base.css`. One of those, the
+  closed dot's halo in `shell.css` (`rgba(233,162,59,.25)`), must follow the new amber:
+  `rgba(245,166,35,.25)`.
 - `<main>` is rendered by `src/app/layout.jsx`, and `shell.css` has rules that look at `<main>`'s direct
   children (`main:has(>.inverse:last-child)+.foot`). Do not wrap a page's sections in an extra element.
 
@@ -135,15 +140,16 @@ this document wins. Where this document is silent, the mockup at level 3 decides
 | --- | --- | --- |
 | Navy (ink) | The brand ground and the line. Also **IT Support & Consultancy**: it wraps everything else. | Text, outlines, inverse bands, the hero title block, the base of every 3D drawing. |
 | Teal (signal) | The brand's bright colour, and **Network Infrastructure**. | Network zones and cables; site accents: heading bars, tags, slabs, the call-to-action band, lights. |
-| Amber | **Software Development**, and the main action. | Software zone, screen and cables; primary buttons. Nothing else. |
+| Amber | **Software Development**, and the main action. | Software zone, screen and cables; primary buttons; and, as today, the "closed" status dot. Nothing else. |
 | Azure | **Server & Cloud Solutions**. | Servers zone, the cloud, their cable and link. |
 | Violet | **Security & Surveillance**. | Security zone, camera, door terminal, their cables. |
 
 Software and "the thing to click" share amber on purpose: every other colour is cool, so the eye lands on
 software first and on the button second.
 
-On a page that is not about one service, the accent is teal. On a service page, the accent is that
-service's colour (section 8.3).
+On a page that is not about one service, the decorative accent is teal. On a service page it is that
+service's colour, in exactly the places section 9.2 lists. The `--accent` token itself (links and the
+focus ring) does not change on any page.
 
 ### 6.2 Brand constants
 
@@ -188,6 +194,10 @@ Blueprint (dark), on navy:
 IT Support has no hue. Its solid, line and chip are `--fg` (navy on Paper, white on Blueprint), its wash is
 `#E2E4EB` on Paper and `#47527E` on Blueprint, and the text on its chip is `--bg`.
 
+**Inside an inverse band** (navy in both themes) every service token takes its Blueprint value, and IT
+Support's is white. So a number on a service chip is always navy on a bright colour, 5.2:1 or better,
+whatever the theme. Text on any other service chip is `--ink`.
+
 An element marked `data-svc="<slug>"` maps its service's eight tokens to `--svc`, `--svc-line`,
 `--svc-wash`, `--svc-floor`, `--svc-top`, `--svc-left`, `--svc-right`, `--svc-chip`. Everything inside
 reads only the `--svc-*` names.
@@ -206,7 +216,7 @@ better; every Blueprint solid on navy is 5.2:1 or better.
 | `--tag-line` | `rgba(58,193,194,.62)` | same | Certification tag border |
 | `--dw-floor` | `#FFFFFF` | `#27367B` | Office floor in the 3D drawings |
 | `--dw-wall-a` / `--dw-wall-b` | `#EEF1F8` / `#E0E6F2` | `#243270` / `#1C2860` | Left wall / right wall |
-| `--dw-n-top` / `-left` / `-right` | `#FFFFFF` / `#E4E9F4` / `#CCD4E7` | `#3A4A96` / `#2B3A80` / `#1B2759` | Neutral faces: wall tops and ends, the camera bracket, "Existing systems", the IT Support page's equipment |
+| `--dw-n-top` / `-left` / `-right` | `#FFFFFF` / `#E4E9F4` / `#CCD4E7` | `#3A4A96` / `#2B3A80` / `#1B2759` | Neutral faces: wall tops and ends, "Existing systems", the IT Support page's equipment |
 | `--dw-base-b` | `#4C5681` | `#D2D5E0` | The base's right face. Its left face is `--fg`. |
 
 The solid teal call-to-action band (section 6.5) sets its own text tokens: text `--ink`, secondary text
@@ -223,7 +233,7 @@ The solid teal call-to-action band (section 6.5) sets its own text tokens: text 
 | Number badge (service rows) | 28px, filled with the service's chip colour, navy number. |
 | Certification tag | `--tag-bg` fill and `--tag-line` border; text unchanged. |
 | Text link | `--accent` colour. |
-| Slab | A solid block offset 12px right and 12px down behind an element, no blur (16px behind the portrait). Used in exactly these places: the home hero sheet (teal), the advisor portrait (teal), the contact card in the call-to-action band (navy), a service page's drawing and its end panel (service colour), the services index end panel and the contact page's information panel (teal). Nowhere else. |
+| Slab | A solid block offset 12px right and 12px down behind an element, no blur (16px behind the portrait). Used in exactly these places: the home hero sheet (teal), the advisor portrait (teal), the contact card in the call-to-action band (navy), a service page's drawing and its end panel (service colour), the services index end panel and the contact page's information panel (teal). Inside the drawings, the app window and its phone each have a 9px and a 6px amber slab. Nowhere else. |
 | Advisor band | The role line is teal. |
 | Call-to-action band (home) | A solid teal band in both themes, navy text. The contact card inside it is always a white card with navy text, a 1.5px navy border and a navy slab. |
 | Bands | The grounds in section 9. |
@@ -316,22 +326,26 @@ Words are today's hero labels, regrouped. No new words.
 Painted labels are drawn with their island, before equipment, so they can never spill over an island
 edge. Sizes in drawing units: upright 17.5 and 15.5; painted 18.5 and 16; base 16.5.
 
-Pins are the numbered circles, 12.5 radius, filled with the service's chip colour: 1 on the app window's
-corner, 2 on the network rack, 3 on the base, 4 on the recorder, 5 on the cloud and on the tall server
-rack. Two more network pins (on the Staff island and on the access point) show only below 720px.
+Pins are the numbered circles, 12.5 radius, filled with the service's chip colour, with a navy number: 1
+on the app window's corner, 2 on the network rack, 3 on the base, 4 on the recorder, 5 on the cloud and on
+the tall server rack. Pin 3 sits on the base, which is its own colour, so it is drawn the other way
+round: filled with `--sheet`, number in `--fg`. Two more network pins (on the Staff island and on the access point) show only below 720px.
 
 ### 7.5 Links, group highlight and keyboard
 
 - The drawing holds **exactly five links**, one per service, in the order of `services`. Each link's
   accessible name is the service's name (for IT Support: "IT Support & Consultancy: the whole office").
-- A link is drawn last and contains that service's pin, its upright labels and a transparent hit shape
-  over each of its islands and floating objects (for IT Support: the base). So a click or tap anywhere on
-  a zone follows the link, and the five links are the only tab stops.
+- A link is drawn last and contains that service's pins, its upright labels and transparent hit shapes
+  that together cover every visible piece of the service: its islands, the equipment that rises above
+  them, its cables and links (a wide transparent stroke), and its floating objects. For IT Support: the
+  base. So a click, tap or hover on any piece of a service reaches its link, and the five links are the
+  only tab stops. Where two services' hit shapes overlap, the one nearer the viewer is drawn later.
 - The visible pieces (islands, equipment, cables, painted labels) are plain groups marked
   `data-svc="<slug>"` and hidden from assistive technology.
 - **Group highlight.** While one service's link is hovered or focused, every piece of the other four
   services drops to 24% opacity. Walls and floor never dim. The same happens while that service's row in
-  the list below is hovered or focused, and hovering the drawing still marks the matching row, as today.
+  the list below is hovered or focused. Hovering or focusing a service in the drawing marks its row with
+  the row's own hover look (section 8.2); today's white mark would not show on the new white ground.
 - Focus shows a 2px `--accent` outline around the service's pin.
 - This is CSS only (`:has()`), like today's row-and-drawing highlight. Without `:has()` nothing dims and
   every link still works.
@@ -350,13 +364,16 @@ One drawing serves every width.
 ### 7.7 Motion
 
 - **On load, once:** the zones appear in turn (network core, then servers and software, then staff, then
-  security and guest Wi-Fi), each a 0.3s fade, all within 1.8s. Then one dot travels each cable twice. The
-  whole sequence ends within five seconds. Nothing loops after that.
+  security and guest Wi-Fi), each a 0.3s fade, all within 1.8s. Then one dot travels each cable and link
+  twice, 1.5s a pass on every cable whatever its length. The whole sequence ends within five seconds.
+  Nothing loops after that.
 - **On hover or focus of a service** (in the drawing or in the list): the dots on that service's cables
   travel while it is held.
 - Reduced motion and print: the drawing is complete and still, and there are no dots.
 - CSS only. The headline is never part of the sequence.
 - Lit ports do not blink.
+- The mockup's dots loop forever at their own speeds, and its zones do not fade in. Those are mockup
+  shortcuts; build the timings above.
 
 ## 8. The other drawings
 
@@ -386,8 +403,7 @@ service.
 
 ### 8.2 The small flat drawings
 
-The five small drawings in service rows and the 404 drawing stay flat, with today's symbols. They gain
-colour:
+The five small drawings in service rows stay flat, with today's symbols. They gain colour:
 
 - Device bodies are filled with the service's `left` token (IT Support: `--sheet`).
 - In a service row the drawing sits on a tile: 196px wide, 10px radius, 12px 14px padding, filled with the
@@ -409,7 +425,7 @@ Grounds, top to bottom. "Paper" means the page ground `--bg`.
 | About | Page header on paper. Vision and Mission on `--band-alt`. "Infyta at a glance" on paper. Core Values on `--band-tint`. Team call to action inverse. |
 | Team | Page header on paper. Chief Advisor inverse, portrait on a slab. Core Expertise on `--band-tint`. |
 | Contact | Page header on paper. Form and information on `--band-alt`; the information panel has a teal slab. Map sheet unchanged. |
-| 404 | On paper. Buttons and the small drawing take the colour pass. |
+| 404 | On paper. Its buttons take the colour pass. It has no drawing today and gains none. |
 
 ### 9.1 Home
 
@@ -423,9 +439,12 @@ Grounds, top to bottom. "Paper" means the page ground `--bg`.
 
 Every section of a service page is marked with the service's slug, so the page reads `--svc-*`:
 
-- The teal heading bars, the step numbers in "Our Approach" (filled, navy number), the drawing's slab and
-  the end panel's slab all take the service's solid colour. On the IT Support page that is navy on Paper
-  and white on Blueprint.
+- The heading bars, the drawing's slab and the end panel's slab take the service's solid colour. The step
+  numbers in "Our Approach" are filled with the service's chip colour, with a navy number. This list is
+  complete: nothing else on the page changes with the service.
+- "Our Approach" is an inverse band, so its heading bar and step numbers use the Blueprint values
+  (section 6.3). On the IT Support page the accent is navy on Paper and white on Blueprint and in the
+  inverse band, where its step numbers are white with a navy number.
 - Buttons stay amber. Related Services rows keep their own services' colours.
 
 ## 10. Accessibility and performance
@@ -457,13 +476,13 @@ Add:
 
 - Unit, tokens: every value in sections 6.3 and 6.4 is present with the right value in Paper and
   Blueprint, the dark values match between the media query and `data-theme`, and print resets them.
-- Unit, contrast: `--ink` on each service's chip in both themes, `--ink` on `--amber` and on
-  `--amber-hover`, `--ink` on `--signal`, and the call-to-action band's secondary text on `--signal`, each
-  4.5:1 or better; each service's `line` on `--sheet` in both themes, 3:1 or better.
-- Unit: no file under `src/` except `src/styles/tokens.css` (and `src/lib/theme-script.js`) contains a
-  hex colour or `color-mix(`.
+- Unit, contrast: `--ink` on each service's chip in Paper, Blueprint and the inverse band, `--ink` on
+  `--amber` and on `--amber-hover`, `--ink` on `--signal`, and the call-to-action band's secondary text
+  on `--signal`, each 4.5:1 or better; each service's `line` on `--sheet` in both themes, 3:1 or better.
+- Unit: no file under `src/` contains `color-mix(`, and none except `src/styles/tokens.css`,
+  `src/lib/theme-script.js` and `src/components/Logo.jsx` contains a hex colour.
 - Build, home: the headline's text content is unchanged; the drawing's `<text>` nodes are only the words
-  in section 7.4.
+  in section 7.4 and the pin numbers 1 to 5.
 - Build, services: unchanged tests must pass against the new drawings (same class, role, label and words).
 - Build: every section in a service page's `<main>` carries that page's `data-svc`.
 
@@ -474,7 +493,10 @@ All other tests pass unchanged.
 No visible wording changes. For the owner's review list:
 
 - Hero labels are regrouped: "Router", "Firewall" and "Core switch" become one label, "Router, firewall,
-  core switch", with "MikroTik, Fortinet, Cisco" under it. All other labels are as they are today.
+  core switch", with "MikroTik, Fortinet, Cisco" under it.
+- Five small cable labels leave the hero drawing, because each zone now has its own island and name:
+  "Staff", "Guest Wi-Fi", "Cameras", "Doors" and the second "Servers".
+- All other hero labels are as they are today.
 - Words only screen readers announce: the hero drawing's description becomes "3D-style drawing of a
   typical office. Each coloured zone links to the Infyta service that builds it."
 
@@ -497,6 +519,9 @@ No visible wording changes. For the owner's review list:
     line back in teal.
 11. **Brighter amber.** `#F5A623` replaces `#E9A23B`, including the "closed" dot.
 12. **Service pages take their service's colour.** The IT Support page is navy.
+13. **Inside navy bands**, service colours use their brighter Blueprint shades, so numbers on them stay
+    readable in both themes.
+14. **Five small cable labels leave the hero** (section 12).
 
 ## 14. What this replaces in the first design
 

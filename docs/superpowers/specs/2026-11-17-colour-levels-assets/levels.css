@@ -30,6 +30,8 @@
     --p-top:34%; --p-left:66%; --p-right:44%;
 }
 
+/* Inverse bands are navy in both themes, so service colours take their Blueprint values there. */
+.inverse{--c-violet:#A996FF; --c-azure:#6EA4FF; --dd-teal:var(--c-teal); --dd-azure:var(--c-azure); --dd-violet:var(--c-violet); --dd-amber:var(--c-amber); --chippct:100%}
 .x2,.x3{display:none}
 h1 .hl{color:inherit}
 
@@ -212,7 +214,7 @@ html.l1 main>.band--snug{background:var(--band-alt);padding-block:clamp(64px,7.5
 /* From level 2 the page takes its service's colour for its accents. */
 html.l2 main[data-svc] .svc-hero figure{box-shadow:12px 12px 0 var(--svc)}
 html.l2 main[data-svc] :is(.prose,.split--faq,.head,.inverse>.wrap,.band>.wrap)>h2::before,html.l2 main[data-svc] .head h2::before{background:var(--svc)}
-html.l2 main[data-svc] .steps li::before{background:var(--svc);border-color:var(--svc)}
+html.l2 main[data-svc] .steps li::before{background:var(--svc-chip);border-color:var(--svc-chip);color:var(--ink)}
 html.l2 main[data-svc] .svc-hero .btn:not(.btn--ghost){--btn-bg:var(--c-amber)}
 html.l2 main[data-svc]>.band:last-child .panel{box-shadow:12px 12px 0 var(--svc)}
 html.l2 .svc-hero .dwg--detail{--body:color-mix(in srgb,var(--svc) var(--fillpct),var(--sheet))}
