@@ -11,12 +11,9 @@
 .dwg .wan,.dwg .boundary{stroke-dasharray:5 5}
 .dwg .boundary{stroke-width:1.2}
 .dwg .hit{stroke:none;fill:transparent;pointer-events:all}
-.dwg .knock{fill:var(--sheet);stroke:none}
 .dwg text{stroke:none;fill:currentColor;font-family:inherit}
 .dwg .t1{font-size:13.5px;font-stretch:86%;font-weight:640;letter-spacing:.004em}
 .dwg .t2{font-size:12.5px;font-stretch:82%;font-weight:440;opacity:.8}
-.dwg .flag rect{fill:var(--body);stroke-width:1}
-.dwg .flag text{font-size:11px;font-stretch:78%;font-weight:640;letter-spacing:.02em}
 .dwg .bub text{font-size:12.5px;font-weight:720;font-stretch:96%}
 .dwg--mini{width:196px;flex:none;padding:12px 14px;border-radius:10px;background:var(--svc-wash);--body:var(--svc-left)}
 .dwg--mini,.dwg--detail{color:inherit}

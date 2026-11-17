@@ -228,6 +228,58 @@ What a visitor will notice, in plain words. Please read it and tell us what to c
    `closedDates` runs longer than six days, that weekday means the one after next. Showing a
    date instead would be new wording. Decide before entering a long closure such as Eid.
 
+### Colour and 3D drawings
+What a visitor will notice, in plain words. This part replaces the hero description in "The new look"
+and "The home page" above: the home drawing is now in 3D style.
+- Each of the five services now has its own colour: Software Development, Network Infrastructure,
+  IT Support & Consultancy, Security & Surveillance and Server & Cloud Solutions. A colour is used
+  only for its service, in the drawing, the service list and the service's own page.
+- The home page opens with the headline on the left and a 3D-style drawing of a typical office on
+  the right (wide screens). Each coloured zone is a link to its service. Pointing at or focusing one
+  dims the other four, and the matching row in the service list lights up too.
+- Small dots travel along the cables briefly when the page loads and while a service is pointed at.
+  Nothing runs forever. With reduced motion, or when printed, the drawing is complete and still.
+- On phones the drawing's labels are hidden; numbered pins and the list below are the key.
+- The five service pages have 3D-style drawings in their service's colour, and take that colour for
+  their numbers and highlights. The small drawings in the service list stay flat, and gain colour.
+- Buttons are amber everywhere, the call-to-action band is solid teal in both themes, and the
+  advisor's role line is teal again. The amber is a little brighter (`#F5A623`).
+
+Please look at the four new service drawings (Network Infrastructure, IT Support & Consultancy,
+Security & Surveillance, Server & Cloud Solutions). They were not in the mockup, so you see them
+for the first time in the build.
+
+The fourteen calls (spec section 13):
+1. **Hero layout.** Headline on the left, drawing on the right, on wide screens. This replaces "drawing
+   first, headline under it", which the owner approved on 2026-11-16.
+2. **"Limitless" in teal**, on its own line on wide screens.
+3. **Strict colour coding.** Staff screens are teal, not amber: showing software on those screens would
+   put amber inside a network zone. Software's presence comes from its own island and the app window.
+4. **Picture-only objects.** The guest zone has a bench and a table; the software zone has a large screen
+   and two databases. They carry no labels and make no claim.
+5. **The drawing's name** stays "Typical office network", although software now leads. "Typical office"
+   would fit better and is a wording change the owner can ask for.
+6. **Small drawings in the service list stay flat**, as icons, and gain colour.
+7. **Four service drawings are not in the mockup** (section 8.1). The owner sees them after the build.
+8. **Phones:** labels are hidden in the hero drawing; numbered pins and the list below are the key.
+9. **Motion:** dots run briefly on load and while a service is pointed at. Nothing runs forever.
+10. **Amber buttons everywhere**, a solid teal call-to-action band in both themes, and the advisor's role
+    line back in teal.
+11. **Brighter amber.** `#F5A623` replaces `#E9A23B`, including the "closed" dot.
+12. **Service pages take their service's colour.** The IT Support page is navy.
+13. **Inside navy bands**, service colours use their brighter Blueprint shades, so numbers on them stay
+    readable in both themes.
+14. **Five small cable labels leave the hero** (section 12).
+
+Word changes (spec section 12). No visible wording changes, except:
+- Hero labels are regrouped: "Router", "Firewall" and "Core switch" become one label, "Router, firewall,
+  core switch", with "MikroTik, Fortinet, Cisco" under it.
+- Five small cable labels leave the hero drawing, because each zone now has its own island and name:
+  "Staff", "Guest Wi-Fi", "Cameras", "Doors" and the second "Servers".
+- All other hero labels are as they are today.
+- Words only screen readers announce: the hero drawing's description becomes "3D-style drawing of a
+  typical office. Each coloured zone links to the Infyta service that builds it."
+
 ### Lighthouse (mobile, local build)
 Measured on a local build with `npx lighthouse` (Performance, Accessibility), in pairs of runs.
 Performance moves between runs of the same build, mostly with how busy the computer is, so the

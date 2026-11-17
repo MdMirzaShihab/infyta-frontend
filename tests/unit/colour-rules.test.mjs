@@ -45,3 +45,14 @@ test('step chips and .num print as an outline with dark text, after their screen
     assert.match(css.slice(p, css.indexOf('}}', p)), /color:var\(--fg\)/);
   }
 });
+
+test('every flat symbol is used by a small drawing, and nothing uses a missing one', () => {
+  const ids = (file, re) => [...readFileSync(file, 'utf8').matchAll(re)].map((m) => m[1]);
+  const defined = new Set(ids('src/components/drawing/Symbols.jsx', /id="(d-[a-z-]+)"/g));
+  const used = new Set(files('src/components').flatMap((f) => ids(f, /href="#(d-[a-z-]+)"/g)));
+  assert.deepEqual([...defined].sort(), [...used].sort());
+});
+test('no style is left for the flat hero', () => {
+  const css = readFileSync('src/styles/drawing.css', 'utf8');
+  for (const dead of ['.dwg--wide', '.dwg--tall', '.wire', '.knock', '.flag', '.svc-line']) assert.ok(!css.includes(dead), dead);
+});
