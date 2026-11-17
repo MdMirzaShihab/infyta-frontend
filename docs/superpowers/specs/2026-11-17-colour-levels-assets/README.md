@@ -12,7 +12,7 @@ truth for the design spec; nothing here ships with the site.
 | Design spec (`docs/superpowers/specs/2026-11-17-colour-and-3d-drawings-design.md`) | Approved by the owner on 2026-11-17 |
 | Implementation plan (`docs/superpowers/plans/2026-11-17-colour-and-3d-drawings.md`) | Approved by the owner on 2026-11-17. Eight tasks, to be run with subagent-driven development in a new session |
 | Prompt to start or resume | `docs/superpowers/plans/2026-11-17-colour-and-3d-drawings-START-PROMPT.md` |
-| Implementation | In progress since 2026-11-17 (see the table below) |
+| Implementation | Done on 2026-11-17 on branch `colour-levels`; waiting for the owner's by-hand checks (docs/review-list.md section 4) |
 
 ## Implementation progress
 
@@ -31,7 +31,7 @@ is lost, this table and `git log` are the record.
 | 6. Highlight, motion, small screens | Done, review clean after 1 fix round | 50df74b, 495a594 |
 | 7. Service page drawings | Done, review clean | 6ea3c38 |
 | 8. Cleanup, docs, verification | Done, review clean. Lighthouse mobile: home 0.99 / 1.00, software page 1.00 / 1.00 | b059d60 |
-| Whole-branch review | Review done (with fixes); fix wave dispatched | |
+| Whole-branch review | Done (Opus). One fix wave, re-review clean. Ready for the owner; not merged, not pushed | 7e11495, fd119a0, e3fee55 |
 
 ## Owner's decisions
 
