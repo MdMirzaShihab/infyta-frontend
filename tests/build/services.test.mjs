@@ -44,6 +44,18 @@ for (const s of services) {
       assert.ok(doc.querySelector(`defs [id="${id}"]`), `missing symbol #${id}`);
     }
   });
+  test(`${s.slug}: the drawing is the 3D kit, a picture with no links`, () => {
+    const svg = main.querySelector('figure svg.dwg--detail');
+    assert.ok(svg.classList.contains('dwg--iso'));
+    assert.equal(svg.querySelectorAll('a, use, [tabindex]').length, 0);
+    assert.ok(svg.querySelectorAll('polygon').length >= 12);
+    // IT Support has no colour of its own: its equipment is drawn in the neutral faces.
+    if (s.slug !== 'it-support-consultancy') assert.ok(svg.querySelectorAll(`[data-svc="${s.slug}"]`).length > 0, 'the page\'s own service is drawn in its colour');
+  });
+  test(`${s.slug}: the drawing uses every approved label`, () => {
+    const words = main.querySelectorAll('figure svg.dwg--detail text').map((t) => t.textContent.trim());
+    for (const w of DETAIL[s.slug].words) assert.ok(words.includes(w), `missing "${w}"`);
+  });
   test(`${s.slug}: body sections`, () => {
     assert.equal(main.querySelectorAll('.spec li').length, s.included.length);
     const steps = main.querySelectorAll('section.inverse ol.steps > li');

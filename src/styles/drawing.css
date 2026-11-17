@@ -42,6 +42,9 @@
 .dwg--iso .flow{fill:var(--svc-line);stroke:var(--sheet);stroke-width:1.5}
 .dwg--iso .t1{font-size:17.5px}.dwg--iso .t2{font-size:15.5px}
 .dwg--iso .lay.t1{font-size:18.5px}.dwg--iso .lay.t2{font-size:16px;opacity:.86}
+/* The service page drawings (ServiceDetail.jsx): the mock's .iso--detail sizes. */
+.dwg--detail.dwg--iso .t1{font-size:15px}.dwg--detail.dwg--iso .t2{font-size:13.5px}
+.dwg--detail.dwg--iso .lay.t1{font-size:16px}.dwg--detail.dwg--iso .lay.t2{font-size:14px}
 .dwg--iso .basetext{fill:var(--sheet);stroke:none;font-size:16.5px;font-weight:660;font-stretch:98%;letter-spacing:.012em}
 .dwg--iso .bub circle{fill:var(--svc-chip)}
 .dwg--iso .bub text{fill:var(--svc-chip-fg);font-size:13.5px;font-weight:720;font-stretch:96%}
