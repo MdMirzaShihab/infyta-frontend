@@ -650,7 +650,7 @@ git commit -m "feat: isometric geometry and drawing parts"
 - Produces: `AppCard({ x, y, w = 250, h = 158 })`, and `appCardHits(x, y, w, h)` returning the window's and the phone's rectangles as point arrays.
 - Produces: `OfficeIso()` renders `svg.dwg.dwg--iso.dwg--hero`. Task 6 styles these class names: `piece` (a visible group with `data-svc`), `svc` (a link), `hit`, `hit--line`, `lbl`, `lay`, `basetext`, `pin`, `bub`, `bub--inv`, `ring`, `monly`, `cab`, `cab--dash`, `flow`, `rise`.
 
-- [ ] **Step 1: Write the failing headline test** `tests/unit/headline.test.mjs`
+- [x] **Step 1: Write the failing headline test** `tests/unit/headline.test.mjs`
 
 ```js
 import test from 'node:test';
@@ -666,7 +666,7 @@ test('returns null when the word is missing, so the caller prints the headline w
 });
 ```
 
-- [ ] **Step 2: Replace the hero drawing test** in `tests/build/home.test.mjs` (the test named "hero drawing links to every service, in both layouts") with:
+- [x] **Step 2: Replace the hero drawing test** in `tests/build/home.test.mjs` (the test named "hero drawing links to every service, in both layouts") with:
 
 ```js
 const WORDS = ['Cloud', 'AWS, Azure, Google Cloud', 'Servers', 'Windows, Linux, VMware', 'Internet', 'Router, firewall, core switch', 'MikroTik, Fortinet, Cisco', 'Business software', 'SQL Server, MySQL, MongoDB', 'Staff workstations', 'CCTV cameras', 'Recorder', 'Access control', 'Biometric attendance', 'Office Wi-Fi', 'Guest access', 'Your office', 'IT Support & Consultancy', '1', '2', '3', '4', '5'];
@@ -700,16 +700,16 @@ test('headline: one word is marked, the words are unchanged', () => {
 });
 ```
 
-- [ ] **Step 3: Run and watch them fail**
+- [x] **Step 3: Run and watch them fail**
 
 Run: `node --test tests/unit/headline.test.mjs && npm run build && node --test tests/build/home.test.mjs`
 Expected: FAIL (no `headline.js`; no `svg.dwg--hero`).
 
-- [ ] **Step 4: Write `src/lib/headline.js`.**
+- [x] **Step 4: Write `src/lib/headline.js`.**
 
-- [ ] **Step 5: Write `zones.jsx` and `AppCard.jsx`** by porting `zoneCore`, `zoneServers`, `zoneSoftware`, `zoneStaff`, `zoneGuest`, `zoneSecurity` and `appCard` from `iso.mjs`, coordinate for coordinate, onto the parts. Each zone also collects `hits`. Every zone's equipment is `kind="c"`; islands are `kind="p"`.
+- [x] **Step 5: Write `zones.jsx` and `AppCard.jsx`** by porting `zoneCore`, `zoneServers`, `zoneSoftware`, `zoneStaff`, `zoneGuest`, `zoneSecurity` and `appCard` from `iso.mjs`, coordinate for coordinate, onto the parts. Each zone also collects `hits`. Every zone's equipment is `kind="c"`; islands are `kind="p"`.
 
-- [ ] **Step 6: Write `OfficeIso.jsx`**, porting `isoScene` (origin `projector(440, 168)`, `viewBox="0 0 944 660"`) into this structure:
+- [x] **Step 6: Write `OfficeIso.jsx`**, porting `isoScene` (origin `projector(440, 168)`, `viewBox="0 0 944 660"`) into this structure:
 
 ```jsx
 <svg className="dwg dwg--iso dwg--hero" viewBox="0 0 944 660" role="group" aria-label={ARIA}>
@@ -730,13 +730,13 @@ Expected: FAIL (no `headline.js`; no `svg.dwg--hero`).
 - Upright labels and pins: the words, positions and sizes in the mock's `isoScene`, with pin 3 as `inv` and the two extra network pins as `monly`. The base text is `<text className="basetext">` inside the IT Support piece.
 - Pin numbers come from `CALLOUT` in `src/components/drawing/callouts.js`.
 
-- [ ] **Step 7: `HomeView.jsx`.** Render `<OfficeIso />` in place of `<OfficeNetwork />`. Headline: `const h = splitHeadline(pages.home.heading, "Limitless")` and `<h1>{h ? <>{h.before}<span className="hl">{h.word}</span>{h.after}</> : pages.home.heading}</h1>`. The title block is `tb inverse`; the strip is `<TitleBlock items={DRAWING_NOTES} className="inverse" />`. Delete `OfficeNetwork.jsx`.
+- [x] **Step 7: `HomeView.jsx`.** Render `<OfficeIso />` in place of `<OfficeNetwork />`. Headline: `const h = splitHeadline(pages.home.heading, "Limitless")` and `<h1>{h ? <>{h.before}<span className="hl">{h.word}</span>{h.after}</> : pages.home.heading}</h1>`. The title block is `tb inverse`; the strip is `<TitleBlock items={DRAWING_NOTES} className="inverse" />`. Delete `OfficeNetwork.jsx`.
 
-- [ ] **Step 8: Drawing styles** in `drawing.css`: the class-to-token table in Port Rules, plus from `levels.css`: `.dwg--iso{overflow:visible}`, upright label sizes `.dwg--iso .t1{font-size:17.5px}` and `.t2{font-size:15.5px}`, painted `.lay.t1{font-size:18.5px}` and `.lay.t2{font-size:16px;opacity:.86}`, `.bub text{font-size:13.5px}`, `.lead{stroke-width:1.1}`. Add `.dwg--iso .hit{fill:transparent;stroke:none;pointer-events:all}`, `.dwg--iso .hit--line{fill:none;stroke:transparent;stroke-width:14;pointer-events:stroke}`, `.dwg--iso .ring{fill:none;stroke:none}`, `.dwg--iso .monly{display:none}` and `.dwg--hero .rise{animation:rise .3s ease-out var(--d,0s) backwards}`. Use `backwards`, not `forwards`, and set no base `opacity:0`: a finished `forwards` animation would keep overriding Task 6's dimming, and with `backwards` the drawing is simply visible wherever animation does not run. Delete the rules that only served `.dwg--wide` and `.dwg--tall`, including the old row-and-drawing highlight block; in the reduced-motion and print blocks keep `.dwg .rise{animation:none!important;opacity:1!important}`.
+- [x] **Step 8: Drawing styles** in `drawing.css`: the class-to-token table in Port Rules, plus from `levels.css`: `.dwg--iso{overflow:visible}`, upright label sizes `.dwg--iso .t1{font-size:17.5px}` and `.t2{font-size:15.5px}`, painted `.lay.t1{font-size:18.5px}` and `.lay.t2{font-size:16px;opacity:.86}`, `.bub text{font-size:13.5px}`, `.lead{stroke-width:1.1}`. Add `.dwg--iso .hit{fill:transparent;stroke:none;pointer-events:all}`, `.dwg--iso .hit--line{fill:none;stroke:transparent;stroke-width:14;pointer-events:stroke}`, `.dwg--iso .ring{fill:none;stroke:none}`, `.dwg--iso .monly{display:none}` and `.dwg--hero .rise{animation:rise .3s ease-out var(--d,0s) backwards}`. Use `backwards`, not `forwards`, and set no base `opacity:0`: a finished `forwards` animation would keep overriding Task 6's dimming, and with `backwards` the drawing is simply visible wherever animation does not run. Delete the rules that only served `.dwg--wide` and `.dwg--tall`, including the old row-and-drawing highlight block; in the reduced-motion and print blocks keep `.dwg .rise{animation:none!important;opacity:1!important}`.
 
-- [ ] **Step 8b: Cut `tests/unit/drawing-css.test.mjs` down** to what is still true, so the full check passes at the end of this task: keep the `mediaBlock` helper and one test per media query (`@media (prefers-reduced-motion: reduce)` and `@media print`) asserting `/\.dwg \.rise\s*\{[^}]*animation:\s*none[^}]*opacity:\s*1/`. Delete its other tests; Task 6 adds the new ones.
+- [x] **Step 8b: Cut `tests/unit/drawing-css.test.mjs` down** to what is still true, so the full check passes at the end of this task: keep the `mediaBlock` helper and one test per media query (`@media (prefers-reduced-motion: reduce)` and `@media print`) asserting `/\.dwg \.rise\s*\{[^}]*animation:\s*none[^}]*opacity:\s*1/`. Delete its other tests; Task 6 adds the new ones.
 
-- [ ] **Step 9: Hero layout** in `sections.css` (spec 7.1), ported from the `/* Level 3` block of `levels.css`:
+- [x] **Step 9: Hero layout** in `sections.css` (spec 7.1), ported from the `/* Level 3` block of `levels.css`:
 
 ```css
 h1 .hl{color:var(--signal)}
@@ -762,14 +762,14 @@ h1 .hl{color:var(--signal)}
 
 Below 1040px the existing rules already put the title block first.
 
-- [ ] **Step 10: Run the tests**
+- [x] **Step 10: Run the tests**
 
 Run: `node --test tests/unit/headline.test.mjs tests/unit/iso.test.mjs tests/unit/drawing-css.test.mjs && npm run build && node --test tests/build/home.test.mjs tests/build/performance.test.mjs tests/build/colour.test.mjs`
 Expected: PASS.
 
-- [ ] **Step 11: Visual check, four screenshots:** `/` at 1440 wide in Paper and Blueprint against the mock at the same size; `/` at 1100 wide (stacked: title block, then drawing); the mock's hero and the site's hero cropped side by side. The drawing must match the mock piece for piece. Differences allowed: none visible, except that hover is not styled yet.
+- [x] **Step 11: Visual check, four screenshots:** `/` at 1440 wide in Paper and Blueprint against the mock at the same size; `/` at 1100 wide (stacked: title block, then drawing); the mock's hero and the site's hero cropped side by side. The drawing must match the mock piece for piece. Differences allowed: none visible, except that hover is not styled yet.
 
-- [ ] **Step 12: Commit**
+- [x] **Step 12: Commit**
 
 ```bash
 git add -A src tests
