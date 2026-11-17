@@ -38,7 +38,7 @@ const lum = (c) => { const [r, g, b] = c.map((v) => { v /= 255; return v <= 0.03
 const ratio = (a, b) => { const [hi, lo] = [lum(a), lum(b)].sort((x, y) => y - x); return (hi + 0.05) / (lo + 0.05); };
 
 test('brand constants', () => {
-  const want = { '--paper': '#F4F6FA', '--ink': '#1F2C62', '--ink-deep': '#172050', '--ink-lift': '#27367B', '--signal': '#3AC1C2', '--signal-deep': '#0B7378', '--amber': '#E9A23B' };
+  const want = { '--paper': '#F4F6FA', '--ink': '#1F2C62', '--ink-deep': '#172050', '--ink-lift': '#27367B', '--signal': '#3AC1C2', '--signal-deep': '#0B7378', '--amber': '#F5A623', '--amber-hover': '#FFB83D' };
   for (const [k, v] of Object.entries(want)) assert.equal(root[k].toUpperCase(), v, k);
 });
 test('dark tokens are the same in the media query and under data-theme', () => {
@@ -68,4 +68,56 @@ test('print: every theme and inverse band prints with the Paper tokens', () => {
     assert.equal(print[k], root[k], `${k} in print`);
   }
   assert.match(m[2], /color-scheme:\s*light/);
+});
+const SERVICES = {
+  Paper: {
+    sw:  ['#F5A623', '#C27500', '#FEF3E2', '#FDEDD3', '#FCE7C4', '#FAD391', '#F8BD5C', '#FAD391'],
+    net: ['#3AC1C2', '#0E8F93', '#E5F7F7', '#D8F3F3', '#CAEEEF', '#9DE0E1', '#6DD1D2', '#9DE0E1'],
+    sec: ['#8A70F2', '#5E45CC', '#F0ECFD', '#E8E2FC', '#DFD8FB', '#C5B8F9', '#A895F5', '#C5B8F9'],
+    srv: ['#4D8EF7', '#2563DB', '#E8F0FE', '#DBE8FD', '#CFE0FD', '#A6C7FB', '#7BABF9', '#A6C7FB'],
+  },
+  Blueprint: {
+    sw:  ['#F5A623', '#F5A623', '#464257', '#6D5C5D', '#E09A29', '#AC7D38', '#7D6246', '#F5A623'],
+    net: ['#3AC1C2', '#3AC1C2', '#244773', '#2D6593', '#37B2B8', '#318EA1', '#2B6E8C', '#3AC1C2'],
+    sec: ['#A996FF', '#A996FF', '#383F7E', '#5357A8', '#9B8BEF', '#7A72CA', '#5C5BA7', '#A996FF'],
+    srv: ['#6EA4FF', '#6EA4FF', '#2D427E', '#3F5BA8', '#6698EF', '#537BCA', '#4261A7', '#6EA4FF'],
+  },
+};
+const PARTS = ['', '-line', '-wash', '-floor', '-top', '-left', '-right', '-chip'];
+const OTHER = {
+  Paper:     { '--band-alt': '#FFFFFF', '--it-wash': '#E2E4EB', '--dw-floor': '#FFFFFF', '--dw-wall-a': '#EEF1F8', '--dw-wall-b': '#E0E6F2', '--dw-n-top': '#FFFFFF', '--dw-n-left': '#E4E9F4', '--dw-n-right': '#CCD4E7', '--dw-base-b': '#4C5681' },
+  Blueprint: { '--band-alt': '#1A2556', '--it-wash': '#47527E', '--dw-floor': '#27367B', '--dw-wall-a': '#243270', '--dw-wall-b': '#1C2860', '--dw-n-top': '#3A4A96', '--dw-n-left': '#2B3A80', '--dw-n-right': '#1B2759', '--dw-base-b': '#D2D5E0' },
+};
+const hexOf = (scope, name) => value(scope, name).toUpperCase();
+for (const theme of ['Paper', 'Blueprint']) {
+  test(`service and drawing tokens: ${theme}`, () => {
+    for (const [p, vals] of Object.entries(SERVICES[theme])) PARTS.forEach((part, i) => assert.equal(hexOf(themes[theme], `--${p}${part}`), vals[i], `--${p}${part}`));
+    for (const [k, v] of Object.entries(OTHER[theme])) assert.equal(hexOf(themes[theme], k), v, k);
+  });
+}
+test('inside an inverse band, service tokens take their Blueprint values in both themes', () => {
+  for (const name of ['inverse band on Paper', 'inverse band on Blueprint']) {
+    for (const [p, vals] of Object.entries(SERVICES.Blueprint)) PARTS.forEach((part, i) => assert.equal(hexOf(themes[name], `--${p}${part}`), vals[i], `${name} --${p}${part}`));
+    assert.equal(hexOf(themes[name], '--it-wash'), '#47527E');
+  }
+});
+test('translucent tokens', () => {
+  const want = { '--band-tint': 'rgba(58,193,194,.11)', '--tag-bg': 'rgba(58,193,194,.17)', '--tag-line': 'rgba(58,193,194,.62)', '--cta-fg2': 'rgba(31,44,98,.88)', '--cta-rule': 'rgba(31,44,98,.28)', '--amber-halo': 'rgba(245,166,35,.25)', '--btn-halo': 'rgba(31,44,98,.2)' };
+  for (const [k, v] of Object.entries(want)) assert.equal(root[k].replace(/\s+/g, ''), v, k);
+});
+test('contrast: navy on every chip, on amber and on teal is at least 4.5:1', () => {
+  const ink = rgba(root['--ink']).slice(0, 3);
+  for (const [name, scope] of Object.entries(themes)) for (const p of ['sw', 'net', 'sec', 'srv']) {
+    const r = ratio(ink, rgba(value(scope, `--${p}-chip`)).slice(0, 3));
+    assert.ok(r >= 4.5, `${name} --${p}-chip: ${r.toFixed(2)}`);
+  }
+  for (const k of ['--amber', '--amber-hover', '--signal']) assert.ok(ratio(ink, rgba(root[k]).slice(0, 3)) >= 4.5, k);
+  const teal = rgba(root['--signal']).slice(0, 3);
+  assert.ok(ratio(over(rgba(root['--cta-fg2']), teal), teal) >= 4.5, '--cta-fg2 on --signal');
+});
+test('contrast: every service line on the sheet is at least 3:1', () => {
+  for (const theme of ['Paper', 'Blueprint']) for (const p of ['sw', 'net', 'sec', 'srv']) {
+    const r = ratio(rgba(value(themes[theme], `--${p}-line`)).slice(0, 3), rgba(value(themes[theme], '--sheet')).slice(0, 3));
+    assert.ok(r >= 3, `${theme} --${p}-line: ${r.toFixed(2)}`);
+  }
 });

@@ -1,7 +1,7 @@
 /* Paper (light) is a blueline print: navy ink on paper. Blueprint (dark) is white line on navy. */
 :root {
   --paper: #F4F6FA; --white: #FFFFFF; --ink: #1F2C62; --ink-deep: #172050; --ink-lift: #27367B;
-  --signal: #3AC1C2; --signal-deep: #0B7378; --cyan: #14B9DA; --amber: #E9A23B;
+  --signal: #3AC1C2; --signal-deep: #0B7378; --cyan: #14B9DA; --amber: #F5A623;
   --gut: clamp(20px, 4vw, 48px);
   --w-display: 116%; --w-head: 110%; --w-text: 100%; --w-label: 80%;
   --bg: var(--paper); --fg: var(--ink); --fg2: rgba(31,44,98,.76); --rule: rgba(31,44,98,.17);
@@ -9,6 +9,50 @@
   --btn-bg: var(--ink); --btn-fg: var(--white); --hatch: rgba(31,44,98,.07);
   --inv-bg: var(--ink); --inv-panel: #243372;
   --portrait-bg: #DCE9F2;
+  --amber-hover: #FFB83D; --amber-halo: rgba(245,166,35,.25); --btn-hover: var(--amber-hover); --btn-halo: rgba(31,44,98,.2);
+  --band-tint: rgba(58,193,194,.11); --tag-bg: rgba(58,193,194,.17); --tag-line: rgba(58,193,194,.62);
+  --cta-fg2: rgba(31,44,98,.88); --cta-rule: rgba(31,44,98,.28);
+  --band-alt: #FFFFFF;
+  --it-wash: #E2E4EB;
+  --dw-floor: #FFFFFF;
+  --dw-wall-a: #EEF1F8;
+  --dw-wall-b: #E0E6F2;
+  --dw-n-top: #FFFFFF;
+  --dw-n-left: #E4E9F4;
+  --dw-n-right: #CCD4E7;
+  --dw-base-b: #4C5681;
+  --sw: #F5A623;
+  --sw-line: #C27500;
+  --sw-wash: #FEF3E2;
+  --sw-floor: #FDEDD3;
+  --sw-top: #FCE7C4;
+  --sw-left: #FAD391;
+  --sw-right: #F8BD5C;
+  --sw-chip: #FAD391;
+  --net: #3AC1C2;
+  --net-line: #0E8F93;
+  --net-wash: #E5F7F7;
+  --net-floor: #D8F3F3;
+  --net-top: #CAEEEF;
+  --net-left: #9DE0E1;
+  --net-right: #6DD1D2;
+  --net-chip: #9DE0E1;
+  --sec: #8A70F2;
+  --sec-line: #5E45CC;
+  --sec-wash: #F0ECFD;
+  --sec-floor: #E8E2FC;
+  --sec-top: #DFD8FB;
+  --sec-left: #C5B8F9;
+  --sec-right: #A895F5;
+  --sec-chip: #C5B8F9;
+  --srv: #4D8EF7;
+  --srv-line: #2563DB;
+  --srv-wash: #E8F0FE;
+  --srv-floor: #DBE8FD;
+  --srv-top: #CFE0FD;
+  --srv-left: #A6C7FB;
+  --srv-right: #7BABF9;
+  --srv-chip: #A6C7FB;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
@@ -17,6 +61,47 @@
     --btn-bg: var(--white); --btn-fg: var(--ink); --hatch: rgba(255,255,255,.08);
     --inv-bg: var(--ink-deep); --inv-panel: var(--ink);
     color-scheme: dark;
+    --band-alt: #1A2556;
+    --it-wash: #47527E;
+    --dw-floor: #27367B;
+    --dw-wall-a: #243270;
+    --dw-wall-b: #1C2860;
+    --dw-n-top: #3A4A96;
+    --dw-n-left: #2B3A80;
+    --dw-n-right: #1B2759;
+    --dw-base-b: #D2D5E0;
+    --sw: #F5A623;
+    --sw-line: #F5A623;
+    --sw-wash: #464257;
+    --sw-floor: #6D5C5D;
+    --sw-top: #E09A29;
+    --sw-left: #AC7D38;
+    --sw-right: #7D6246;
+    --sw-chip: #F5A623;
+    --net: #3AC1C2;
+    --net-line: #3AC1C2;
+    --net-wash: #244773;
+    --net-floor: #2D6593;
+    --net-top: #37B2B8;
+    --net-left: #318EA1;
+    --net-right: #2B6E8C;
+    --net-chip: #3AC1C2;
+    --sec: #A996FF;
+    --sec-line: #A996FF;
+    --sec-wash: #383F7E;
+    --sec-floor: #5357A8;
+    --sec-top: #9B8BEF;
+    --sec-left: #7A72CA;
+    --sec-right: #5C5BA7;
+    --sec-chip: #A996FF;
+    --srv: #6EA4FF;
+    --srv-line: #6EA4FF;
+    --srv-wash: #2D427E;
+    --srv-floor: #3F5BA8;
+    --srv-top: #6698EF;
+    --srv-left: #537BCA;
+    --srv-right: #4261A7;
+    --srv-chip: #6EA4FF;
   }
 }
 :root[data-theme="dark"] {
@@ -25,6 +110,47 @@
   --btn-bg: var(--white); --btn-fg: var(--ink); --hatch: rgba(255,255,255,.08);
   --inv-bg: var(--ink-deep); --inv-panel: var(--ink);
   color-scheme: dark;
+  --band-alt: #1A2556;
+  --it-wash: #47527E;
+  --dw-floor: #27367B;
+  --dw-wall-a: #243270;
+  --dw-wall-b: #1C2860;
+  --dw-n-top: #3A4A96;
+  --dw-n-left: #2B3A80;
+  --dw-n-right: #1B2759;
+  --dw-base-b: #D2D5E0;
+  --sw: #F5A623;
+  --sw-line: #F5A623;
+  --sw-wash: #464257;
+  --sw-floor: #6D5C5D;
+  --sw-top: #E09A29;
+  --sw-left: #AC7D38;
+  --sw-right: #7D6246;
+  --sw-chip: #F5A623;
+  --net: #3AC1C2;
+  --net-line: #3AC1C2;
+  --net-wash: #244773;
+  --net-floor: #2D6593;
+  --net-top: #37B2B8;
+  --net-left: #318EA1;
+  --net-right: #2B6E8C;
+  --net-chip: #3AC1C2;
+  --sec: #A996FF;
+  --sec-line: #A996FF;
+  --sec-wash: #383F7E;
+  --sec-floor: #5357A8;
+  --sec-top: #9B8BEF;
+  --sec-left: #7A72CA;
+  --sec-right: #5C5BA7;
+  --sec-chip: #A996FF;
+  --srv: #6EA4FF;
+  --srv-line: #6EA4FF;
+  --srv-wash: #2D427E;
+  --srv-floor: #3F5BA8;
+  --srv-top: #6698EF;
+  --srv-left: #537BCA;
+  --srv-right: #4261A7;
+  --srv-chip: #6EA4FF;
 }
 /* Inverse bands are navy with white line in both themes. */
 .inverse {
@@ -32,6 +158,45 @@
   --body: var(--inv-bg); --sheet: var(--inv-bg); --panel: var(--inv-panel); --accent: var(--signal);
   --btn-bg: var(--white); --btn-fg: var(--ink); --hatch: rgba(255,255,255,.08);
   background: var(--bg); color: var(--fg);
+  --it-wash: #47527E;
+  --sw: #F5A623;
+  --sw-line: #F5A623;
+  --sw-wash: #464257;
+  --sw-floor: #6D5C5D;
+  --sw-top: #E09A29;
+  --sw-left: #AC7D38;
+  --sw-right: #7D6246;
+  --sw-chip: #F5A623;
+  --net: #3AC1C2;
+  --net-line: #3AC1C2;
+  --net-wash: #244773;
+  --net-floor: #2D6593;
+  --net-top: #37B2B8;
+  --net-left: #318EA1;
+  --net-right: #2B6E8C;
+  --net-chip: #3AC1C2;
+  --sec: #A996FF;
+  --sec-line: #A996FF;
+  --sec-wash: #383F7E;
+  --sec-floor: #5357A8;
+  --sec-top: #9B8BEF;
+  --sec-left: #7A72CA;
+  --sec-right: #5C5BA7;
+  --sec-chip: #A996FF;
+  --srv: #6EA4FF;
+  --srv-line: #6EA4FF;
+  --srv-wash: #2D427E;
+  --srv-floor: #3F5BA8;
+  --srv-top: #6698EF;
+  --srv-left: #537BCA;
+  --srv-right: #4261A7;
+  --srv-chip: #6EA4FF;
+}
+/* A white card with navy text in any theme (the contact card inside the teal band). */
+.paper-card {
+  --bg: var(--white); --fg: var(--ink); --fg2: rgba(31,44,98,.76); --rule: rgba(31,44,98,.17);
+  --panel: var(--white); --accent: var(--signal-deep); --hatch: rgba(31,44,98,.07);
+  background: var(--white); color: var(--ink);
 }
 /* Print: browsers drop backgrounds by default, so every theme and every inverse band prints as Paper,
    navy line and text on white. Kept after the theme blocks, as one selector list. */
@@ -41,5 +206,46 @@
     --body: var(--white); --sheet: var(--white); --panel: var(--white); --accent: var(--signal-deep);
     --btn-bg: var(--ink); --btn-fg: var(--white); --hatch: rgba(31,44,98,.07);
     color-scheme: light;
+    --band-alt: #FFFFFF;
+    --it-wash: #E2E4EB;
+    --dw-floor: #FFFFFF;
+    --dw-wall-a: #EEF1F8;
+    --dw-wall-b: #E0E6F2;
+    --dw-n-top: #FFFFFF;
+    --dw-n-left: #E4E9F4;
+    --dw-n-right: #CCD4E7;
+    --dw-base-b: #4C5681;
+    --sw: #F5A623;
+    --sw-line: #C27500;
+    --sw-wash: #FEF3E2;
+    --sw-floor: #FDEDD3;
+    --sw-top: #FCE7C4;
+    --sw-left: #FAD391;
+    --sw-right: #F8BD5C;
+    --sw-chip: #FAD391;
+    --net: #3AC1C2;
+    --net-line: #0E8F93;
+    --net-wash: #E5F7F7;
+    --net-floor: #D8F3F3;
+    --net-top: #CAEEEF;
+    --net-left: #9DE0E1;
+    --net-right: #6DD1D2;
+    --net-chip: #9DE0E1;
+    --sec: #8A70F2;
+    --sec-line: #5E45CC;
+    --sec-wash: #F0ECFD;
+    --sec-floor: #E8E2FC;
+    --sec-top: #DFD8FB;
+    --sec-left: #C5B8F9;
+    --sec-right: #A895F5;
+    --sec-chip: #C5B8F9;
+    --srv: #4D8EF7;
+    --srv-line: #2563DB;
+    --srv-wash: #E8F0FE;
+    --srv-floor: #DBE8FD;
+    --srv-top: #CFE0FD;
+    --srv-left: #A6C7FB;
+    --srv-right: #7BABF9;
+    --srv-chip: #A6C7FB;
   }
 }

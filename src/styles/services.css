@@ -1,0 +1,26 @@
+/* Maps a service's colour tokens to the --svc-* names. Everything inside reads only --svc-*. */
+[data-svc="software-development"] {
+  --svc: var(--sw); --svc-line: var(--sw-line); --svc-wash: var(--sw-wash); --svc-floor: var(--sw-floor);
+  --svc-top: var(--sw-top); --svc-left: var(--sw-left); --svc-right: var(--sw-right);
+  --svc-chip: var(--sw-chip); --svc-chip-fg: var(--ink);
+}
+[data-svc="network-infrastructure"] {
+  --svc: var(--net); --svc-line: var(--net-line); --svc-wash: var(--net-wash); --svc-floor: var(--net-floor);
+  --svc-top: var(--net-top); --svc-left: var(--net-left); --svc-right: var(--net-right);
+  --svc-chip: var(--net-chip); --svc-chip-fg: var(--ink);
+}
+[data-svc="security-surveillance"] {
+  --svc: var(--sec); --svc-line: var(--sec-line); --svc-wash: var(--sec-wash); --svc-floor: var(--sec-floor);
+  --svc-top: var(--sec-top); --svc-left: var(--sec-left); --svc-right: var(--sec-right);
+  --svc-chip: var(--sec-chip); --svc-chip-fg: var(--ink);
+}
+[data-svc="server-cloud-solutions"] {
+  --svc: var(--srv); --svc-line: var(--srv-line); --svc-wash: var(--srv-wash); --svc-floor: var(--srv-floor);
+  --svc-top: var(--srv-top); --svc-left: var(--srv-left); --svc-right: var(--srv-right);
+  --svc-chip: var(--srv-chip); --svc-chip-fg: var(--ink);
+}
+[data-svc="it-support-consultancy"] {
+  --svc: var(--fg); --svc-line: var(--fg); --svc-wash: var(--it-wash); --svc-floor: var(--dw-n-right);
+  --svc-top: var(--sheet); --svc-left: var(--sheet); --svc-right: var(--dw-n-right);
+  --svc-chip: var(--fg); --svc-chip-fg: var(--bg);
+}

@@ -22,7 +22,7 @@
 .nav__meta{display:flex;align-items:center;gap:20px;padding-left:22px;border-left:1px solid var(--rule)}
 .status{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--signal);box-shadow:0 0 0 3px rgba(58,193,194,.25);flex:none}
-.status.is-closed .dot{background:var(--amber);box-shadow:0 0 0 3px rgba(233,162,59,.25)}
+.status.is-closed .dot{background:var(--amber);box-shadow:0 0 0 3px var(--amber-halo)}
 .status.is-unknown .dot{display:none}
 .tel{font-weight:640;font-variant-numeric:tabular-nums;text-decoration:none;white-space:nowrap}
 .tel:hover{text-decoration:underline}
