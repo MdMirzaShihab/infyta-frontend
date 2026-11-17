@@ -32,3 +32,16 @@ test('slabs do not print, and the teal band keeps navy text', () => {
   const cta = sections.match(/\.band--cta\s*\{([^}]*)\}/);
   assert.ok(cta && /color:\s*var\(--ink\)/.test(cta[1]) && /--fg:\s*var\(--ink\)/.test(cta[1]));
 });
+
+test('step chips and .num print as an outline with dark text, after their screen rules', () => {
+  for (const [file, screen, print] of [
+    ['src/styles/sections.css', '.steps li::before{background:var(--svc-chip)', '@media print{.steps li::before{'],
+    ['src/styles/base.css', '.num{display:inline-grid', '@media print{.num{'],
+  ]) {
+    const css = readFileSync(file, 'utf8');
+    const p = css.indexOf(print);
+    assert.ok(p > -1, `${file} lacks ${print}`);
+    assert.ok(p > css.indexOf(screen), `${file}: print rule must follow the screen rule`);
+    assert.match(css.slice(p, css.indexOf('}}', p)), /color:var\(--fg\)/);
+  }
+});

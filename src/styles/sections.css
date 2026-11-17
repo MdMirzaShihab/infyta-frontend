@@ -254,3 +254,4 @@ dl{margin:0}
 section[data-svc] .on-slab{--slab:var(--svc)}
 .endcta.on-slab{border:1.5px solid var(--fg)}
 .steps li::before{background:var(--svc-chip);border-color:var(--svc-chip);color:var(--svc-chip-fg)}
+@media print{.steps li::before{background:none;border-color:var(--fg);color:var(--fg)}}
