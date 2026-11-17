@@ -101,7 +101,7 @@ html.l2 .dwg--wide a.svc.x1[data-svc="software-development"]{display:none}
 html.l2 .dwg .svc:not([data-svc="it-support-consultancy"]){--body:color-mix(in srgb,var(--svc) var(--fillpct),var(--sheet))}
 html.l2 .dwg .svc .wire{stroke:var(--svc-d);stroke-width:2.4}
 html.l2 .dwg .svc:hover .wire,html.l2 .dwg .svc:focus-visible .wire{stroke:currentColor}
-html.l2 .dwg use[href="#d-pc"]{--body:color-mix(in srgb,var(--c-amber) 58%,var(--sheet))}
+html.l2 :is(.dwg--wide,.dwg--tall) use[href="#d-pc"]{--body:color-mix(in srgb,var(--c-amber) 58%,var(--sheet))}
 html.l2 .dwg .zone{stroke:none;fill:color-mix(in srgb,var(--svc) var(--zonepct),var(--sheet))}
 html.l2 .dwg .flag rect{fill:var(--svc-chip);stroke-width:1.2}
 html.l2 .dwg .flag text,html.l2 .dwg .bub text{fill:var(--ink)}
@@ -170,7 +170,12 @@ html.l3 .x3{display:block}
 .iso .card{fill:var(--sheet)}
 .iso .slab{fill:var(--svc);stroke:none}
 .iso .white{fill:var(--white);stroke:none}
-@media (min-width:1040px){
+/* Two columns need room for the drawing's labels: below 1180px the headline block comes first and the drawing follows at full width. */
+@media (min-width:1040px) and (max-width:1179px){
+  html.l3 .sheet--hero .sheet__fig{order:0;border-bottom:0;border-top:1.5px solid var(--fg)}
+}
+html.l3 .sheet--hero .iso{max-width:944px;margin-inline:auto}
+@media (min-width:1180px){
   html.l3 .sheet.sheet--hero{display:grid;grid-template-columns:minmax(0,4.8fr) minmax(0,7.2fr);grid-template-rows:1fr auto}
   html.l3 .sheet--hero .tb{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,2vw,26px);padding:clamp(24px,3vw,44px)}
   html.l3 .sheet--hero .tb>div{padding:0}
