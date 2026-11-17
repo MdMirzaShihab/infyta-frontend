@@ -484,7 +484,7 @@ git commit -m "feat: colour pass on shared components and the home page"
 - Consumes: Task 2's classes.
 - Produces: `EndCta({ title, children, flush = true, svc })`. `flush={false}` gives the band full top padding (class `band` without `band--flush`); `svc` is written as `data-svc` on its `<section>`. Its panel is `panel endcta on-slab`.
 
-- [ ] **Step 1: Write the failing tests** in `tests/build/colour.test.mjs`
+- [x] **Step 1: Write the failing tests** in `tests/build/colour.test.mjs`
 
 ```js
 import { services } from '../../src/content/services.js';
@@ -517,14 +517,14 @@ test('services index, about, team, contact: grounds and slabs', () => {
 });
 ```
 
-- [ ] **Step 2: Run and watch them fail**
+- [x] **Step 2: Run and watch them fail**
 
 Run: `npm run build && node --test tests/build/colour.test.mjs`
 Expected: FAIL on every new test.
 
-- [ ] **Step 3: `EndCta.jsx`**: add `flush` and `svc` as in Interfaces; panel class `panel endcta on-slab`.
+- [x] **Step 3: `EndCta.jsx`**: add `flush` and `svc` as in Interfaces; panel class `panel endcta on-slab`.
 
-- [ ] **Step 4: The views** (spec section 9)
+- [x] **Step 4: The views** (spec section 9)
 
 | View | Change |
 | --- | --- |
@@ -534,7 +534,7 @@ Expected: FAIL on every new test.
 | `TeamView` | `#expertise`: `band band--tint`. |
 | `ContactView` | Section: `band band--alt cpage`. The information panel: `panel on-slab`. |
 
-- [ ] **Step 5: Rules in `sections.css`**
+- [x] **Step 5: Rules in `sections.css`**
 
 ```css
 section[data-svc] .on-slab{--slab:var(--svc)}
@@ -544,14 +544,14 @@ section[data-svc] .on-slab{--slab:var(--svc)}
 
 Delete `.cpage{padding-top:0}` so the contact band has full padding on its new ground.
 
-- [ ] **Step 6: Run the tests**
+- [x] **Step 6: Run the tests**
 
 Run: `npm run build && node --test tests/build/colour.test.mjs tests/build/services.test.mjs tests/build/about-team.test.mjs tests/build/contact.test.mjs`
 Expected: PASS.
 
-- [ ] **Step 7: Visual check, six screenshots at 1440 wide:** `/services/software-development` in Paper against `mockup-service-page.html#l=3&t=light` (the drawing is not expected to match yet); `/services/security-surveillance` and `/services/it-support-consultancy` in Paper (step numbers readable: navy on violet, navy on white); `/about`, `/team` and `/contact` in Blueprint. The quality reviewer judges the three pages that have no mock against spec 6.5 and 9.
+- [x] **Step 7: Visual check, six screenshots at 1440 wide:** `/services/software-development` in Paper against `mockup-service-page.html#l=3&t=light` (the drawing is not expected to match yet); `/services/security-surveillance` and `/services/it-support-consultancy` in Paper (step numbers readable: navy on violet, navy on white); `/about`, `/team` and `/contact` in Blueprint. The quality reviewer judges the three pages that have no mock against spec 6.5 and 9.
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 git add src tests
