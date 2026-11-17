@@ -1,6 +1,6 @@
 # Infyta website: colour and 3D-style drawings (Design)
 
-Date: 2026-11-17. Status: written, waiting for the owner's approval. Branch: `colour-levels`.
+Date: 2026-11-17. Status: approved by the owner on 2026-11-17, including the calls in section 13. Branch: `colour-levels`.
 
 This design builds on `2026-11-16-visual-redesign-design.md` (called "the first design" below), which is
 live on `master`. Everything in the first design still holds unless section 14 of this document says it
