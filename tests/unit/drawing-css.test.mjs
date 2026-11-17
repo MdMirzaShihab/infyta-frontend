@@ -50,4 +50,6 @@ test('below 720px the labels go and the pins grow', () => {
   for (const cls of ['.lbl', '.lay', '.basetext']) assert.ok(block.includes(cls), cls);
   assert.match(block, /\.bub\s*\{[^}]*transform:\s*scale\(2\.3\)/);
   assert.match(block, /\.monly\s*\{[^}]*display:\s*inline/);
+  // Hit lines scale with the drawing, so a cable's hit line never covers a grown pin however narrow the screen.
+  assert.match(block, /\.hit--line\s*\{[^}]*vector-effect:\s*none/);
 });

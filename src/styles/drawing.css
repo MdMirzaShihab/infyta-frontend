@@ -116,4 +116,6 @@ main:has(.dwg--hero .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-vis
   .dwg--hero .lbl,.dwg--hero .lay,.dwg--hero .basetext{display:none}
   .dwg--hero .bub{transform:scale(2.3)}
   .dwg--hero .monly{display:inline}
+  /* Hit lines are 14 drawing units here, not 14 screen px: they shrink with the drawing and stay clear of the grown pins. */
+  .dwg--hero .hit--line{vector-effect:none}
 }
