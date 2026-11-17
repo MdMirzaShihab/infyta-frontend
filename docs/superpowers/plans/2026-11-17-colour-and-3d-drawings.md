@@ -380,7 +380,7 @@ git commit -m "feat: colour tokens for services, bands and drawings"
 - Produces: classes `.band--alt`, `.band--tint`, `.band--cta`, `.on-slab` (12px), `.on-slab--lg` (16px, used with `.on-slab`), and the custom property `--slab` (a slab's colour; default `--signal`).
 - Produces: `ContactPanel({ email, className })`, where `className` is added after `panel`.
 
-- [ ] **Step 1: Write the failing build test** `tests/build/colour.test.mjs`
+- [x] **Step 1: Write the failing build test** `tests/build/colour.test.mjs`
 
 ```js
 import test from 'node:test';
@@ -402,7 +402,7 @@ test('home: band grounds and slabs', () => {
 });
 ```
 
-- [ ] **Step 2: Write the failing print test** in `tests/unit/colour-rules.test.mjs`
+- [x] **Step 2: Write the failing print test** in `tests/unit/colour-rules.test.mjs`
 
 ```js
 test('slabs do not print, and the teal band keeps navy text', () => {
@@ -414,12 +414,12 @@ test('slabs do not print, and the teal band keeps navy text', () => {
 });
 ```
 
-- [ ] **Step 3: Run and watch them fail**
+- [x] **Step 3: Run and watch them fail**
 
 Run: `npm run build && node --test tests/build/colour.test.mjs tests/unit/colour-rules.test.mjs`
 Expected: FAIL (no `band--alt` class; no `.on-slab` rule).
 
-- [ ] **Step 4: Buttons.** In `tokens.css` set `--btn-bg: var(--amber); --btn-fg: var(--ink)` on `:root` and delete `--btn-bg` and `--btn-fg` from both dark blocks, `.inverse` and the print block. In `shell.css` delete the two custom properties from `.mm .btn` (keep `justify-content`). In `base.css`:
+- [x] **Step 4: Buttons.** In `tokens.css` set `--btn-bg: var(--amber); --btn-fg: var(--ink)` on `:root` and delete `--btn-bg` and `--btn-fg` from both dark blocks, `.inverse` and the print block. In `shell.css` delete the two custom properties from `.mm .btn` (keep `justify-content`). In `base.css`:
 
 ```css
 .btn::before{opacity:.6}                                  /* was .38 */
@@ -427,7 +427,7 @@ Expected: FAIL (no `band--alt` class; no `.on-slab` rule).
 .btn:not(.btn--ghost):hover{background:var(--btn-hover);border-color:var(--btn-hover)}
 ```
 
-- [ ] **Step 5: Small components** in `base.css` and `shell.css`
+- [x] **Step 5: Small components** in `base.css` and `shell.css`
 
 ```css
 .tag{background:var(--tag-bg);border-color:var(--tag-line)}
@@ -441,7 +441,7 @@ Expected: FAIL (no `band--alt` class; no `.on-slab` rule).
 
 Merge each into its existing rule; keep every other declaration.
 
-- [ ] **Step 6: Bands, heading bars, advisor and the call to action** in `sections.css`
+- [x] **Step 6: Bands, heading bars, advisor and the call to action** in `sections.css`
 
 ```css
 .band--alt{background:var(--band-alt)}
@@ -454,18 +454,18 @@ Merge each into its existing rule; keep every other declaration.
 .advisor__role{color:var(--signal)}
 ```
 
-- [ ] **Step 7: Service rows and their small drawings** (spec 8.2). In `sections.css`: `.key__row` first column `32px` and last column `196px` in all three of its `grid-template-columns` rules; row hover ground `var(--svc-wash)`. In `drawing.css`: `.dwg--mini` is `width:196px; padding:12px 14px; border-radius:10px; background:var(--svc-wash); --body:var(--svc-left)`; on row hover or focus its ground is `var(--svc-floor)` and its colour stays `var(--fg)` (delete the rule that turns it `--accent`); `.dwg--mini .wan{stroke:var(--svc-line)}`.
+- [x] **Step 7: Service rows and their small drawings** (spec 8.2). In `sections.css`: `.key__row` first column `32px` and last column `196px` in all three of its `grid-template-columns` rules; row hover ground `var(--svc-wash)`. In `drawing.css`: `.dwg--mini` is `width:196px; padding:12px 14px; border-radius:10px; background:var(--svc-wash); --body:var(--svc-left)`; on row hover or focus its ground is `var(--svc-floor)` and its colour stays `var(--fg)` (delete the rule that turns it `--accent`); `.dwg--mini .wan{stroke:var(--svc-line)}`.
 
-- [ ] **Step 8: Classes in the views.** `HomeView.jsx`: `#services` is `band band--alt`; `#expertise` is `band band--tint`; `#contact` is `band band--cta`; the hero sheet is `sheet sheet--hero on-slab`; `<ContactPanel email={email} className="paper-card on-slab" />`. `ContactPanel.jsx`: accept `className`. `AdvisorBand.jsx`: the figure is `portrait on-slab on-slab--lg`.
+- [x] **Step 8: Classes in the views.** `HomeView.jsx`: `#services` is `band band--alt`; `#expertise` is `band band--tint`; `#contact` is `band band--cta`; the hero sheet is `sheet sheet--hero on-slab`; `<ContactPanel email={email} className="paper-card on-slab" />`. `ContactPanel.jsx`: accept `className`. `AdvisorBand.jsx`: the figure is `portrait on-slab on-slab--lg`.
 
-- [ ] **Step 9: Run the tests**
+- [x] **Step 9: Run the tests**
 
 Run: `npm run build && node --test tests/build/colour.test.mjs tests/build/home.test.mjs tests/unit/colour-rules.test.mjs tests/unit/tokens.test.mjs`
 Expected: PASS.
 
-- [ ] **Step 10: Visual check.** Serve `out/`, screenshot `/` at 1440 wide in Paper and Blueprint, and compare with `mockup-colour-levels.html#l=3&t=light` and `#l=3&t=dark` from "Our Services" down. The hero is not expected to match yet. Everything below it must: grounds, badges, tiles, tags, the portrait slab, the teal band and its white card.
+- [x] **Step 10: Visual check.** Serve `out/`, screenshot `/` at 1440 wide in Paper and Blueprint, and compare with `mockup-colour-levels.html#l=3&t=light` and `#l=3&t=dark` from "Our Services" down. The hero is not expected to match yet. Everything below it must: grounds, badges, tiles, tags, the portrait slab, the teal band and its white card.
 
-- [ ] **Step 11: Commit**
+- [x] **Step 11: Commit**
 
 ```bash
 git add src tests
