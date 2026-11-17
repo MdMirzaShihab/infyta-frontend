@@ -67,7 +67,7 @@ export function ThemeButton() {
       type="button"
       className="themebtn"
       data-theme-toggle=""
-      aria-label="Switch between Paper (light) and Blueprint (dark) theme"
+      aria-label="Switch between light and dark theme"
       onClick={() => chooseTheme(currentTheme() === "dark" ? "light" : "dark")}
     >
       <ThemeIcon />
@@ -84,10 +84,10 @@ export function ThemeSwitch() {
       <span className="label" id={labelId}>Theme</span>
       <span>
         <button type="button" data-set-theme="light" aria-pressed={theme === "light"} onClick={() => chooseTheme("light")}>
-          Paper
+          Light
         </button>
         <button type="button" data-set-theme="dark" aria-pressed={theme === "dark"} onClick={() => chooseTheme("dark")}>
-          Blueprint
+          Dark
         </button>
       </span>
     </div>

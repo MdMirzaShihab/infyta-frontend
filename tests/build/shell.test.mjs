@@ -48,13 +48,13 @@ for (const file of allHtmlFiles()) {
 
   test(`${name}: theme controls`, () => {
     assert.equal(doc.querySelectorAll('button[data-theme-toggle]').length, 1);
-    const paper = doc.querySelectorAll('button[data-set-theme="light"]');
-    const blueprint = doc.querySelectorAll('button[data-set-theme="dark"]');
-    assert.ok(paper.length >= 2 && blueprint.length === paper.length);
-    for (const b of paper) assert.equal(b.textContent.trim(), 'Paper');
-    for (const b of blueprint) assert.equal(b.textContent.trim(), 'Blueprint');
+    const light = doc.querySelectorAll('button[data-set-theme="light"]');
+    const dark = doc.querySelectorAll('button[data-set-theme="dark"]');
+    assert.ok(light.length >= 2 && dark.length === light.length);
+    for (const b of light) assert.equal(b.textContent.trim(), 'Light');
+    for (const b of dark) assert.equal(b.textContent.trim(), 'Dark');
     const switches = doc.querySelectorAll('.themeseg');
-    assert.equal(switches.length, paper.length);
+    assert.equal(switches.length, light.length);
     for (const group of switches) {
       assert.equal(group.getAttribute('role'), 'group');
       const label = doc.querySelectorAll('[id]').find((el) => el.getAttribute('id') === group.getAttribute('aria-labelledby'));
