@@ -14,17 +14,34 @@ const text = main.textContent.replace(/\s+/g, ' ');
 test('headline keeps today\'s words', () => {
   assert.equal(main.querySelector('h1').textContent.trim(), 'Infyta – Limitless Tech Solutions');
 });
-test('hero drawing links to every service, in both layouts', () => {
-  for (const cls of ['dwg--wide', 'dwg--tall']) {
-    const svg = main.querySelector(`svg.${cls}`);
-    assert.ok(svg.getAttribute('aria-label'));
-    for (const s of services) {
-      const a = svg.querySelector(`a[href="/services/${s.slug}"]`);
-      assert.ok(a, `${cls}: ${s.slug}`);
-      // The accessible name starts with the service's visible name, written the same way ("&", not "and").
-      assert.ok(a.getAttribute('aria-label').startsWith(s.name), `${cls}: "${a.getAttribute('aria-label')}" does not start with "${s.name}"`);
-    }
-  }
+const WORDS = ['Cloud', 'AWS, Azure, Google Cloud', 'Servers', 'Windows, Linux, VMware', 'Internet', 'Router, firewall, core switch', 'MikroTik, Fortinet, Cisco', 'Business software', 'SQL Server, MySQL, MongoDB', 'Staff workstations', 'CCTV cameras', 'Recorder', 'Access control', 'Biometric attendance', 'Office Wi-Fi', 'Guest access', 'Your office', 'IT Support & Consultancy', '1', '2', '3', '4', '5'];
+const svg = main.querySelector('svg.dwg--hero');
+
+test('hero drawing: exactly five links, one per service, in order', () => {
+  assert.ok(svg.getAttribute('aria-label'));
+  const links = svg.querySelectorAll('a');
+  assert.deepEqual(links.map((a) => a.getAttribute('href')), services.map((s) => `/services/${s.slug}`));
+  links.forEach((a, i) => {
+    assert.ok(a.getAttribute('aria-label').startsWith(services[i].name));
+    assert.equal(a.getAttribute('data-svc'), services[i].slug);
+    assert.ok(a.querySelectorAll('.hit').length > 0, `${services[i].slug} has no hit shape`);
+    assert.ok(a.querySelector('.pin'), `${services[i].slug} has no pin`);
+  });
+  assert.equal(svg.querySelectorAll('[tabindex]').length, 0);
+  assert.equal(main.querySelector('svg.dwg--wide, svg.dwg--tall'), null);
+});
+test('hero drawing: every service has visible pieces, hidden from assistive technology', () => {
+  const pieces = svg.querySelector('g[aria-hidden="true"]');
+  for (const s of services) assert.ok(pieces.querySelector(`.piece[data-svc="${s.slug}"]`), s.slug);
+  assert.equal(pieces.querySelectorAll('a').length, 0);
+});
+test('hero drawing: only approved words', () => {
+  const words = svg.querySelectorAll('text').map((t) => t.textContent.trim());
+  for (const w of words) assert.ok(WORDS.includes(w), `unexpected "${w}"`);
+  for (const w of WORDS) assert.ok(words.includes(w), `missing "${w}"`);
+});
+test('headline: one word is marked, the words are unchanged', () => {
+  assert.equal(main.querySelector('h1 .hl').textContent, 'Limitless');
 });
 test('hero text', () => {
   for (const needle of [pages.home.description, 'Typical office network', 'Infyta, Azimpur, Dhaka', 'Not to scale', '1 to 5 are our services. Select any part.']) assert.ok(text.includes(needle), needle);

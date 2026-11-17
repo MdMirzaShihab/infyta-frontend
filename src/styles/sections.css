@@ -12,6 +12,26 @@
 .tb h1{font-size:clamp(1.95rem,3.5vw,3.05rem);line-height:1;letter-spacing:-.024em}
 .tb .hero__cta{margin-top:clamp(16px,1.7vw,24px)}
 .tb .lede{font-size:1.0625rem}
+h1 .hl{color:var(--signal)}
+.sheet--hero .dwg--hero{max-width:944px;margin-inline:auto}
+/* Two columns need room for the drawing's labels: below 1180px the headline block comes first and the drawing follows at full width. */
+@media (min-width:1040px) and (max-width:1179px){
+  .sheet--hero .sheet__fig{order:0;border-bottom:0;border-top:1.5px solid var(--fg)}
+}
+@media (min-width:1180px){
+  .sheet.sheet--hero{display:grid;grid-template-columns:minmax(0,4.8fr) minmax(0,7.2fr);grid-template-rows:1fr auto}
+  .sheet--hero .tb{grid-column:1;grid-row:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(18px,2vw,26px);padding:clamp(24px,3vw,44px)}
+  .sheet--hero .tb>div{padding:0}
+  .sheet--hero .tb__title{display:contents}
+  .sheet--hero .tb h1{order:1;font-size:clamp(2.1rem,3.3vw,2.95rem)}
+  .sheet--hero h1 .hl{display:block}
+  .sheet--hero .tb__lede{order:2;border:0}
+  .sheet--hero .tb .hero__cta{order:3;margin-top:4px}
+  .sheet--hero .tb .lede{font-size:1.125rem}
+  .sheet--hero .sheet__fig{grid-column:2;grid-row:1;order:0;border-bottom:0;border-left:1.5px solid var(--fg);display:flex;align-items:center}
+  .sheet--hero .sheet__dwg{width:100%;padding:clamp(10px,1.4vw,20px)}
+  .sheet--hero .titleblock{grid-column:1/-1;grid-row:2;border-top:1.5px solid var(--fg)}
+}
 .hero{padding-block:clamp(26px,3.4vw,46px) clamp(44px,5vw,72px)}
 .hero__cta{display:flex;gap:12px;flex-wrap:wrap}
 .sheet{margin:clamp(26px,2.6vw,36px) 0 0;border:1.5px solid var(--fg);border-radius:6px;background:var(--sheet);overflow:hidden}

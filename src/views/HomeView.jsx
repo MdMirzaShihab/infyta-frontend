@@ -1,5 +1,5 @@
 import Link from "next/link";
-import OfficeNetwork from "@/components/drawing/OfficeNetwork";
+import OfficeIso from "@/components/drawing/OfficeIso";
 import ServiceRow from "@/components/ServiceRow";
 import Schedule from "@/components/Schedule";
 import TitleBlock from "@/components/TitleBlock";
@@ -10,6 +10,7 @@ import { services } from "@/content/services";
 import { expertise } from "@/content/expertise";
 import { pages, homeIntro, expertiseIntro } from "@/content/pages";
 import { site } from "@/content/site";
+import { splitHeadline } from "@/lib/headline";
 
 const DRAWING_NOTES = [
   { label: "Drawing", value: "Typical office network" },
@@ -19,14 +20,15 @@ const DRAWING_NOTES = [
 ];
 
 export default function HomeView({ email }) {
+  const h = splitHeadline(pages.home.heading, "Limitless");
   return (
     <>
       <section className="hero hero--sheet">
         <div className="wrap">
           <div className="sheet sheet--hero on-slab">
-            <div className="tb">
+            <div className="tb inverse">
               <div className="tb__title">
-                <h1>{pages.home.heading}</h1>
+                <h1>{h ? <>{h.before}<span className="hl">{h.word}</span>{h.after}</> : pages.home.heading}</h1>
                 <div className="hero__cta">
                   <Link className="btn" href="/contact">Get Started</Link>
                   <Link className="btn btn--ghost" href="/services">Explore Solutions</Link>
@@ -35,9 +37,9 @@ export default function HomeView({ email }) {
               <div className="tb__lede"><p className="lede">{pages.home.description}</p></div>
             </div>
             <figure className="sheet__fig">
-              <div className="sheet__dwg"><OfficeNetwork /></div>
+              <div className="sheet__dwg"><OfficeIso /></div>
             </figure>
-            <TitleBlock items={DRAWING_NOTES} />
+            <TitleBlock items={DRAWING_NOTES} className="inverse" />
           </div>
         </div>
       </section>
