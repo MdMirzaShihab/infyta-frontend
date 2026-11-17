@@ -57,11 +57,63 @@
    so the drawing is whole wherever the animation does not run. */
 @keyframes rise{from{opacity:0}to{opacity:1}}
 .dwg--hero .rise{animation:rise .3s ease-out var(--d,0s) backwards}
-/* Reduced motion and print: the drawing is complete at once. */
+/* Group highlight (spec 7.5): hovering or focusing one service, in the drawing or in its row, dims the other four.
+   Every dimming rule goes through :has(), so where :has() is missing nothing dims and every link still works. */
+.dwg--hero :is(.piece,.svc){transition:opacity .16s}
+.dwg--hero .svc{color:var(--fg);cursor:pointer;outline:none}
+.dwg--hero .svc:focus-visible .ring{stroke:var(--accent);stroke-width:2}
+/* Dots (spec 7.7): hidden at rest, two passes after the fade, and travelling while their service is held. */
+@keyframes travel{0%{offset-distance:0%;opacity:1}100%{offset-distance:100%;opacity:1}}
+.dwg--hero .flow{opacity:0;animation:travel 1.5s linear 1.8s 2}
+.dwg--hero:has(.svc[data-svc="software-development"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="software-development"]),
+main:has(.key__row[data-svc="software-development"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="software-development"]){opacity:.24}
+.dwg--hero:has(.svc[data-svc="software-development"]:is(:hover,:focus-visible)) .piece[data-svc="software-development"] .flow,
+main:has(.key__row[data-svc="software-development"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="software-development"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+main:has(.dwg--hero .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"]{background:var(--svc-wash);border-top-color:transparent}
+main:has(.dwg--hero .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg--hero .svc[data-svc="software-development"]:is(:hover,:focus-visible)) .key__row[data-svc="software-development"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.dwg--hero:has(.svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="network-infrastructure"]),
+main:has(.key__row[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="network-infrastructure"]){opacity:.24}
+.dwg--hero:has(.svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .piece[data-svc="network-infrastructure"] .flow,
+main:has(.key__row[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="network-infrastructure"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+main:has(.dwg--hero .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"]{background:var(--svc-wash);border-top-color:transparent}
+main:has(.dwg--hero .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg--hero .svc[data-svc="network-infrastructure"]:is(:hover,:focus-visible)) .key__row[data-svc="network-infrastructure"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.dwg--hero:has(.svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="it-support-consultancy"]),
+main:has(.key__row[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="it-support-consultancy"]){opacity:.24}
+.dwg--hero:has(.svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .piece[data-svc="it-support-consultancy"] .flow,
+main:has(.key__row[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="it-support-consultancy"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+main:has(.dwg--hero .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"]{background:var(--svc-wash);border-top-color:transparent}
+main:has(.dwg--hero .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg--hero .svc[data-svc="it-support-consultancy"]:is(:hover,:focus-visible)) .key__row[data-svc="it-support-consultancy"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.dwg--hero:has(.svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="security-surveillance"]),
+main:has(.key__row[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="security-surveillance"]){opacity:.24}
+.dwg--hero:has(.svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .piece[data-svc="security-surveillance"] .flow,
+main:has(.key__row[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="security-surveillance"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+main:has(.dwg--hero .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"]{background:var(--svc-wash);border-top-color:transparent}
+main:has(.dwg--hero .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg--hero .svc[data-svc="security-surveillance"]:is(:hover,:focus-visible)) .key__row[data-svc="security-surveillance"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+.dwg--hero:has(.svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) :is(.piece,.svc):not([data-svc="server-cloud-solutions"]),
+main:has(.key__row[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .dwg--hero :is(.piece,.svc):not([data-svc="server-cloud-solutions"]){opacity:.24}
+.dwg--hero:has(.svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .piece[data-svc="server-cloud-solutions"] .flow,
+main:has(.key__row[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .dwg--hero .piece[data-svc="server-cloud-solutions"] .flow{opacity:1;animation:travel 1.5s linear infinite}
+main:has(.dwg--hero .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"]{background:var(--svc-wash);border-top-color:transparent}
+main:has(.dwg--hero .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] .dwg--mini{background:var(--svc-floor)}
+main:has(.dwg--hero .svc[data-svc="server-cloud-solutions"]:is(:hover,:focus-visible)) .key__row[data-svc="server-cloud-solutions"] .num{background:var(--fg);border-color:var(--fg);color:var(--bg)}
+/* Reduced motion and print: the drawing is complete at once. No dots. Opacity is not !important under reduced motion,
+   so the :has() dimming still works there. */
 @media (prefers-reduced-motion: reduce){
   .dwg .rise{animation:none!important;opacity:1}
   .dwg--hero :is(.piece,.svc){transition:none}
+  .dwg .flow{display:none}
 }
 @media print{
   .dwg .rise{animation:none!important;opacity:1!important}
+  .dwg .flow{display:none}
+}
+/* Below 720px (spec 7.6): labels go, pins grow 2.3 times and the two extra network pins appear. */
+@media (max-width:719px){
+  .dwg--hero .lbl,.dwg--hero .lay,.dwg--hero .basetext{display:none}
+  .dwg--hero .bub{transform:scale(2.3)}
+  .dwg--hero .monly{display:inline}
 }
